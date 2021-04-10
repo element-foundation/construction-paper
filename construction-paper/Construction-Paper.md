@@ -217,6 +217,7 @@ One area of complexity that the Element protocol handles is with the action of m
 |     4 |             5% |         0.000959268 |
 |     5 |            10% |         0.0012335   |
 |     6 |             8% |         0.00145295  |
+
 <small>*Table 1*</small>
 
 As displayed in the above table, once day 6 has been reached, the YT has accumulated its own principal of 0.00145 BTC.
@@ -249,7 +250,7 @@ The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 1
 Order sizes are distributed as follows:
 
 ![](https://i.imgur.com/Ar2ak27.png)
-
+<br>
 <small>*Figure 4*</small>
 
 
