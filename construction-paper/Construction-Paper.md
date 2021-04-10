@@ -549,6 +549,7 @@ A much more risk-averse structured product that could be designed on top of the 
 Such designs are typically suited to protect investors from unfavorable market cycles but for short enough compounding terms that allow users to exit the strategy and take on a different position if the market turns favorable. 
 
 ![](https://i.imgur.com/uaxQeJ7.jpg)
+
 <small>*Figure 11*</small>
 
 In the example above, the user automatically enters a 3-month term of fixed rate purchases and the remaining balance carries into a leveraged variable yield position. Every 3 months, as the fixed rate yield matures, a new fixed rate position is taken with the surplus carried over to an additional leveraged variable yield position.
