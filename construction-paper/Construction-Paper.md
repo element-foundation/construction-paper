@@ -92,12 +92,12 @@ This competitive activity along with the custom curve built on Balancer V2 to su
 ## 2. Principal Tokens
 A Principal Token (PT) offers an asset such as BTC, ETH, USDC, or DAI that is locked for a fixed term. At the end of the term, it can be redeemed for its full value.
 
-![](https://i.imgur.com/RZOxPsZ.jpg)
+![](https://i.imgur.com/80ffDxe.png)
 
 <small>*Figure 1*</small>
 
 
-For example, if 10 ETH is used to purchase discounted ETH at a 10% APY for a 1-year lockup, 11 ptETH or PTs will be issued. Upon expiry of the fixed term, 1 year later, the 11 ptETH is redeemable for 11 ETH. A fixed rate of yield was secured.
+For example, if 10 ETH is used to purchase discounted ETH at a 10% APY for a 1-year lockup, 11 eP:ETH or PTs will be issued. Upon expiry of the fixed term, 1 year later, the 11 eP:ETH is redeemable for 11 ETH. A fixed rate of yield was secured.
 
 The locked ETH will always be worth less than readily available ETH. Readily available ETH can be staked in a yield position, gaining active yield. For this lost opportunity, these PTs or locked ETH will be priced at a discount, likely relative to the current yield rates in the market. Purchasing this discounted ETH is akin to securing a fixed rate yield. At the time of purchase, the discount and yield are already known.
 
@@ -107,7 +107,7 @@ Although the terminology "locked" is used to describe the process of entering a 
 
 ## 2.1. Initial Use Cases of Principal Tokens
 
-Purchasing PTs can provide a wide variety of utility depending on a user's market strategy. This section provides an in-depth look into some of those utilities. Additionally, [Section 4](#4-minting-and-staking) of this paper covers the possible use cases surrounding the minting and selling of PTs in an active market.
+Purchasing PTs can provide a wide variety of utility depending on a user's market strategy. This section provides an in-depth look into some of those utilities. Additionally, [Section 5](#5-market-forces) of this paper covers the possible use cases surrounding the minting and selling of PTs in an active market.
 
 ### Yield, Fixed Yield, and Stability
 In today's market, the current variable yield positions available fluctuate constantly, frequently changing day-to-day. In a single week, a variable position that may have carried 20% APY on Tuesday may only carry 5% on Thursday. This constant fluctuation forces current DeFi users to constantly monitor the market and move their capital to different yield positions in order to maintain their desired APY.
@@ -150,7 +150,7 @@ After the Element protocol has been released, a number of future structured prod
 The redemption value for a YT at the end of the defined term will be the average yield it has earned over the term on the principal it represents.
 
 **Example:**
-- eY:yETH represents the yield gained on an ETH Yearn position currently listed at 25% APY.
+- eY:yETH represents the yield gained on an ETH Yearn position listed at 25% APY.
 - 1 eY:yETH reflects the yield gained from 1 ETH principal.
 - The eY:yETH is under a 1-year term.
 - If the Yearn position maintains 25% APY for the entire year, eY:yETH is redeemable for 0.25 ETH.
@@ -166,7 +166,7 @@ How would a YT be priced? This is an extremely difficult question to answer. In 
 
 For example, if the market speculates the yETH position would hold an average of 15% APY over the next year, then the assumed redemption price of 1 eY:yETH would be equal to 0.15 ETH. As discussed in the [PTs Section](#2-principal-tokens), locked 0.15 ETH will sell at a discount, however, the discount on the eY:yETH would likely be higher than simply the opportunity lost due to the intrinsic risk of speculating its average yield. There is no way of knowing what this average yield will end up truly being. It could be less than 0.15 ETH.
 
-However, this pricing structure is naive. Other forces will impact the price. This paper will cover those details but not yet, as a better understanding of the protocol is needed first. The details of these market forces are discussed in detail in Sections [5](#5-market-forces) and [6](#6-future-of-the-element-protocol). 
+However, this pricing structure is naive. Other forces will impact the price. This paper will cover those details but not yet, as a better understanding of the protocol is needed first. The details of these market forces are discussed in Sections [5](#5-market-forces) and [6](#6-future-of-the-element-protocol). 
 
 ### 3.2 Buying and Selling Opportunities for Yield Tokens
 YTs can be used as a way to buy or sell the yield rate of a position.
@@ -228,7 +228,7 @@ The Element protocol is optimized for users accumulating YTs, and therefore redu
 
 | Input | Minted Asset | 
 | -------- | -------- |
-| 1 BTC     | 1 eY:ywBTC)     | 
+| 1 BTC     | 1 eY:ywBTC     | 
 
 **User Balance:**
 * 0.99855 `eP:ywBTC:01-MAR-2021-GMT`
