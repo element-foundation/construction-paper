@@ -155,14 +155,14 @@ SOFTWARE.
 </ul>
 <h2 id="2-principal-tokens">2. Principal Tokens</h2>
 <p>A Principal Token (PT) offers an asset such as BTC, ETH, USDC, or DAI that is locked for a fixed term. At the end of the term, it can be redeemed for its full value.</p>
-<p><img src="https://i.imgur.com/RZOxPsZ.jpg" /></p>
+<p><img src="https://i.imgur.com/80ffDxe.png" /></p>
 <p><small><em>Figure 1</em></small></p>
-<p>For example, if 10 ETH is used to purchase discounted ETH at a 10% APY for a 1-year lockup, 11 ptETH or PTs will be issued. Upon expiry of the fixed term, 1 year later, the 11 ptETH is redeemable for 11 ETH. A fixed rate of yield was secured.</p>
+<p>For example, if 10 ETH is used to purchase discounted ETH at a 10% APY for a 1-year lockup, 11 eP:ETH or PTs will be issued. Upon expiry of the fixed term, 1 year later, the 11 eP:ETH is redeemable for 11 ETH. A fixed rate of yield was secured.</p>
 <p>The locked ETH will always be worth less than readily available ETH. Readily available ETH can be staked in a yield position, gaining active yield. For this lost opportunity, these PTs or locked ETH will be priced at a discount, likely relative to the current yield rates in the market. Purchasing this discounted ETH is akin to securing a fixed rate yield. At the time of purchase, the discount and yield are already known.</p>
 <p>As a further example, if the current rate for staking ETH is 15% annualized variable yield, a user may sell the PTs at a slightly lower rate. This gives a guaranteed stable yield rate to the purchaser and prevents them from having to shift their assets between DeFi protocols in the situation where the variable yield decreases. Additionally, it allows users to avoid costly transaction fees and other inconvenient complexities.</p>
 <p>Although the terminology "locked" is used to describe the process of entering a fixed yield position, it is important to note that the Element protocol optimizes for liquidity allowing users to exit their position at any time, while still enabling users to gain yield until they exit.</p>
 <h2 id="21-initial-use-cases-of-principal-tokens">2.1. Initial Use Cases of Principal Tokens</h2>
-<p>Purchasing PTs can provide a wide variety of utility depending on a user's market strategy. This section provides an in-depth look into some of those utilities. Additionally, <a href="#4-minting-and-staking">Section 4</a> of this paper covers the possible use cases surrounding the minting and selling of PTs in an active market.</p>
+<p>Purchasing PTs can provide a wide variety of utility depending on a user's market strategy. This section provides an in-depth look into some of those utilities. Additionally, <a href="#5-market-forces">Section 5</a> of this paper covers the possible use cases surrounding the minting and selling of PTs in an active market.</p>
 <h3 id="yield-fixed-yield-and-stability">Yield, Fixed Yield, and Stability</h3>
 <p>In today's market, the current variable yield positions available fluctuate constantly, frequently changing day-to-day. In a single week, a variable position that may have carried 20% APY on Tuesday may only carry 5% on Thursday. This constant fluctuation forces current DeFi users to constantly monitor the market and move their capital to different yield positions in order to maintain their desired APY.</p>
 <p>Casual users or institutions managing large amounts of capital may not have the bandwidth or the understanding of the space and its associated risks to constantly manage and monitor their capital. These users may not also want to deal with the complexities surrounding taxes or the risks associated with new protocols being released. For these users, securing a fixed rate of income is both helpful and allows them to not have to actively manage their positions.</p>
@@ -195,7 +195,7 @@ SOFTWARE.
 <p>The redemption value for a YT at the end of the defined term will be the average yield it has earned over the term on the principal it represents.</p>
 <p><strong>Example:</strong></p>
 <ul>
-<li>eY:yETH represents the yield gained on an ETH Yearn position currently listed at 25% APY.</li>
+<li>eY:yETH represents the yield gained on an ETH Yearn position listed at 25% APY.</li>
 <li>1 eY:yETH reflects the yield gained from 1 ETH principal.</li>
 <li>The eY:yETH is under a 1-year term.</li>
 <li>If the Yearn position maintains 25% APY for the entire year, eY:yETH is redeemable for 0.25 ETH.</li>
@@ -206,7 +206,7 @@ SOFTWARE.
 <h3 id="31-yield-token-pricing">3.1 Yield Token Pricing</h3>
 <p>How would a YT be priced? This is an extremely difficult question to answer. In an ideal world, YTs would be priced at the market's speculated average APY with an added opportunity discount.</p>
 <p>For example, if the market speculates the yETH position would hold an average of 15% APY over the next year, then the assumed redemption price of 1 eY:yETH would be equal to 0.15 ETH. As discussed in the <a href="#2-principal-tokens">PTs Section</a>, locked 0.15 ETH will sell at a discount, however, the discount on the eY:yETH would likely be higher than simply the opportunity lost due to the intrinsic risk of speculating its average yield. There is no way of knowing what this average yield will end up truly being. It could be less than 0.15 ETH.</p>
-<p>However, this pricing structure is naive. Other forces will impact the price. This paper will cover those details but not yet, as a better understanding of the protocol is needed first. The details of these market forces are discussed in detail in Sections <a href="#5-market-forces">5</a> and <a href="#6-future-of-the-element-protocol">6</a>.</p>
+<p>However, this pricing structure is naive. Other forces will impact the price. This paper will cover those details but not yet, as a better understanding of the protocol is needed first. The details of these market forces are discussed in Sections <a href="#5-market-forces">5</a> and <a href="#6-future-of-the-element-protocol">6</a>.</p>
 <h3 id="32-buying-and-selling-opportunities-for-yield-tokens">3.2 Buying and Selling Opportunities for Yield Tokens</h3>
 <p>YTs can be used as a way to buy or sell the yield rate of a position.</p>
 <p>A sophisticated DeFi user may evaluate the market’s pricing of a YT and consider it to be too aggressive or conservative. For example, in a one-year term, the user believes the yETH vault will have an average APY of 10%. This would imply that the user thinks 1 eY:yETH will be redeemable for 0.1 ETH at the end of the term. If the YT is selling for more than a 10% discount on 0.1 ETH, then it would be considered a strong buy. In this case, the user would be taking a buy position on the YT. If it is less, then it would be considered a strong sell. In this case, the user would want to sell the token.</p>
@@ -306,7 +306,7 @@ SOFTWARE.
 <tbody>
 <tr class="odd">
 <td>1 BTC</td>
-<td>1 eY:ywBTC)</td>
+<td>1 eY:ywBTC</td>
 </tr>
 </tbody>
 </table>
