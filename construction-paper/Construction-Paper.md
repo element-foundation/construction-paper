@@ -793,6 +793,7 @@ Notice that $t_{stretch}$ only applies to the exponent in the denominator. Now t
 #### Time Stretch vs Reserve Ratio
 
 ![](https://i.imgur.com/IwfntPO.png)
+<br>
 <small>*Figure 13*</small>
 
 
