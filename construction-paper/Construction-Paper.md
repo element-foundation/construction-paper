@@ -894,6 +894,7 @@ There are several observations to note here. First off, the dash line represents
 The following plot shows what time stretches satisfy the followin 0.5 $\le$ reserve ratio $\le$ 2 and allow price discovery of +/- 50% of $Max\ Resulting\ APY_{PT}$:
 
 ![](https://i.imgur.com/jhgMmbT.png)
+<br>
 <small>*Figure 15*</small>
 
 This plot indicates for example, that for $APY_{PT}$ = 20%, that $time\ stretch$ should be range of 2 to 5 to enable APY discovery of at least +/- 10% and reserve ratios $.5 \le \frac{x_{r}}{y_r} \le 2$.
