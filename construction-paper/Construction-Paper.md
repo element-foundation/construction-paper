@@ -242,12 +242,14 @@ Although future trading volume and liquidity are difficult to predict, the follo
 The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 10%:
 
 ![](https://i.imgur.com/QYKf5Dh.png)
+
 <small>*Figure 3*</small>
 
 
 Order sizes are distributed as follows:
 
 ![](https://i.imgur.com/Ar2ak27.png)
+
 <small>*Figure 4*</small>
 
 
