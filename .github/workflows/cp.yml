@@ -21,4 +21,5 @@ jobs:
             -o construction-paper/Construction-Paper.html 
       - name: update file and push to remote
         run: |
+          /bin/bash construction-paper/table-summary-script.sh
           /bin/bash construction-paper/update-repo.sh

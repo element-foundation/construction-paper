@@ -915,8 +915,9 @@ The compounder incurs risk due to the unknown final value of the accumulated yie
 | ------- | ------ | --------- | --- | -------- |
 | 0 Days  | 25 ETH | 5000 ETH   |  8 Years   | 0.05 ETH  |
 
-<details>
-<summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 |   PT APY |   PT APY after Trade |   Total Expenditure |   Received at Maturity |    APY |
 |---------------:|--------------------------------:|--------------------:|-----------------------:|-------:|
@@ -967,7 +968,7 @@ The compounder incurs risk due to the unknown final value of the accumulated yie
 |          14.6  |                           16.25 |            1.06188  |               0.924658 | -52.41 |
 |          14.75 |                           16.42 |            1.07223  |               0.924658 | -55.82 |
 |          14.9  |                           16.59 |            1.08257  |               0.924658 | -59.16 |
-</details>  
+ENDFOO  
 
 <small>*Table 5*</small>
 
@@ -982,8 +983,9 @@ Let us evaluate the same data differently:
 | -------- | -------- |
 | 15%     | 30%     |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |      Gain |    APY |
@@ -1018,7 +1020,7 @@ Let us evaluate the same data differently:
 |     145 |    10.113 |    0.970827 |       11.8311  | 4.29003  |   5.36301  | 1.07299   | 101.43 |
 
 
-</details>
+ENDFOO
 
 <small>*Table 6*</small>
 
@@ -1049,8 +1051,9 @@ If the desired yield is increased, you see the following results:
 | -------- | -------- |
 | 15%     | 50%     |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |     Gain |    APY |
@@ -1081,7 +1084,7 @@ If the desired yield is increased, you see the following results:
 |     140 |     8.431 |    0.975773 |        9.82523 | 3.45172  |   5.17808  | 1.72636  | 202.84 |
 |     145 |     8.42  |    0.975756 |        9.83212 | 3.57532  |   5.36301  | 1.78769  | 202.78 |
 
-</details>
+ENDFOO
 
 <small>*Table 7*</small>
 
@@ -1096,8 +1099,9 @@ Let us evaluate the same situation, but a 30-day term:
 | -------- | -------- |
 | 15%     | 30%     |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |      Gain |    APY |
@@ -1128,15 +1132,16 @@ Let us evaluate the same situation, but a 30-day term:
 |     140 |     9.824 |    0.990566 |       11.4779  | 1.38075  |   1.72603  | 0.34528   | 304.25 |
 |     145 |     9.819 |    0.990551 |       11.4963  | 1.43011  |   1.78767  | 0.357565  | 304.2  |
 
-</details>
+ENDFOO
 
 <small>*Table 8*</small>
 
 &nbsp;
 Or the same situation, but 60 days into a 90 day term:
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |      Gain |   APY |
 |--------:|----------:|------------:|---------------:|---------:|-----------:|----------:|------:|
@@ -1167,7 +1172,7 @@ Or the same situation, but 60 days into a 90 day term:
 |     145 |    10.079 |    0.990312 |       11.7869  | 5.00545  |   5.36301  | 0.357567  | 86.91 |
 
 
-</details>
+ENDFOO
 
 <small>*Table 9*</small>
 
@@ -1182,8 +1187,9 @@ However, it is proposed that the second point is not true. With 30 days remainin
 | ------------------- | ---------------- | --- |
 | 18%                  |      30%            |  30 Days   |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |      Gain |    APY |
 |--------:|----------:|------------:|---------------:|---------:|-----------:|----------:|-------:|
@@ -1215,15 +1221,16 @@ However, it is proposed that the second point is not true. With 30 days remainin
 |     140 |    12.345 |    0.988101 |        14.4777 | 1.72592  |   2.07123  | 0.345312  | 243.42 |
 |     145 |    12.333 |    0.988085 |        14.496  | 1.78761  |   2.14521  | 0.357599  | 243.39 |
 
-</details>
+ENDFOO
 
 <small>*Table 9*</small>
 
 &nbsp;
 Or for 60 days into a 90 day term:
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |      Gain |   APY |
 |--------:|----------:|------------:|---------------:|---------:|-----------:|----------:|------:|
@@ -1255,7 +1262,7 @@ Or for 60 days into a 90 day term:
 |     140 |    12.737 |    0.987738 |        14.9193 | 5.86841  |   6.2137   | 0.345292  | 71.59 |
 |     145 |    12.725 |    0.987722 |        14.938  | 6.07802  |   6.43562  | 0.357596  | 71.58 |
 
-</details>
+ENDFOO
 
 <small>*Table 10*</small>
 
@@ -1268,8 +1275,9 @@ Peak APY rates are higher and the market will likely find some type of equilibri
 | ------------------- | ---------------- | --- |
 | 15%                  |      30%            | 182.5 Days   |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |     Gain |   APY |
 |--------:|----------:|------------:|---------------:|---------:|-----------:|---------:|------:|
@@ -1303,7 +1311,7 @@ Peak APY rates are higher and the market will likely find some type of equilibri
 |     145 |    10.202 |    0.941241 |        11.9151 | 8.5801   |  10.726    | 2.14593  | 50.72 |
 |     145 |    10.202 |    0.941241 |        11.9151 | 8.5801   |  10.726    | 2.14593  | 50.72 |
 
-</details>
+ENDFOO
 
 <small>*Table 11*</small>
 
@@ -1314,8 +1322,9 @@ Peak APY rates are higher and the market will likely find some type of equilibri
 | ------------------- | ---------------- | --- |
 | 15%                  |      30%            | 365 Days   |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |    Spent |   Received |     Gain |   APY |
 |--------:|----------:|------------:|---------------:|---------:|-----------:|---------:|------:|
@@ -1348,7 +1357,7 @@ Peak APY rates are higher and the market will likely find some type of equilibri
 |     140 |    10.293 |    0.882074 |        11.9564 | 16.5697  |   20.7123  | 4.14264  | 25.35 |
 |     145 |    10.274 |    0.882068 |        11.957  | 17.1601  |   21.4521  | 4.29197  | 25.36 |
 
-</details>
+ENDFOO
 
 <small>*Table 12*</small>
 
@@ -1365,8 +1374,9 @@ In both the 1 year and 6-month term, the range of input required for profitabili
 | ------- | --------- | --- | -------- |
 | 0 Days  | 10,000,000 USDC   |  10 Years   | 0.06 ETH  |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
 
 |   Input |   PT APY |   PT Price |   PT APY after Trade |     Spent |   Received |      Gain |   APY |
 |--------:|----------:|------------:|---------------:|----------:|-----------:|----------:|------:|
@@ -1395,7 +1405,7 @@ In both the 1 year and 6-month term, the range of input required for profitabili
 |  230000 |    14.379 |    0.958518 |        16.8231 |  9640.8   |  11342.5   | 1701.67   | 71.58 |
 |  240000 |    14.348 |    0.958499 |        16.8308 | 10060.1   |  11835.6   | 1775.48   | 71.58 |
 
-</details>
+ENDFOO
 
 <small>*Table 13*</small>
 
@@ -1410,8 +1420,9 @@ In both the 1 year and 6-month term, the range of input required for profitabili
 | ------- | --------- | --- | -------- |
 | 0 Days  | 200 BTC   |  8 Years   | 0.06 ETH  |
 
-<details>
-    <summary><b>Expand Table</b></summary>
+BEGINFOO
+
+SUMMARYFOO
     
 |   Input |   PT APY |   PT Price |   PT APY after Trade |      Spent |   Received |       Gain |    APY |
 |--------:|----------:|------------:|---------------:|-----------:|-----------:|-----------:|-------:|
@@ -1463,7 +1474,7 @@ In both the 1 year and 6-month term, the range of input required for profitabili
 |     4.8 |    10.232 |    0.970788 |       11.8472  | 0.142019   |  0.177534  | 0.0355153  | 101.42 |
 |     4.9 |    10.224 |    0.97078  |       11.8503  | 0.144978   |  0.181233  | 0.0362553  | 101.42 |
 
-</details>
+ENDFOO
 
 <small>*Table 14*</small>
 
