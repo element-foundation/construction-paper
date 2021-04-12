@@ -5,7 +5,7 @@ then
     set -e
     git config --global user.name "github-actions[bot]"
     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-    git add construction-paper/Construction-Paper.html
+    git add index.html
     git commit -m "Rebuild Construction Paper"
     git push
 else
