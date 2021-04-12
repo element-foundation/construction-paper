@@ -31,7 +31,7 @@
     * [5.4 Minting Instead of Using Lending Protocols](#54-minting-instead-of-using-lending-protocols)
     * [5.5 Yield Tokens in Depth](#55-yield-tokens-in-depth)
     * [5.6 Summarizing the Market Forces](#56-summarizing-the-market-forces)
-* [6. Future of the Element Protocol](#6-future-of-the-element-protocol)
+* [6. Building on top of the Element Protocol](#6-building-on-top-of-the-element-protocol)
     * [6.1 Yield Ladders](#61-yield-ladders)
     * [6.2 Principal Protected Product](#62-principal-protected-product)
     * [6.3 Ethereum 2.0](#63-ethereum-20)
@@ -45,41 +45,40 @@
 
 
 ----
-
 ## 1. Introduction 
 
 ### 1.1 Overview 
-Element Finance brings high fixed yield income to the DeFi market, initially focused on ETH, BTC, USDC, and DAI. Users can purchase ETH, BTC, USDC, and DAI at a discount without being locked into a term, allowing swapping between the discounted asset and the [base asset](#14-glossary-definitions) at any time. The fixed rate income can be secured for a swap from any major base asset. For active DeFi users, the Element protocol provides capital efficiency on yield positions they are already depositing into, such as Yearn or ETH2 staking. Users can sell their deposited principal at a discount as fixed yield income, leveraging or increasing exposure to yield without liquidation risk. This competitive activity is what drives the high fixed yield markets. The Element protocol opens the door to a number of new primitives and innovations.
+Element Finance brings high fixed yield income to the DeFi market, initially focused on ETH, BTC, USDC, and DAI. Users can purchase ETH, BTC, USDC, and DAI at a discount without being locked into a term, allowing the exchange of the discounted asset and the [base asset](#14-glossary-definitions) at any time. The fixed rate income can be secured with the exchange of any major base asset. For active DeFi users, the Element Protocol provides capital efficiency on yield positions they are already depositing into, such as Yearn or ETH2 staking. Users can sell their deposited principal at a discount as fixed yield income, leveraging or increasing exposure to yield without liquidation risk. This competitive activity is what drives the high fixed yield markets. This construction paper breaks down the Element Protocol and discusses how it can open the door to a number of new primitives and innovations.
 
 ### 1.2 The Current State of Yield Markets in DeFi
 
-Today, in the decentralized finance (DeFi) space, the variable yield market can be both difficult and overwhelming for casual users to navigate. Yield rates constantly fluctuate, resulting in users needing to move or swap their funds regularly in order to meet their target APY, and depositing or shifting between positions regularly incurs high transaction fees. 
+Today, in the decentralized finance (DeFi) space, the variable yield market can be both difficult and overwhelming for casual users to navigate. Yield rates constantly fluctuate, resulting in users needing to move their funds regularly in order to meet their target APY, and depositing or shifting between positions regularly incurs high transaction fees. 
 
-Securing fixed rate yield can resolve these issues. However, the current fixed rate yield products on the market offer too low of rates and do not have enough liquidity to enter in and out of the position easily. This lack of liquidity causes slippage problems or the inability to exit from a position until after a defined term. In other cases, depositing into a fixed rate position requires multiple transactions and the associated high transaction fees that come with it. 
+Securing fixed rate yield can resolve these issues. However, the current fixed rate yield products on the market offer low rates and do not have enough liquidity to enter in and out of the position easily. This lack of liquidity causes slippage problems or the inability to exit from a position until after a defined term. In other cases, depositing into a fixed rate position requires multiple transactions and the associated high transaction fees that come with it. 
 
 Capital efficiency is an underserved feature for DeFi users. When users are required to have their principal locked in a yield generating position, such as a [Yearn](https://yearn.finance/) vault or [ETH2 staking](https://ethereum.org/en/eth2/staking/), they cannot access further opportunities, incur significant costs if they decide to move their position, and the market often lacks liquidity.
 
 ### 1.3 The Element Approach
 
-The Element Protocol, at its core, works by splitting the base asset (ETH, BTC, USDC, DAI) of yield generating positions, such as a Yearn vault or an ETH2 validator, into two separate, fungible tokens: the Principal Token (PT), and the Yield Token (YT).
+The Element Protocol, at its core, works by enabling users to split the base asset (ETH, BTC, USDC, DAI) of yield generating positions, such as a Yearn vault or an ETH2 validator, into two separate, fungible tokens: the Principal Token (PT), and the Yield Token (YT).
 
-The splitting mechanism allows users to sell their principal at a discount, thus creating a marketplace for fixed rate income positions. Their principal is no longer locked up and they may use their newly freed funds to leverage at high multiples, gaining increased exposure to yield without typical liquidation risk. They may also gain additional trading fees or APY on their yield positions by staking their new tokens into an AMM. The casual user subsidizes the DeFi user’s active strategies by securing fixed rate yield at a discount on what the DeFi user earns. The DeFi user’s participation subsidizes the value of the fixed rate yield. Element takes an alternative approach to tranching products, instead enabling market forces to set the price of fixed vs. variable yield rates.
+The splitting mechanism allows users to sell their principal at a discount, thus creating a marketplace for fixed rate income positions. Their principal is no longer locked up and they may use their newly freed funds to leverage at high multiples, gaining increased exposure to yield without the typical liquidation risk. Users may also gain additional trading fees or APY on their yield positions by staking their new tokens into an AMM. The casual user subsidizes the DeFi user’s active strategies by securing fixed rate yield at a discount on what the DeFi user earns. The DeFi user’s participation subsidizes the value of the fixed rate yield. 
 
-This competitive activity along with the custom curve built on Balancer V2 to support the PTs is what drives the high fixed yield markets. Furthermore, it brings liquidity to fixed yield income while minimizing slippage, fees, and impermanent loss, ultimately opening the door to a number of new DeFi primitives.
+Element takes an alternative approach to tranching products, instead enabling market forces to set the price of fixed vs. variable yield rates. This competitive activity along with the custom curve built on Balancer V2 to support the PTs is what drives the high fixed yield markets. Furthermore, it brings liquidity to fixed yield income while minimizing slippage, fees, and impermanent loss, ultimately opening the door to a number of new DeFi primitives.
 
 ### 1.4 Glossary Definitions
 
-- **Principal Tokens (PTs)**: The token representing the user's deposit value into the protocol. These tokens are redeemable 1-for-1 for the underlying asset at maturity.
+- **Principal Tokens (PTs)**: The token representing the user's deposit value into the Element Protocol. These tokens are redeemable 1-for-1 for the underlying asset at maturity.
 - **Yield Tokens (YTs)**: The token representing the variable yield gain over the term period for the deposited underlying asset. 
-- **Principal Reserves**: The number of principal tokens staked in a pool pairing of the base asset and the principal token. For example, the number of ptETH staked in the pool pairing of ETH/ptETH. 
-- **Base Asset**: The asset deposited into the protocol (BTC, ETH, USDC, DAI)
-- **Base Asset Reserves**: The number of base assets staked in a pool pairing of the base asset with the principal tokens of said base asset. For example, the number of ETH staked in the pool pairing of ETH/ptETH.
-- **Time Stretch Parameter**: A parameter used in the trading curve that affects the price discoverability, fees, and staking ratio of the base asset to principal tokens.
+- **Principal Reserves**: The number of PTs staked in a pool pairing of the base asset and the PT. For example, the number of ptETH staked in the pool pairing of ETH/ptETH. 
+- **Base Asset**: The asset deposited into the Element Protocol (BTC, ETH, USDC, or DAI).
+- **Base Asset Reserves**: The number of base assets staked in a pool pairing of the base asset with the PTs of said base asset. For example, the number of ETH staked in the pool pairing of ETH/ptETH.
+- **Time Stretch Parameter**: A parameter used in the trading curve that affects the price discoverability, fees, and staking ratio of the base asset to PTs.
 - **Annual Percentage Yield (APY)**: Annual Percentage Yield is a time-based measurement of the Return On Investment (ROI) on an asset.
     - For example, $100 invested at 5% APY would yield $105 after one year, if there is no compounding of any yield earned on that $100 through the year. Assuming a static APY rate, the Monthly ROI would be 0.41%. 
-- **Target APY**: The User's targeted Annual Percentage Yield
-- **Term**: A duration of time in which a user's assets are generating yield and deposited in the Element protocol. 
-- **Term length**: The duration in which the user chooses to have their asset deposited in the Element protocol, generating yield. 
+- **Target APY**: The User's targeted Annual Percentage Yield.
+- **Term**: A duration of time in which a user's assets are generating yield and deposited in the Element Protocol. 
+- **Term length**: The duration in which the user chooses to have their asset deposited in the Element Protocol, generating yield. 
 - **Vault**: A generic term for a yield-bearing asset.
 - **yVault**: A programmatically adjusted lending aggregator, arbitrageur, and optimized yield generator ([reference](https://docs.yearn.finance/defi-glossary#yvault)). 
 - **Automated Market Maker (AMM)**: An AMM is a system that provides liquidity to the exchange it operates in through automated trading.
@@ -88,7 +87,6 @@ This competitive activity along with the custom curve built on Balancer V2 to su
 - **Slippage**: The amount the price moves in a trading pair between when a transaction is submitted and when it is executed.
 - **Yield Token Compounding**: Depositing in a yield position and selling the principal to re-deposit, increasing exposure to yield. This is done multiple times, selling and re-depositing, and allows for leveraging into the yield at many multiples of the initial capital.
 
-
 ## 2. Principal Tokens
 A Principal Token (PT) offers an asset such as BTC, ETH, USDC, or DAI that is locked for a fixed term. At the end of the term, it can be redeemed for its full value.
 
@@ -96,39 +94,39 @@ A Principal Token (PT) offers an asset such as BTC, ETH, USDC, or DAI that is lo
 
 <small>*Figure 1*</small>
 
-
-For example, if 10 ETH is used to purchase discounted ETH at a 10% APY for a 1-year lockup, 11 eP:ETH or PTs will be issued. Upon expiry of the fixed term, 1 year later, the 11 eP:ETH is redeemable for 11 ETH. A fixed rate of yield was secured.
+For example, if 10 ETH is used to purchase discounted ETH at a 10% APY for a one-year lockup, 11 eP:ETH or PTs will be issued. Upon expiry of the fixed term, one year later, the 11 eP:ETH is redeemable for 11 ETH. A fixed rate of yield was secured.
 
 The locked ETH will always be worth less than readily available ETH. Readily available ETH can be staked in a yield position, gaining active yield. For this lost opportunity, these PTs or locked ETH will be priced at a discount, likely relative to the current yield rates in the market. Purchasing this discounted ETH is akin to securing a fixed rate yield. At the time of purchase, the discount and yield are already known.
 
 As a further example, if the current rate for staking ETH is 15% annualized variable yield, a user may sell the PTs at a slightly lower rate. This gives a guaranteed stable yield rate to the purchaser and prevents them from having to shift their assets between DeFi protocols in the situation where the variable yield decreases. Additionally, it allows users to avoid costly transaction fees and other inconvenient complexities.
 
-Although the terminology "locked" is used to describe the process of entering a fixed yield position, it is important to note that the Element protocol optimizes for liquidity allowing users to exit their position at any time, while still enabling users to gain yield until they exit. 
+Although the terminology "locked" is used to describe the process of entering a fixed yield position, it is important to note that the Element Protocol is designed to optimize for liquidity allowing users to exit their position at any time, while still enabling users to gain yield until they decide to exit. 
+
+**Note:** The use of 1-year terms in the examples of this paper is purely for simplicity. The Element protocol will initially allow users to mint both 6-month and 3-month terms. 
 
 ## 2.1. Initial Use Cases of Principal Tokens
-
 Purchasing PTs can provide a wide variety of utility depending on a user's market strategy. This section provides an in-depth look into some of those utilities. Additionally, [Section 5](#5-market-forces) of this paper covers the possible use cases surrounding the minting and selling of PTs in an active market.
 
 ### Yield, Fixed Yield, and Stability
 In today's market, the current variable yield positions available fluctuate constantly, frequently changing day-to-day. In a single week, a variable position that may have carried 20% APY on Tuesday may only carry 5% on Thursday. This constant fluctuation forces current DeFi users to constantly monitor the market and move their capital to different yield positions in order to maintain their desired APY.
 
-Casual users or institutions managing large amounts of capital may not have the bandwidth or the understanding of the space and its associated risks to constantly manage and monitor their capital. These users may not also want to deal with the complexities surrounding taxes or the risks associated with new protocols being released. For these users, securing a fixed rate of income is both helpful and allows them to not have to actively manage their positions. 
+Casual users or institutions managing large amounts of capital may not have the bandwidth or the understanding of the space and its associated risks to constantly manage and monitor their capital. Additionally, these users may not want to deal with the complexities surrounding taxes or the risks associated with new protocols being released. For these users, securing a fixed rate of income is both helpful and more appealing, allowing them to not have to actively manage their positions. 
 
 ### Staking on an AMM
-If a user is already looking to gain exposure to BTC or ETH for a period of time, it makes sense to gain that exposure at a discount. During the period of holding the discounted ETH, the user may stake the PTs on an AMM, gaining a significant boost on their fixed rate yield via trading fees. The profitability and mechanism behind staking PTs are described in further detail in [Section 4](#4-minting-and-staking).
+If a user is already looking to gain exposure to BTC or ETH for a period of time, it makes sense to gain that exposure at a discount. During the period of holding the discounted ETH, the user may stake the PTs on an AMM, gaining a significant boost on their fixed rate yield via trading fees. The mechanism behind staking PTs and their profitability is described in further detail in [Section 4](#4-minting-and-staking).
 
 ### Bearish on Variable Yield
-A DeFi user may believe the yield rates offered currently in the market are high and believes that rates will begin to decrease over the next 3-6 months. As a result, the user decides to secure the current high fixed rate yield and thus hedges against a yield downturn in the market.
+A DeFi user may believe that the current yield rates offered in the market are high and suspects that rates will begin to decrease over the next 3-6 months. As a result, the user decides to secure a high fixed rate yield and thus, hedges against a yield downturn in the market.
 
 ### Principal Tokens as a Trading Instrument
-From the perspective of a swing trader who enters positions ranging periods of 1-2 weeks up to a calendar month, PTs make a better form of trading instrument and generate a higher rate of return without incurring any additional trading risks.
+From the perspective of a swing trader who enters positions ranging from periods of 1-2 weeks up to a calendar month, PTs make for a better form of trading instrument generating a higher rate of return without incurring added trading risks.
 
 #### Spot Trading
 
 **Assuming the following parameters:**
 
 * Annual Fixed Rate Yield*: 10%
-* Asset Being Swing Traded*: 1 Month ptBTC
+* Asset Being Swing Traded*: 1 Month, ptBTC
 * Current Price of BTC*: $50,000
 * Price Target of BTC in Trade*: $55,000
 * Trade Duration*: 1 Month
@@ -136,18 +134,17 @@ From the perspective of a swing trader who enters positions ranging periods of 1
 
 A spot trader, Anna, may choose to take a trading position between 2 to 4 weeks. Her analysis leads her to believe that BTC will increase in value by 10% at the end of the calendar month. She made the right call and hits her price target of $55,000, redeeming her PT for 4.033 BTC at a price of $55,000 per BTC.
 
-In concluding the trade, her total assets sum up to $221,815. Had she taken a BTC position instead of a eP:BTC position, her total asset sum would be a total of $220,000. By using PTs as her primary trading instrument, she gained an additional component of profitability in the form of fixed yield on top of her typical trading profits.
+In concluding the trade, her total assets sum up to $221,815. If she had taken a BTC position instead of an eP:BTC position, her total asset sum would be a total of $220,000. By using PTs as her primary trading instrument, she gained an additional component of profitability in the form of fixed yield on top of her typical trading profits.
 
-## 2.2 Future Use Cases of Principal Tokens
-
-After the Element protocol has been released, a number of future structured products can be built on top of its foundation which may further drive demand for purchasing PTs. [Section 6](#6-future-of-the-element-protocol) covers the future of the Element Protocol and provides an in-depth description of the following structured products: 
+## 2.2 Building on top of the Element Protocol
+After the Element protocol has been released, a number of future structured products can be built on top of its foundation which may further drive demand for purchasing PTs. [Section 6](#6-building-on-top-of-the-element-protocol) provides an in-depth look at some of the potential structured products that could be built on top of the Element Protocol: 
 
 1. 1:1 Collateralized Loans
 2. Fixed Term Lending
 3. Yield Ladders
 
 ## 3. Yield Tokens
-The redemption value for a YT at the end of the defined term will be the average yield it has earned over the term on the principal it represents.
+The redemption value for a YT at the end of the defined term will be the average yield it has earned over the course of the term on the principal it represents.
 
 **Example:**
 - eY:yETH represents the yield gained on an ETH Yearn position listed at 25% APY.
@@ -164,26 +161,26 @@ However, by definition, no variable yield position on the market maintains its l
 ### 3.1 Yield Token Pricing
 How would a YT be priced? This is an extremely difficult question to answer. In an ideal world, YTs would be priced at the market's speculated average APY with an added opportunity discount. 
 
-For example, if the market speculates the yETH position would hold an average of 15% APY over the next year, then the assumed redemption price of 1 eY:yETH would be equal to 0.15 ETH. As discussed in the [PTs Section](#2-principal-tokens), locked 0.15 ETH will sell at a discount, however, the discount on the eY:yETH would likely be higher than simply the opportunity lost due to the intrinsic risk of speculating its average yield. There is no way of knowing what this average yield will end up truly being. It could be less than 0.15 ETH.
+For example, if the market speculates that the yETH position would hold an average of 15% APY over the next year, the assumed redemption price of 1 eY:yETH would be equal to 0.15 ETH. As discussed in the [PTs Section](#2-principal-tokens), the locked 0.15 ETH will sell at a discount, however, the discount on the eY:yETH would likely be higher than simply the opportunity lost due to the intrinsic risk of speculating its average yield. There is no way of knowing what this average yield will end up truly being. It could be less than 0.15 ETH.
 
-However, this pricing structure is naive. Other forces will impact the price. This paper will cover those details but not yet, as a better understanding of the protocol is needed first. The details of these market forces are discussed in Sections [5](#5-market-forces) and [6](#6-future-of-the-element-protocol). 
+However, this pricing structure is naive. Other forces will impact the price. This paper will cover these details but not yet, as a better understanding of the protocol is needed first. To read about the details of the market forces that could impact the price of a YT, reference Sections [5](#5-market-forces) and [6](#6-future-of-the-element-protocol).
 
 ### 3.2 Buying and Selling Opportunities for Yield Tokens
 YTs can be used as a way to buy or sell the yield rate of a position.
 
-A sophisticated DeFi user may evaluate the market’s pricing of a YT and consider it to be too aggressive or conservative. For example, in a one-year term, the user believes the yETH vault will have an average APY of 10%. This would imply that the user thinks 1 eY:yETH will be redeemable for 0.1 ETH at the end of the term. If the YT is selling for more than a 10% discount on 0.1 ETH, then it would be considered a strong buy. In this case, the user would be taking a buy position on the YT. If it is less, then it would be considered a strong sell. In this case, the user would want to sell the token.
+A sophisticated DeFi user may evaluate the market’s pricing of a YT and consider it to be too aggressive or even conservative. For example, in a one-year term, the user believes the yETH vault will have an average APY of 10%. This would imply that the user thinks 1 eY:yETH will be redeemable for 0.1 ETH at the end of the term. If the YT is selling for more than a 10% discount on 0.1 ETH, then it would be considered a strong buy. In this case, the user would be taking a buy position on the YT. If it is less, then it would be considered a strong sell. In this case, the user would want to sell the YT.
 
 ## 4. Minting and Staking
-Minting and staking principal and YTs may be a very profitable endeavor for DeFi users. This section begins by covering how the minting process works and ends with a detailed look at the simulations and analysis of the potential profitability as well the staking process, such as how the trading curve and parameterization are used. 
+Minting and staking PTs and YTs may be a very profitable endeavor for DeFi users. This section begins by covering how the minting process works and ends with a detailed look at the simulations and analysis of the potential profitability as well the staking process, such as how the trading curve and parameterization are used. 
 
 ### 4.1 Terms
-A term indicates the redemption date of a set of PTs or YTs. The principal or yield cannot be redeemed through Element's contracts until the term date has been reached.
+A term indicates the redemption date of a set of PTs or YTs. The principal or yield cannot be redeemed through the Element Protocol's contracts until the term date has been reached.
 
-Although the Element Protocol smart contracts allow for any term to be created, it is expected that users and openly available frontends will encourage certain term conventions in order to concentrate liquidity. For example, the users may collectively decide to actively support 3 and 6-month terms released every month and a half.
+Although the Element Protocol smart contracts allow for any term to be created, it is expected that users and openly available frontends will encourage certain term conventions in order to concentrate liquidity. For example, users may collectively decide to actively support both 3 and 6-month terms released every month and a half.
 
-Terms are indicated by the token name and are marked with a date stamp, such as: 
+Terms are indicated by the token name and are marked with a date stamp. For example: 
 
-`eY:yETH:03-Jan-2021-GMT`
+* `eY:yETH:03-Jan-2021-GMT`
 
 ### 4.2 Minting in Depth
 When minting, a user must first choose the backing collateral and the specific term to mint into. Element's initial positions will be collateralized by [Yearn Vaults](https://docs.yearn.finance/#vaults). The token naming conventions are reflected in the parameters. For example: 
@@ -191,18 +188,20 @@ When minting, a user must first choose the backing collateral and the specific t
 * **Principal Token**: `eP:yETH:03-JAN-2021-GMT`
 * **Yield Token**: `eY:yETH:03-JAN-2021-GMT`
 
-The `e` represents Element, while the `P` or `Y` indicates whether it is a principal or yield token. The second part indicates the backing collateral, such as a Yearn ETH vault, yETH. The third part indicates the term or redemption date in GMT or UTC+0 time. Tokens with identical names are fungible with each other and can be staked or traded together in an AMM.
+The `e` represents Element, while the `P` and `Y` indicate whether it is a principal or yield token. The second part indicates the backing collateral, such as a Yearn ETH vault, yETH. The third and final part indicates the term or redemption date in GMT or UTC+0 time. It's important to note that tokens with identical names are fungible with each other and can be staked or traded together in an AMM.
 
-For example, today is 01/01/2021. Minting into a term with a 3-month expiration (04/01/2021), collateralized by the Yearn wBTC vault, produces the following tokens:
+For example, today is 01/01/2021. Minting into a term with a 3-month expiration date (04/01/2021), collateralized by the Yearn wBTC vault, produces the following tokens:
 
 * **Principal Token**: `eP:ywBTC:01-APR-2021-GMT`
 * **Yield Token**: `eY:ywBTC:01-APR-2021-GMT`
 
-A token with a different date or any sort of modification would not be fungible. The following PT would not be fungible with the example token above since it has a different date: `eP:ywBTC:02-APR-2021-GMT`
+A token with a different date or any sort of modification would not be fungible. For example, the following PT would not be fungible with the example token above since it has a different date: 
+
+* **Principal Token**: `eP:ywBTC:02-APR-2021-GMT`
 
 #### Minting Retroactively
 
-One area of complexity that the Element protocol handles is with the action of minting into an existing term. YTs accumulate value over time, essentially introducing their own principal. To give a simple example, if Yearn compounds daily, the YT's accumulated value looks as follows:
+One area of complexity that the Element Protocol handles is with the action of minting into an existing term. YTs accumulate value over time, essentially introducing their own principal. To give a simple example, if Yearn compounds daily, the YT's accumulated value looks as follows:
 
 | Input | Minted Asset | 
 | -------- | -------- |
@@ -224,7 +223,7 @@ As displayed in the above table, once day 6 has been reached, the YT has accumul
 
 Why does this introduce complexity? In order to mint into a term that has already compounded yield, the minter must supply that accumulated yield, otherwise, the YTs would not be fungible with each other. They would have a different market value.
 
-The Element protocol is optimized for users accumulating YTs, and therefore reduces the balance of the user's principal in order to cover the accumulated yield when minting. In this example, if a user chooses to mint on day 6, then 0.00145 BTC must be accounted for. As a result, 0.00145 fewer PTs are issued. The user's minted tokens would look as follows:
+The Element Protocol is optimized for users accumulating YTs, and therefore reduces the balance of the user's principal in order to cover the accumulated yield when minting. In this example, if a user chooses to mint on day 6, then 0.00145 BTC must be accounted for. As a result, 0.00145 fewer PTs are issued. The user's minted tokens would look as follows:
 
 | Input | Minted Asset | 
 | -------- | -------- |
@@ -238,7 +237,7 @@ The Element protocol is optimized for users accumulating YTs, and therefore redu
 If a user is already depositing into Yearn, they can boost their APY even further by minting PTs and YTs. After minting both the PTs and YTs, the user may stake them on an AMM, providing liquidity to the market on fixed rate or variable yield. The user now earns additional APY via trading fees from the AMM.
 
 #### Staking Profitability Analysis
-Although future trading volume and liquidity are difficult to predict, the following analysis attempts to simulate the different scenarios. Due to market forces such as Yield Token Compounding, covered in a later section [(5.2)](#52-leveraging-and-yield-token-compounding), it is predicted that trading activity may be high. These simulations predict purchasing activity to decline as the maturity period of the term comes closer. However, this prediction may not be correct, since Yield Token Compounding (discussed in [Section 5](#5-market-forces)) and other market activities increase in profit as the maturity period comes to an end. Purchasing activity could also be automated via vaults or tools such as Yearn even in the scenario where the maturity period is converging. However, with these assumptions in mind, the simulation results of a $log(\frac{1}{term\_length})$ show a spike in activity at the beginning of a term and then decay.
+Although future trading volume and liquidity are difficult to predict, the following analysis attempts to simulate the different scenarios. Due to market forces such as Yield Token Compounding, covered in a later section [(5.2)](#52-leveraging-and-yield-token-compounding), it is predicted that trading activity may be high. These simulations predict purchasing activity to decline as the maturity period of the term comes closer. However, this prediction may not be correct, since Yield Token Compounding (discussed in [Section 5](#5-market-forces)) and other market activities increase profit as the maturity period comes to an end. In the scenario where the maturity period is converging, purchasing activity could also be automated via vaults or tools such as Yearn. However, with these assumptions in mind, the simulation results of a $log(\frac{1}{term\_length})$ show a spike in activity at the beginning of a term and then decay.
 
 The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 10%:
 
@@ -246,25 +245,22 @@ The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 1
 
 <small>*Figure 3*</small>
 
-
 Order sizes are distributed as follows:
 
 ![](https://i.imgur.com/Ar2ak27.png)
 <br>
 <small>*Figure 4*</small>
 
-
-The following table shows various scenarios at different trading volumes. The final column shows the resulting output APR.
+The following table shows the various scenarios at different trading volumes. The final column shows the resulting output APR.
 
 |   target_liquidity |   trade_volume_sum |   mean_daily_volume |   apr |
 |------------------------:|--------------------------:|---------------------------:|-------------:|
 |              10,000,000 |               140,244,378 |                  1,558,271 |        12.38 |
 |              10,000,000 |               282,196,292 |                  3,135,514 |        21.51 |
 
-
 <small>*Table 2*</small>
 
-If these target volumes are maintained, staking on a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 12-21.5% APY depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
+If these target volumes are maintained, staking in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 12-21.5% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
 
 [This notebook](https://github.com/element-fi/analysis/blob/main/fyt-fee-analysis.ipynb) can be used to generate these tables with different parameters, term lengths, and APYs.
 
@@ -280,8 +276,7 @@ x^{1-t}+y^{1-t}=k\qquad(1)
 $x$ is the reserves of the base asset, $y$ is the reserves of the PT, $t$ is the time to maturity and $k$ is a constant. In the implementation, adjustments were made to the fee logic and parameterization. For a deep dive and analysis on the invariant and adjustments, reference Appendix [A](#a-pricing-principal-tokens) and [B](#b-convergent-curve-parameter-configuration).
 
 ##### Summarizing the Constant Power Sum Invariant
-
-The Constant Sum Invariant has a time component to it. The curve changes its behavior as the PTs reach their term maturity. At the beginning of a term period, the invariant allows for more price discovery and slippage, essentially adding in aspects of the constant product formula used by [Uniswap](http://uniswap.org/). At the end of the term period, the invariant operates more akin to a stable pair. It treats the base asset and the PTs more in line with how products like [Curve](http://curve.finance/) treat stable pair trades. It removes the additions of the constant product formula and increases the effect of the constant sum formula (used for 1:1 stable trades).
+The Constant Power Sum Invariant has a time component to it. The curve changes its behavior as the PTs reach their term's maturity. At the beginning of a term period, the invariant allows for more price discovery and slippage, essentially adding in aspects of the constant product formula used by [Uniswap](http://uniswap.org/). At the end of the term period, the invariant operates more akin to a stable pair. It treats the base asset and the PTs more in line with how products like [Curve](http://curve.finance/) treat stable pair trades. It removes the additions of the constant product formula and increases the effect of the constant sum formula (used for 1:1 stable trades).
 
 #### Parameterization
 This section is fairly advanced but important for users who are staking to understand. Before the staking pool for PTs initializes, certain parameters of the trading curve need to be agreed on by the stakers. Based on these parameters, it can affect the following areas:
@@ -292,41 +287,40 @@ This section is fairly advanced but important for users who are staking to under
 ##### Price Discoverability
 Price discoverability is another way to say "slippage". In Uniswap, for example, the slippage from a trade changes the price of both assets. A higher volume trade causes the price to shift more than a lower volume trade. This is true for all exchange types. There are cases where having too much price discoverability is sub-optimal, such as for stable pairs. In Element's case, the PTs converge in value to their base asset. Having high price discoverability as their value converges is not optimal. This assumes that lower APY positions should not see as much price discoverability.
 
-For example, a 20% APY position may tolerate higher shifts in its price than a 1% APY position. If sufficient volume purchases PTs going for 20% fixed APY, a 1% shift is not unreasonable. Alternatively, if a PT going for 1% fixed APY shifts by 1%, then its impact could be unreasonable.
+For example, a 20% APY position may tolerate higher shifts in its price than a 1% APY position. If sufficient volume purchases PTs going for 20% fixed APY, a 1% shift is not unreasonable. Alternatively, if a PT going for 1% fixed APY shifts by 1%, then its price impact could be unreasonable.
 
 ##### Staking Liquidity Ratios
-When staking PTs, a ratio with the base asset must be set. This ratio depends on the APY of the position and time left until maturity. For example, Uniswap sets the ratio purely based on price. If ETH is $2000 and DAI is $1, then someone staking on Uniswap must provide 2000 DAI for the 1 ETH staked. In the case of PTs, supporting a 1:1 ratio or less is optimal in order to keep higher exposure to PTs and the fixed yield it provides. Thus, staking 1 ETH for 1 ptETH seems reasonable. Staking 3 ETH for 1 ptETH seems less reasonable and staking 1 ETH for 2 ptETH seems even more reasonable.
+When staking PTs, a ratio with the base asset must be set. This ratio depends on the APY of the position and time left until maturity. For example, Uniswap sets the ratio purely based on price. If ETH is $2000 and DAI is $1, then someone staking on Uniswap must provide 2000 DAI for the 1 ETH staked. In the case of PTs, supporting a 1:1 ratio or less is optimal in order to keep higher exposure to PTs and the fixed yield it provides. Thus, staking 1 ETH for 1 ptETH seems reasonable. Staking 3 ETH for 1 ptETH seems less reasonable, and staking 1 ETH for 2 ptETH seems the most reasonable.
 
 ##### Trading Fees
-
-With higher slippage, the curve will incur higher trading fees. For lower slippage, the curve will incur lower trading fees. This means more price discoverability can be beneficial for stakers unless that price discoverability disincentivizes users from trading. As discussed above, lower APY positions should likely see less price discoverability, resulting in lower fees. Higher APY positions should see higher price discoverability, resulting in higher fees. At first glance, it appears that this would incentivize stakers to provide liquidity on higher APY positions. However, it is asserted that this is not necessarily true. BTC positions will likely see lower APY values in the long run rather than stable positions such as USDC. Users who prefer exposure to BTC and its positive growth in the future, would likely still want to maintain exposure to BTC vs. maintaining their exposure to USDC.
+With higher slippage, the curve will incur higher trading fees. For lower slippage, the curve will incur lower trading fees. This means more price discoverability can be beneficial for stakers unless that price discoverability disincentivizes users from trading. As discussed above, lower APY positions should likely see less price discoverability, resulting in lower fees. Higher APY positions should see higher price discoverability, resulting in higher fees. At first glance, it appears that this would incentivize stakers to provide liquidity on higher APY positions. However, it is asserted that this is not necessarily true. BTC positions will likely see lower APY values in the long run rather than stable positions such as USDC or DAI. Users who prefer exposure to BTC and its positive growth in the future, would likely still want to maintain exposure to BTC vs. maintaining their exposure to stablecoins.
 
 ##### Parameters
-The main parameter for initializing the staking pool is the time stretch factor. As discussed previously, the constant power sum invariant begins to act more like the curve supporting stable pairs as the term maturity approaches. In equation (1), `t` starts at 1 and approaches 0. Originally, it is set to represent a 1 year time period.
+The main parameter for initializing the staking pool is the time stretch factor. As discussed previously, the constant power sum invariant begins to act more like the curve supporting stable pairs as the term maturity approaches. In equation (1), `t` starts at 1 and approaches 0. Originally, it is set to represent a time period of one year.
 
 When the time factor is stretched to 10, 15, or 20 years, it indicates that the curve is initialized with a `t` value closer to 0 and acts more like a stable pair. The more the time factor is stretched, the less price discoverability there is. It also impacts the staking liquidity ratio and fees gained by those staking. Before launching a pool with the constant power sum invariant, the APY and stability of the position must be considered carefully. The desirable time stretch factor should have a favorable impact but also allow for proper price movements.
 
-There is a worst-case scenario where the parameterization chosen no longer becomes optimal for the staking pool. In this case, stakers should migrate to a new pool that provides more optimal settings. For example, the parameterization that serves a 20% APY position may no longer serve that position if its APY drops to 1%. In such drastic cases, stakers would likely need to migrate. If they do not, staking ratios or trading volumes may decrease but it's important to note that there would be no risk of loss.
+There is a worst-case scenario where the parameterization chosen no longer becomes optimal for the staking pool. In this case, stakers should migrate to a new pool that provides more optimal settings. For example, the parameterization that serves a 20% APY position may no longer serve that position favorably if its APY drops to 1%. In such drastic cases, stakers would likely need to migrate. If they do not, staking ratios or trading volumes may decrease but it's important to note that there would be no risk of loss.
 
 For a more advanced read, reference Appendix, [Section B](#b-convergent-curve-parameter-configuration). This section goes deeper into this process and analyzes the curve parameterization for the constant constant power sum invariant.
 
 ### 4.4 Staking Yield Tokens
 YTs are a bit harder to predict and do not have a known output value. They do, however, track their base asset proportionally, which means impermanent loss and other side effects are less likely. For YTs, Element will initially use the regular constant product formula and in future R&D, possibly pursue an alternative curve.
 
-YTs will have less liquidity since the yield held on a position will always be less in size than the principal, however, due to shifting APYs, YT compounding, and other structured products, it is expected that there will be significant volume and profitability in staking YTs on an AMM as well.
+YTs will have less liquidity since the yield held on a position will always be less than the principal. However, due to shifting APYs, Yield token compounding, and other structured products, it is expected that there will be significant volume and profitability in staking YTs on an AMM.
 
 ## 5. Market Forces
 High fixed rate yield is subsidized by the market forces described in this section. The casual user subsidizes the active DeFi user's strategies by securing a fixed rate yield at a discount on what the DeFi user earns. The active DeFi user’s participation subsidizes the value of the fixed rate yield. The below sections dive deeper into the various market forces.
 
 ### 5.1 Freeing Locked Principal, Capital Efficiency
-An active DeFi user now has a new avenue of capital efficiency in their market strategies. Currently, staking in a Yearn vault, ETH2 position, or other lending protocols lacks capital efficiency. The principal is locked up and they do not have additional avenues to profit off that principal.
+An active DeFi user now has a new avenue to increase capital efficiency in their market strategies. Currently, staking in a Yearn vault, ETH2 position, or other lending protocols lacks capital efficiency. The principal is locked up and they do not have additional avenues to profit off that principal.
 
 If a user deposits 10 ETH into a Yearn position receiving 20% APY, that user gains exposure to the 20% yield, but their principal of 10 ETH is locked up. They have no further avenues to use that principal and they cannot access it unless they want to withdraw from the position and lose access to the 20% yield exposure.
 
-In the Element Protocol, that user can free up their principal, allowing for additional paths of revenue. The user can simply sell their principal at a discount and use their new liquidity to enter other positions in the market. The user holds onto the YTs but sells their PTs.
+With the Element Protocol, that user can now free up their principal, allowing for additional paths of revenue. The user can simply sell their principal at a discount and use their new liquidity to enter other positions in the market. The user holds onto the YTs but sells their PTs.
 
 #### Example
-Jonny decides he wants to gain more exposure to yield. His initial capital of 10 ETH can enable him, through the Element protocol, to free up his locked capital. For the sake of simplicity, this example uses a 1-year lockup.
+Jonny decides he wants to gain more exposure to yield. His initial capital of 10 ETH can enable him, through the Element Protocol, to free up his locked capital. For the sake of simplicity, this example uses a one-year lockup.
 
 1. Jonny mints YTs and PTs into the Yearn yETH vault providing 20% APY.
 2. Jonny now has 10 ptETH representing his principal and 10 ytETH representing the yield to be accumulated over the next year.
@@ -335,9 +329,9 @@ Jonny decides he wants to gain more exposure to yield. His initial capital of 10
 5. Jonny now has 9 ETH and full exposure to 20% APY on 10 ETH. He is now free to reinvest the 9 ETH into any other position or mint and leverage further.
 
 ### 5.2 Leveraging and Yield Token Compounding
-Leveraging or yield token compounding follows in step from the previous section covering capital efficiency. By continuing to repeat the steps detailed above, this introduces a process called Yield Token Compounding, which increases a user's leverage recursively. Yield token compounding is the process of repeatedly selling principal to re-deposit and gain more exposure to the yield.
+Leveraging or yield token compounding follows in step from the previous section covering capital efficiency. By continuing to repeat the steps detailed above, this introduces a process called **Yield Token Compounding**, which increases a user's leverage recursively. Yield token compounding is the process of repeatedly selling the principal to re-deposit and gain further exposure to the yield.
 
-In simple terms, capital efficiency has been introduced to the user's position. The user no longer gains exposure to a yield position without efficacy or use of the principal. The principal is in turn, freed up.
+Capital efficiency has been introduced to the user's position. The user no longer gains exposure to a yield position without efficacy or use of the principal. The principal is in turn, freed up.
 
 #### Example
 As a simple example, multiple compounds may result in the following:
@@ -362,23 +356,22 @@ As a simple example, multiple compounds may result in the following:
 
 <small>*Table 3*</small>
 
-<sub>* Calculations in this example do not take into account gas fees, slippage, or trading fees to maintain simplicity. View [Appendix C](#c-compounding-and-yield-with-element) to see how the equations used to generate the data in Table 3 are derived and for analysis on compounding with real-world values.</sub>
+<sub>* Calculations in this example do not take into account gas fees, slippage, or trading fees to maintain simplicity. View [Appendix C](#c-compounding-and-yield-with-element) to see how the equations used to generate the data in Table 3 are derived and for further analysis on compounding with real-world values.</sub>
 
 | Final Redeemed Balance | Net Gain | Adjusted APY |
 | -------- | -------- | -------- |
 | 16.9 ETH     | 4.9 ETH     | **69%**    |
 
-
-After 10 cycles of yield token compounding, Jonny gains exposure to 6.5x as much yield of his initial balance. Jonny has essentially gained 6.5x leverage. The 65.13 ETH of exposure at 20% APY yields 13.02 ETH. He has 3.87 ETH in principal, giving him a total of 16.9 ETH. If he had traditionally invested his 10 ETH, without capital efficiency, he would have 12 ETH at the end of the year. Through yield token compounding, Jonny has netted 4.9 ETH and increased his yield from 20% APY to 69% APY. Jonny could continue the cycles of yield token compounding to boost his APY further.
+After 10 cycles of yield token compounding, Jonny gains exposure to 6.5x as much yield of his initial balance. Jonny has essentially gained 6.5x leverage. The 65.13 ETH of exposure at 20% APY yields 13.02 ETH. He has 3.87 ETH in principal, giving him a total of 16.9 ETH. If he had invested his 10 ETH traditionally, without capital efficiency, he would have 12 ETH at the end of the year. Through yield token compounding, Jonny has netted 4.9 ETH and increased his yield from 20% APY to 69% APY. Jonny could continue the cycles of yield token compounding to boost his APY further.
 
 #### Flash Loans to Further Leverage
 Yield token compounding can be achieved more efficiently via flash loans. In the table above, the 10th cycle of compounding leaves 3.87 ETH in available capital. This means the total capital expended was the difference, 6.13 ETH. The 10 compounding operations could be achieved via a flash loan with 6.13 ETH of capital. In the example above, it would take 6.13 ETH to gain exposure to 65.1 ETH in yield, effectively providing 10.6x leverage without liquidation risk.
 
 #### Market Effects
-Yield token compounding is a significant force in the Element ecosystem. It produces sell pressure and increases the APY of the PTs. In the example above, the compounder received 69% APY on ETH. In a competitive market, a compounder may be satisfied with 30% APY. In this case, the compounder would now be able to sell their principal for a higher discount, driving fixed rate yield higher.
+Yield token compounding will be a significant force in the Element ecosystem. It produces sell pressure and increases the APY of the PTs. In the example above, the compounder received 69% APY on ETH. In a competitive market, a compounder may be satisfied with 30% APY. In this case, the compounder would now be able to sell their principal for a higher discount, driving the fixed rate yield higher.
 
 #### Deeper Discussion
-Before going deeper into yield token compounding, read through the Appendix, [Section C](#c-compounding-and-yield-with-element) and [Section D](#d-yield-token-compounding-formulation), which provides an in-depth look into the analysis of its profitability and market effects. The analysis takes into account the effect of gas fees, slippage, term length, and liquidity in the compounding process. It also analyzes some of the risks not covered in this general writeup. Further, [Section D](#d-yield-token-compounding-formulation) explores a closed-form solution that can enable bots to partake in yield token compounding quickly. 
+Before going deeper into yield token compounding, read through the Appendix, [Section C](#c-compounding-and-yield-with-element) and [Section D](#d-yield-token-compounding-formulation), which provides an in-depth look into the analysis of its profitability and market effects. The analysis takes into account the effects of gas fees, slippage, term length, and liquidity in the compounding process. It also analyzes some of the risks not covered in this general writeup. Further, [Section D](#d-yield-token-compounding-formulation) explores a closed-form solution that can enable bots to partake in yield token compounding.
 
 ### 5.3 Sell Yield Tokens and Principal Tokens for Profit
 To illustrate leveraging or yield token compounding from a different perspective, the following graph shows the profitability of one leverage or compound operation depending on the current fixed rate of the PTs. The compound operation illustrated in the table below takes 10 ETH as input. The expenditure column is the total ETH lost by selling the minted YTs at a discount, aka the expenditure.
@@ -401,7 +394,7 @@ To illustrate leveraging or yield token compounding from a different perspective
 
 <sub>* Calculations in this example do not take into account gas fees, slippage, or trading fees to maintain simplicity. View [Appendix C](#c-compounding-and-yield-with-element) for analysis on compounding with real-world values.</sub>
 
-Due to market competitiveness, the act of yield token compounding appears to push the PT yield rates to increase. If PTs are going for 17% yield, one leverage or compounding operation yields 77.57% APY. In a competitive market, compounders should be okay with decreasing this margin..
+Due to market competitiveness, the act of yield token compounding appears to push the PT yield rates to increase. If PTs are going for 17% yield, one leverage or compounding operation yields 77.57% APY. In a competitive market, compounders should be okay with decreasing this margin.
 
 #### Yield Token Pricing
 |   Yield Position Yield |   PT Yield |   Total Expenditure |   Received at Maturity |    APY |
@@ -414,14 +407,14 @@ When evaluating the row in the table representing PTs going for 17% yield, there
 The ability to maintain exposure to the growth of a base asset while also generating yield is one of the main forces currently driving lending protocols. Many DeFi users take out loans in order to maintain exposure to ETH but also to grow their portfolio through the high APYs provided by stable pairs or other tokens. The following gives a more detailed example.
 
 #### Example
-As an example, Jonny likes ETH a lot. He believes ETH will grow significantly over the next year. However, Jonny also sees that he can receive 30% APY by staking stable coins such as DAI. Jonny does not want to swap his ETH for DAI to obtain the yield because he misses out on ETH's increase in price, which he believes will exceed the APY he obtains through staking DAI. Currently, the solution is simple. Jonny will do the following:
+As an example, Jonny likes ETH a lot. He believes ETH will grow significantly over the next year. However, Jonny also sees that he can receive 30% APY by staking stable coins such as DAI. Jonny does not want to trade his ETH for DAI to obtain the yield because he misses out on ETH's increase in price, which he believes will exceed the APY he obtains through staking DAI. Currently, the solution is simple. Jonny will do the following:
 
 **Method Via Lending or Collateralization**
 
 1. Jonny opens an over collateralized vault and borrows DAI.
 2. He stakes his borrowed DAI in a yield position giving him 30% APY.
 3. If the price of ETH rises, Jonny can borrow more DAI and gain more exposure to yield. He also realizes the gains on the price of ETH.
-4. If the price of ETH drops, Jonny adds additional collateral to avoid liquidation of his loan and losing his 150 Eth.
+4. If the price of ETH drops, Jonny adds additional collateral to avoid liquidation of his loan and losing his 150 ETH.
 
 ![](https://i.imgur.com/kzLA9pA.jpg)
 
@@ -432,8 +425,7 @@ Jonny now keeps his ETH and also gains yield on DAI. However, this process does 
 #### The Element Alternative
 Using the Element Protocol, there comes a new alternative. If the market conditions are right, a user can still maintain exposure to ETH or their preferred base asset, but without liquidation risks or needing to over collateralize. Users can also obtain capital efficiency and can use the majority of their preferred asset freely.
 
-Instead of taking out a loan to maintain exposure, it is now possible to mint PTs and YTs for an asset, then swap the PTs back for the preferred base asset. In this case, the YTs represent yield gained on the preferred yield position, but the user now holds a balance on their preferred base asset.
-
+Instead of taking out a loan to maintain exposure, it is now possible to mint PTs and YTs for an asset and trade the PTs back for the preferred base asset. In this case, the YTs represent yield gained on the preferred yield position, but the user now holds a balance on their preferred base asset.
 
 ##### Example
 
@@ -441,15 +433,15 @@ Instead of taking out a loan to maintain exposure, it is now possible to mint PT
 | -------- | -------- | -------- |
 | 7%     | 4%     | 3 Month     |
 
-1. Jonny has 150 ETH. He swaps the 150 ETH for 300,000 DAI.
-2. Jonny mints via the Element Protocol into a DAI backed yield position, yDAI.
-3. Jonny holds 300,000 eP:yDAI and 300,000 eY:yDAI
-4. Jonny sells his 300,000 eP:yDAI for Eth (at a 4% yearly discount, reduced due to the 3 month lockup), receiving 148.5 ETH
+1. Jonny has 150 ETH. He trades the 150 ETH for 300,000 DAI.
+2. Jonny mints via the Element Protocol into a DAI-backed yield position, yDAI.
+3. Jonny holds 300,000 eP:yDAI and 300,000 eY:yDAI.
+4. Jonny sells his 300,000 eP:yDAI for Eth (at a 4% yearly discount, reduced due to the 3-month term), receiving 148.5 ETH.
 
 Jonny now holds 148.5 Eth and maintains exposure to the yield of 300,000 DAI. Jonny has capital efficiency since he can now utilize his 148.5 ETH any way he wants. It is not locked up. He also has no liquidation risk and can now stake his 148.5 ETH on any platform, gaining yield to recoup the decrease. He has yield exposure to 100,000 additional DAI he would not have had if he had followed the traditional route.
 
 ### 5.5 Yield Tokens in Depth
-YTs are speculative instruments and the various market forces surrounding them can only hypothesized.
+YTs are speculative instruments and the various market forces surrounding them can therefore only be hypothesized.
 
 The following sections share the different forces that could affect the price of YTs. However, it is uncertain of what will be the dominating force.
 
@@ -460,19 +452,19 @@ Market Speculated Average Yield was covered in [Section 4](#4-minting-and-stakin
 As discussed in depth in [Section 4.2](#42-minting-in-depth), YTs accumulate a base value or principal over time. Each time the backing yield position compounds its yield, the YT grows in its intrinsic value. If a YT has accumulated 0.05 ETH in value and negative yield rates are impossible, the YT should have a minimum price of 0.05 ETH.
 
 #### Yield Position Fluctuating Yield
-If a yield position experiences significant increases or decreases in its offered yield that significantly deviates from its market expected average value, the YTs may see market activity adjusting its price accordingly. People in the market would likely start buying or selling the position in response, changing its price.
+If a yield position experiences a significant increase or decrease in its offered yield that significantly deviates from its market expected average value, the YTs may see market activity adjusting its price accordingly. People in the market would likely start buying or selling the position in response, ultimately changing its price.
 
 #### Principal Token Pricing
-As discussed in [Section](link), YTs may be sold alongside PTs after minting for immediate profit. If the price of a PTs rises or the price of a YTs rises, the total sell value may be > 1.
+As discussed in [Section 3.2](#32-buying-and-selling-opportunities-for-yield-tokens), YTs may be sold alongside PTs after minting for immediate profit. If the price of a PT rises or the price of a YT rises, the total sell value may be > 1.
 
-Due to yield token compounding and PT pricing, YTs may result in extremely high APYs. [This discussion](link) covers the explanation in-depth. Essentially, PTs are likely to be more of a dominating force in the market since they have more backing liquidity. As an example, minting 10ETH into a 20% APY position for a 3-month term produces 10 eP:ETH redeemable for 10ETH and 10 eY:ETH redeemable for 0.5 ETH. Since there is significantly more liquidity in the PT market, the price of PTs will be more difficult to shift than the price of YTs. The pricing of both are correlated, but it appears the pricing of PTs will drag along the price of YTs.
+Due to yield token compounding and PT pricing, YTs may result in extremely high APYs. [This discussion](#53-sell-yield-tokens-and-principal-tokens-for-profit) covers the explanation in-depth. Essentially, PTs are likely to be more of a dominating force in the market since they have more backing liquidity. As an example, minting 10ETH into a 20% APY position for a 3-month term produces 10 eP:ETH redeemable for 10ETH and 10 eY:ETH redeemable for 0.5 ETH. Since there is significantly more liquidity in the PT market, the price of PTs will be more difficult to shift than the price of YTs. The pricing of both are correlated, however, it appears the pricing of PTs will drag along the price of YTs.
 
-Consequently, the dominating effect on the price of YTs is uncertain. The market will find equilibrium somewhere. If their value reaches the equilibrium where both a PT and YT sell for 1, YTs will be a good buy, offering high APYs. These high APYs will likely cause purchasing activity, increasing their price. When their price increases, the combined value of both the PT and YT sell for > 1, which incentivizes users to mint and sell both their YT and PT for profit. Once the Element Protocol launches, it will be interesting to see how these forces end up pricing YTs.
+Consequently, the dominating effect on the price of YTs is uncertain. The market will find equilibrium somewhere. If their value reaches the equilibrium where both a PT and YT sell for 1, YTs will be a good buy, offering high APYs. These high APYs will likely cause purchasing activity, increasing their price. When their price increases, the combined value of both the PT and YT sell for > 1, which incentivizes users to mint and sell both their YT and PT for profit. Once the Element Protocol launches, it will be interesting to see how these market forces end up pricing YTs.
 
 A deeper analysis of this effect can be found in [Appendix C](#c-compounding-and-yield-with-element).
 
 ### 5.6 Summarizing the Market Forces
-To conclude the section, the diagram below provides a good visualization of all the market forces involved in both YTs and PTs:
+To conclude this section, the diagram below provides a good visualization of all the market forces involved in both YTs and PTs:
 
 ![](https://i.imgur.com/gEPDtdq.jpg)
 
@@ -487,32 +479,31 @@ The following is essentially a state machine diagram that represents the decisio
 ![](https://i.imgur.com/uuDNhmX.jpg)
 <small>*Figure 8*</small>
 
-## 6. Future of the Element Protocol
-The Element Protocol opens the door to a number of new primitives and structured financial products. This section explores just a few of the future concepts that can be built with the Element Protocol.
+## 6. Building on top of the Element Protocol
+The Element Protocol opens the door to a number of new primitives and structured financial products. This section explores a few of the future concepts that could be built with the Element Protocol.
 
 ### 6.1 Yield Ladders
 Yield Ladders are a way to gain exposure to a diversity of yield positions via YTs or PTs. They also act in a perpetual manner where expiries become irrelevant since a yield ladder consistently exposes itself to new terms and phases out the expiring terms automatically.
 
 **Actively Maximizing Yield Without Yield Ladders**
 
-[The analysis]() on yield token compounding reveals shorter-term periods will likely allow for higher APYs on PTs. During shorter-term periods, yield token compounders can afford to sell their principal at a higher yield rate. This has to do with reduced slippage on the custom trading curve used as maturity periods are shortened.
+[The analysis](#d-yield-token-compounding-formulation) on yield token compounding reveals shorter-term periods will likely allow for higher APYs on PTs. During shorter-term periods, yield token compounders can afford to sell their principal at a higher yield rate. This has to do with reduced slippage on the custom trading curve used as maturity periods are shortened.
 
-Additionally, it is likely the market will be more aggressive in pricing PTs during a shorter period. If a yield position is listed at 20% APY for ETH, it is likely the market will speculate the average accumulated yield during a 1 month period will be closer to 20% than during a 1 year period.
+Additionally, it is likely the market will be more aggressive in pricing PTs during a shorter period. If a yield position is listed at 20% APY for ETH, it is likely the market will speculate the average accumulated yield during one month will be closer to 20% than during one year.
 
 Due to market forces such as yield token compounding and minting for instant profit, the price of PTs appears to be coupled to the speculated average value as discussed earlier in this document. This means PTs would likely have higher APYs during shorter-term periods.
 
-If 1-month terms secure the highest rates, casual users who are looking to achieve the highest fixed rate yield would need to secure a new fixed rate term every month. This is less than ideal for those casual users who are not interested in actively managing their capital. It also can introduce additional tax burdens. Yield ladders solve this concern and also open the door to many other opportunities.
+If 1-month terms secure the highest fixed rates, casual users who are looking to achieve the highest fixed rate yield would need to secure a new fixed rate term every month. This is less than ideal for those casual users who are not interested in actively managing their capital. It also can introduce additional tax burdens. Yield ladders solve this concern and also unlock many other interesting opportunities.
 
 **Passively Maximizing Yield With Yield Ladders**
 
 A yield ladder is a system that gives exposure to multiple different PT or YT types. With respect to AMMs, a perpetual rolling pool could be introduced which optimizes for an average maturity period. Essentially, the AMM would automatically phase out expiring PTs and YTs while introducing new PTs and YTs with a target average maturity and APY.
 
-Imagine a Balancer pool that holds an average maturity of 2 weeks and only accepts the highest yield PTs and YTs. This pool would consistently introduce new terms and phase out old terms. The curve would weigh the pool's exposure by this average maturity date. Additionally, the pool could optimize to only introduce the highest yield PTs or YTs targeting the average maturity period. With both sets of criteria, this pool, exposed to multiple different terms, would maximize user's exposure to high APY without having to redeem and secure new rates every month. Users can also gain LP shares in the pool and diversify their exposure to many different positions or assets. The process of rolling new assets in and phasing old assets out is akin to [perpetual pools](https://docs.balancer.finance/guides/smart-pool-templates-gui/perpetual-synthetic-pool).
+Imagine a Balancer pool that holds an average maturity of 2 weeks and only accepts the highest yield PTs and YTs. This pool would consistently introduce new terms and phase out old terms. The curve would weigh the pool's exposure by this average maturity date. Additionally, the pool could optimize to only introduce the highest yield PTs or YTs targeting the average maturity period. With both sets of criteria, this pool, exposed to multiple different terms, would maximize user's exposure to high APY without having to redeem and secure new rates every month. Users can also gain LP shares in the pool and diversify their exposure to many different positions or assets. The process of rolling new assets in and phasing old assets out is akin to Balancer's use of [perpetual pools](https://docs.balancer.finance/guides/smart-pool-templates-gui/perpetual-synthetic-pool).
 
 ![](https://i.imgur.com/GKU7WYT.jpg)
 
 <small>*Figure 9*</small>
-
 
 In the example above, a Yield Ladder is strategized to take different terms of PTs and compound the redeemed value into the new terms. Half of the PTs deposited are allocated into the 6-Month term and half of the PTs are allocated into the 2-Week term redemptions. 
 
@@ -546,7 +537,6 @@ Yield Ladders do not only need to target the average maturity periods or high AP
 - Lending Positions or other yield categories
 
 ### 6.2 Principal Protected Product
-
 A much more risk-averse structured product that could be designed on top of the Element Protocol is one that guarantees a rate of return of at least the principal amount deposited, given that the deposit is held until maturity. 
 
 Such designs are typically suited to protect investors from unfavorable market cycles but for short enough compounding terms that allow users to exit the strategy and take on a different position if the market turns favorable. 
@@ -560,13 +550,11 @@ In the example above, the user automatically enters a 3-month term of fixed rate
 This mechanism combines both characteristics of a principal protected product and a compounding ladder. It provides users with continual liquidity while both components of the product (the PT and variable yield) remain fungible to allow the user to exit.
 
 ### 6.3 Ethereum 2.0
+Staking positions outside the DeFi space are pivotal and should be integrated into the Element Protocol. ETH2 is a prime example. As ETH2 staking positions are tokenized, the Element Protocol could issue fixed rate income collateralized by ETH2 validators. These positions not only bridge the protocol and DeFi space, but they also produce fixed rate yield with a respected collateral type, likely more friendly to institutions or risk-averse users.
 
-Staking positions outside the DeFi space are pivotal and should be integrated into the Element Protocol. ETH2 is a prime example. As ETH2 staking positions are tokenized, the Element Protocol can issue fixed rate income collateralized by ETH2 validators. These positions not only bridge the protocol and DeFi space, but they also produce fixed rate yield with a respected collateral type, likely more friendly to institutions or risk-averse users.
-
-Additionally, yield token compounding and other market effects become optimized. With ETH2, there is a known lower bound on future yield accumulated. This makes for more predictable and stable pricing on PTs and YTs and offers users more clarity on their future upside. As the Element Protocol expands, Layer 1 and Layer 2 collateralized fixed yield should become a core part of the Element ecosystem.
+Additionally, yield token compounding and other market effects become optimized. With ETH2, there is a known lower bound on future yield accumulated. This makes for more predictable and stable pricing on PTs and YTs and offers users more clarity on their future upside. As the Element Protocol expands, Layer 1 and Layer 2 collateralized fixed yield could become a core part of the Element ecosystem.
 
 ### 6.4 Principal Tokens as Collateral for Borrowing
-
 Yield Token Compounding becomes more efficient if a lending market is introduced using the PTs as collateral. Current lending protocols require over-collateralization.
 
 To be safe, one needs to over-collateralize to avoid liquidation. In flash crashes or other cases, even significant over-collateralization can initiate a liquidation.
@@ -578,8 +566,7 @@ As a complement to the yield token compounding or leveraging flow, one can colla
 If fixed rate terms are not offered, there is a small delta on over-collateralization to cover the unknown yield payments. Users could also buy eP:ETH on the market, use it as collateral for an ETH-backed loan while earning the fixed rate yield it provides. The user's fixed rate yield may end up exceeding the borrowing yield, ultimately gaining a profit.
 
 ## 7. Summary
-
-Element Finance is an open, self-sustaining, community-governed protocol that initially allows users to access BTC, ETH, USDC, DAI at a discount. Element introduces further avenues of capital efficiency to DeFi users and are is dedicated to continued innovation. The team is protocol first, introducing new primitives as the foundation for more products to be built in the DeFi space.
+Element Finance is an open, self-sustaining, community-governed protocol that initially allows users to access BTC, ETH, USDC, DAI at a discount. Element introduces further avenues of capital efficiency to DeFi users and is dedicated to continued innovation. The team is protocol first, focused on introducing new primitives as the foundation for more products to be built in the DeFi space.
 
 For more information, visit the [Element Finance Website](http://element.fi/). 
 
