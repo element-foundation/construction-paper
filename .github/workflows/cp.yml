@@ -11,15 +11,15 @@ jobs:
         with:
           args: >-  # allows you to break string into multiple lines
             --standalone
-            --template=construction-paper/GitHub.html5 
+            --template=GitHub.html5 
             -V linkcolor:blue 
             -V fontsize=12pt 
             --mathjax 
             -f markdown_github+tex_math_dollars 
             -t html5
-            construction-paper/Construction-Paper.md 
-            -o construction-paper/Construction-Paper.html 
+            Construction-Paper.md 
+            -o index.html 
       - name: update file and push to remote
         run: |
-          /bin/bash construction-paper/table-summary-script.sh
-          /bin/bash construction-paper/update-repo.sh
+          /bin/bash scripts/table-summary-script.sh
+          /bin/bash scripts/update-repo.sh
