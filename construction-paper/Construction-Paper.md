@@ -260,7 +260,7 @@ The following table shows the various scenarios at different trading volumes. Th
 
 <small>*Table 2*</small>
 
-If these target volumes are maintained, staking in a 20% APY position on dyCRVSTETH or a 10% PT purchase may boost to 12-21.5% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
+If these target volumes are maintained, staking in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 12-21.5% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
 
 [This notebook](https://github.com/element-fi/analysis/blob/main/fyt-fee-analysis.ipynb) can be used to generate these tables with different parameters, term lengths, and APYs.
 
