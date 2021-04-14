@@ -70,9 +70,9 @@ Element takes an alternative approach to tranching products, instead enabling ma
 
 - **Principal Tokens (PTs)**: The token representing the user's deposit value into the Element Protocol. These tokens are redeemable 1-for-1 for the underlying asset at maturity.
 - **Yield Tokens (YTs)**: The token representing the variable yield gain over the term period for the deposited underlying asset. 
-- **Principal Reserves**: The number of PTs staked in a pool pairing of the base asset and the PT. For example, the number of ptETH staked in the pool pairing of ETH/ptETH. 
+- **Principal Reserves**: The number of PTs staked in a pool pairing of the base asset and the PT. For example, the number of eP:yETH staked in the pool pairing of ETH/eP:yETH. 
 - **Base Asset**: The asset deposited into the Element Protocol (BTC, ETH, USDC, or DAI).
-- **Base Asset Reserves**: The number of base assets staked in a pool pairing of the base asset with the PTs of said base asset. For example, the number of ETH staked in the pool pairing of ETH/ptETH.
+- **Base Asset Reserves**: The number of base assets staked in a pool pairing of the base asset with the PTs of said base asset. For example, the number of ETH staked in the pool pairing of ETH/eP:yETH.
 - **Time Stretch Parameter**: A parameter used in the trading curve that affects the price discoverability, fees, and staking ratio of the base asset to PTs.
 - **Annual Percentage Yield (APY)**: Annual Percentage Yield is a time-based measurement of the Return On Investment (ROI) on an asset.
     - For example, $100 invested at 5% APY would yield $105 after one year, if there is no compounding of any yield earned on that $100 through the year. Assuming a static APY rate, the Monthly ROI would be 0.41%. 
@@ -136,7 +136,7 @@ A spot trader, Anna, may choose to take a trading position between 2 to 4 weeks.
 
 In concluding the trade, her total assets sum up to $221,815. If she had taken a BTC position instead of an eP:BTC position, her total asset sum would be a total of $220,000. By using PTs as her primary trading instrument, she gained an additional component of profitability in the form of fixed yield on top of her typical trading profits.
 
-## 2.2 Building on top of the Element Protocol
+## 2.2 Future Use Cases of Principal Tokens
 After the Element protocol has been released, a number of future structured products can be built on top of its foundation which may further drive demand for purchasing PTs. [Section 6](#6-building-on-top-of-the-element-protocol) provides an in-depth look at some of the potential structured products that could be built on top of the Element Protocol: 
 
 1. 1:1 Collateralized Loans
@@ -290,7 +290,7 @@ Price discoverability is another way to say "slippage". In Uniswap, for example,
 For example, a 20% APY position may tolerate higher shifts in its price than a 1% APY position. If sufficient volume purchases PTs going for 20% fixed APY, a 1% shift is not unreasonable. Alternatively, if a PT going for 1% fixed APY shifts by 1%, then its price impact could be unreasonable.
 
 ##### Staking Liquidity Ratios
-When staking PTs, a ratio with the base asset must be set. This ratio depends on the APY of the position and time left until maturity. For example, Uniswap sets the ratio purely based on price. If ETH is $2000 and DAI is $1, then someone staking on Uniswap must provide 2000 DAI for the 1 ETH staked. In the case of PTs, supporting a 1:1 ratio or less is optimal in order to keep higher exposure to PTs and the fixed yield it provides. Thus, staking 1 ETH for 1 ptETH seems reasonable. Staking 3 ETH for 1 ptETH seems less reasonable, and staking 1 ETH for 2 ptETH seems the most reasonable.
+When staking PTs, a ratio with the base asset must be set. This ratio depends on the APY of the position and time left until maturity. For example, Uniswap sets the ratio purely based on price. If ETH is $2000 and DAI is $1, then someone staking on Uniswap must provide 2000 DAI for the 1 ETH staked. In the case of PTs, supporting a 1:1 ratio or less is optimal in order to keep higher exposure to PTs and the fixed yield it provides. Thus, staking 1 ETH for 1 eP:yETH seems reasonable. Staking 3 ETH for 1 eP:yETH seems less reasonable, and staking 1 ETH for 2 eP:yETH seems the most reasonable.
 
 ##### Trading Fees
 With higher slippage, the curve will incur higher trading fees. For lower slippage, the curve will incur lower trading fees. This means more price discoverability can be beneficial for stakers unless that price discoverability disincentivizes users from trading. As discussed above, lower APY positions should likely see less price discoverability, resulting in lower fees. Higher APY positions should see higher price discoverability, resulting in higher fees. At first glance, it appears that this would incentivize stakers to provide liquidity on higher APY positions. However, it is asserted that this is not necessarily true. BTC positions will likely see lower APY values in the long run rather than stable positions such as USDC or DAI. Users who prefer exposure to BTC and its positive growth in the future, would likely still want to maintain exposure to BTC vs. maintaining their exposure to stablecoins.
@@ -323,8 +323,8 @@ With the Element Protocol, that user can now free up their principal, allowing f
 Jonny decides he wants to gain more exposure to yield. His initial capital of 10 ETH can enable him, through the Element Protocol, to free up his locked capital. For the sake of simplicity, this example uses a one-year lockup.
 
 1. Jonny mints YTs and PTs into the Yearn yETH vault providing 20% APY.
-2. Jonny now has 10 ptETH representing his principal and 10 ytETH representing the yield to be accumulated over the next year.
-3. Due to people minting and staking YTs and an active market, Jonny may now sell his principal of 10 ptETH to reinvest.
+2. Jonny now has 10 eP:yETH representing his principal and 10 eY:yETH representing the yield to be accumulated over the next year.
+3. Due to people minting and staking YTs and an active market, Jonny may now sell his principal of 10 eP:yETH to reinvest.
 4. PTs are going for a 10% fixed rate yield on ETH. He sells his principal at a discount for ETH, receiving 9 ETH.
 5. Jonny now has 9 ETH and full exposure to 20% APY on 10 ETH. He is now free to reinvest the 9 ETH into any other position or mint and leverage further.
 
