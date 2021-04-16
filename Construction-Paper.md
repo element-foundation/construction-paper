@@ -394,7 +394,7 @@ To illustrate leveraging or yield token compounding from a different perspective
 
 <sub>* Calculations in this example do not take into account gas fees, slippage, or trading fees to maintain simplicity. View [Appendix C](#c-compounding-and-yield-with-element) for analysis on compounding with real-world values.</sub>
 
-Due to market competitiveness, the act of yield token compounding appears to push the PT yield rates to increase. If PTs are going for 17% yield, one leverage or compounding operation yields 77.57% APY. In a competitive market, compounders should be okay with decreasing this margin.
+Due to market competitiveness, the act of yield token compounding appears to push the PT yield rates to increase. If PTs are going for 17% yield, one leverage or compounding operation yields 71.57% APY. In a competitive market, compounders should be okay with decreasing this margin.
 
 #### Yield Token Pricing
 |   Yield Position Yield |   PT Yield |   Total Expenditure |   Received at Maturity |    APY |
