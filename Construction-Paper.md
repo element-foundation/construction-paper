@@ -623,7 +623,7 @@ n&=\frac{PT_1}{\bcancel{ETH}} \cdot\frac{\bcancel{ETH}}{PT_2}\\
 &=\frac{PT_1}{PT_2}\qquad{\unicode{x2714}}
 \end{aligned}
 
-#### Implementing a Principle Token (PT) Market
+#### Implementing a Principal Token (PT) Market
 
 Recalling the brief introduction to the constant power sum invariant from earlier a small modification can be made to equation (1) to demonstrate how it can be used to calculate the price of outgoing assets in terms of incoming assets:
 
