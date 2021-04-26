@@ -878,7 +878,7 @@ There are several observations to note here. First off, the dash line represents
 
 ### Selecting a Time Stretch
 
-The following plot shows what time stretches satisfy 0.5 $\le$ reserve ratio $\le$ 2 and allow price discovery of +/- 50% of APY_{PT}$:
+The following plot shows what time stretches satisfy 0.5 $\le$ reserve ratio $\le$ 2 and allow price discovery of +/- 50% of $APY_{PT}$:
 
 ![](https://i.imgur.com/jhgMmbT.png)
 <br>
