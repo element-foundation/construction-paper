@@ -513,7 +513,7 @@ This extends the functionality of PTs into a form of a Fixed Yield Fund or a Lad
 
 A buy and stake type of ladder could be used for users who do not want to speculate on variable yield and would rather accrue fees from simply providing liquidity. As opposed to a basic compounding Yield Ladder, this specific ladder would be a compounding Fixed Rate LP Yield Ladder.
 
-![](https://i.imgur.com/mMQsNN1.jpg)
+![](https://i.imgur.com/svi85Ob.jpg)
 
 <small>*Figure 10*</small>
 
