@@ -827,7 +827,7 @@ SOFTWARE.
 <h4 id="time-stretch-vs-price-discovery">Time Stretch vs. Price Discovery</h4>
 <p>In order to determine the impact of the time stretch on price discovery, the max possible trade must be calculated first. To do that, first, recall the pricing invariant from Appendix <a href="#b-convergent-curve-parameter-configuration">Section B</a>:</p>
 <p>\begin{equation} (out_r-out_q)^{1-\frac{t}{t_{stretch}}}+(in_r+in_q)^{1-\frac{t}{t_{stretch}}}=k\qquad(14) \end{equation}</p>
-<p>solving for <span class="math inline">\(out_q\)</span> is equivalent to the formula for <strong>CalculateOutGivenIn</strong>:</p>
+<p>solving for <span class="math inline">\(out_q\)</span> is equivalent to the formula for <strong>CalculateOutGivenIn</strong> (7):</p>
 <p>\begin{equation} out_q=out_r-\left(k-\left(in_r+in_q\right)^{\left({1-\frac{t}{t_{stretch}}}\right)}\right)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}\qquad(15) \end{equation}</p>
 <blockquote>
 <p>Note: Equivalent insights can be developed by using the <strong>CalculateInGivenOut</strong> variation</p>
