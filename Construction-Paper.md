@@ -797,13 +797,13 @@ In order to determine the impact of the time stretch on price discovery,  the ma
 (out_r-out_q)^{1-\frac{t}{t_{stretch}}}+(in_r+in_q)^{1-\frac{t}{t_{stretch}}}=k\qquad(14)
 \end{equation}
 
-solving for $out_q$ is equivalent to the formula for [CalculateOutGivenIn](https://hackmd.io/d-hgR3ZDSVCQvlJ0qEJx2g?view#Calculate-Out-Given-In):
+solving for $out_q$ is equivalent to the formula for **CalculateOutGivenIn** (7):
 
 \begin{equation}
 out_q=out_r-\left(k-\left(in_r+in_q\right)^{\left({1-\frac{t}{t_{stretch}}}\right)}\right)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}\qquad(15)
 \end{equation}
 
-> Note: Equivalent insights can be developed by using the [CalculateInGivenOut](https://hackmd.io/d-hgR3ZDSVCQvlJ0qEJx2g?view#Calculate-In-Given-Out) variation
+> Note: Equivalent insights can be developed by using the **CalculateInGivenOut** (8) variation
 
 Looking at equation (15), it is important to note that:
 
