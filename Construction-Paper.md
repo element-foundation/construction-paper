@@ -803,7 +803,7 @@ solving for $out_q$ is equivalent to the formula for **CalculateOutGivenIn** (7)
 out_q=out_r-\left(k-\left(in_r+in_q\right)^{\left({1-\frac{t}{t_{stretch}}}\right)}\right)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}\qquad(15)
 \end{equation}
 
-> Note: Equivalent insights can be developed by using the **CalculateInGivenOut** variation
+> Note: Equivalent insights can be developed by using the **CalculateInGivenOut** (8) variation
 
 Looking at equation (15), it is important to note that:
 
