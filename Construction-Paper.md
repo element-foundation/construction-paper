@@ -638,7 +638,7 @@ where $out_r$ is the reserves of the outgoing asset, $out_q$ is the quantity of 
 If a user wants to know how much of an asset they will receive for some input quantity, you solve (6) for $out_q$:
 
 \begin{equation}
-GivenIn(out_r,in_r,in_q,k,t)=out_r-\left(k-\left(in_r+in_q\right)^{\left(1-t\right)}\right)^{\frac{1}{1-t}}\qquad(7)
+CalcOutGivenIn(out_r,in_r,in_q,k,t)=out_r-\left(k-\left(in_r+in_q\right)^{\left(1-t\right)}\right)^{\frac{1}{1-t}}\qquad(7)
 \end{equation}
 
 If the output is base tokens, the fee earned by LPs is calculated as follows:
