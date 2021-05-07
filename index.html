@@ -772,7 +772,8 @@ SOFTWARE.
 <p>where <span class="math inline">\(out_r\)</span> is the reserves of the outgoing asset, <span class="math inline">\(out_q\)</span> is the quantity of the outgoing asset, <span class="math inline">\(in_r\)</span> is the reserves of the incoming asset, <span class="math inline">\(in_q\)</span> is the quantity of the incoming asset, <span class="math inline">\(t\)</span> is the time to maturity and <span class="math inline">\(k\)</span> is a constant.</p>
 <h5 id="calculate-out-given-in">Calculate Out Given In</h5>
 <p>If a user wants to know how much of an asset they will receive for some input quantity, you solve (6) for <span class="math inline">\(out_q\)</span>:</p>
-<p>\begin{equation} CalcOutGivenIn(out_r,in_r,in_q,k,t)=out_r-\left(k-\left(in_r+in_q\right)^{\left(1-t\right)}\right)^{\frac{1}{1-t}}\qquad(7) \end{equation}</p>
+<p>\begin{equation}</p>
+<p>GivenIn(out_r,in_r,in_q,k,t)=out_r-\left(k-\left(in_r+in_q\right)^{\left(1-t\right)}\right)^{\frac{1}{1-t}}\qquad(7) \end{equation}</p>
 <p>If the output is base tokens, the fee earned by LPs is calculated as follows:</p>
 <p>\begin{equation} fee = (in_q - CalcOutGivenIn(out_r,in_r,in_q,k,t)) \times \phi \end{equation}</p>
 <p>where <span class="math inline">\(\phi\)</span> represents the percent fee charged on the price spread.</p>
@@ -827,10 +828,10 @@ SOFTWARE.
 <h4 id="time-stretch-vs-price-discovery">Time Stretch vs. Price Discovery</h4>
 <p>In order to determine the impact of the time stretch on price discovery, the max possible trade must be calculated first. To do that, first, recall the pricing invariant from Appendix <a href="#b-convergent-curve-parameter-configuration">Section B</a>:</p>
 <p>\begin{equation} (out_r-out_q)^{1-\frac{t}{t_{stretch}}}+(in_r+in_q)^{1-\frac{t}{t_{stretch}}}=k\qquad(14) \end{equation}</p>
-<p>solving for <span class="math inline">\(out_q\)</span> is equivalent to the formula for <a href="https://hackmd.io/d-hgR3ZDSVCQvlJ0qEJx2g?view#Calculate-Out-Given-In">CalculateOutGivenIn</a>:</p>
+<p>solving for <span class="math inline">\(out_q\)</span> is equivalent to the formula for <strong>CalculateOutGivenIn</strong>:</p>
 <p>\begin{equation} out_q=out_r-\left(k-\left(in_r+in_q\right)^{\left({1-\frac{t}{t_{stretch}}}\right)}\right)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}\qquad(15) \end{equation}</p>
 <blockquote>
-<p>Note: Equivalent insights can be developed by using the <a href="https://hackmd.io/d-hgR3ZDSVCQvlJ0qEJx2g?view#Calculate-In-Given-Out">CalculateInGivenOut</a> variation</p>
+<p>Note: Equivalent insights can be developed by using the <strong>CalculateInGivenOut</strong> variation</p>
 </blockquote>
 <p>Looking at equation (15), it is important to note that:</p>
 <p>\begin{equation} k-\left(in_r+in_q\right)^{\left({1-\frac{t}{t_{stretch}}}\right)} \geq 0 \end{equation}</p>
