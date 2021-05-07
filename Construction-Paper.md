@@ -638,7 +638,8 @@ where $out_r$ is the reserves of the outgoing asset, $out_q$ is the quantity of 
 If a user wants to know how much of an asset they will receive for some input quantity, you solve (6) for $out_q$:
 
 \begin{equation}
-CalcOutGivenIn(out_r,in_r,in_q,k,t)=out_r-\left(k-\left(in_r+in_q\right)^{\left(1-t\right)}\right)^{\frac{1}{1-t}}\qquad(7)
+
+GivenIn(out_r,in_r,in_q,k,t)=out_r-\left(k-\left(in_r+in_q\right)^{\left(1-t\right)}\right)^{\frac{1}{1-t}}\qquad(7)
 \end{equation}
 
 If the output is base tokens, the fee earned by LPs is calculated as follows:
@@ -797,13 +798,13 @@ In order to determine the impact of the time stretch on price discovery,  the ma
 (out_r-out_q)^{1-\frac{t}{t_{stretch}}}+(in_r+in_q)^{1-\frac{t}{t_{stretch}}}=k\qquad(14)
 \end{equation}
 
-solving for $out_q$ is equivalent to the formula for [CalculateOutGivenIn](https://hackmd.io/d-hgR3ZDSVCQvlJ0qEJx2g?view#Calculate-Out-Given-In):
+solving for $out_q$ is equivalent to the formula for **CalculateOutGivenIn**:
 
 \begin{equation}
 out_q=out_r-\left(k-\left(in_r+in_q\right)^{\left({1-\frac{t}{t_{stretch}}}\right)}\right)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}\qquad(15)
 \end{equation}
 
-> Note: Equivalent insights can be developed by using the [CalculateInGivenOut](https://hackmd.io/d-hgR3ZDSVCQvlJ0qEJx2g?view#Calculate-In-Given-Out) variation
+> Note: Equivalent insights can be developed by using the **CalculateInGivenOut** variation
 
 Looking at equation (15), it is important to note that:
 
