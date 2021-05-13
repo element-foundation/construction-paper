@@ -854,14 +854,14 @@ when $in_q$ = $Max_{input\ trade}$. Now that it is known what $out_q$ is when in
 Max\ Unit\ Price_{PT} &= \frac{x_r}{Max_{input\ trade}}\qquad(17)
 \end{aligned}
 
-Solving for $APY_{PT}$ from equation (1) it is known that:
+Solving for $APY_{PT}$ from equation (9) it is known that:
 
 \begin{aligned}
 \require{cancel}
 APY_{PT}=\frac{(1-Unit\ Price_{PT})}{t}\times100\qquad(18)
 \end{aligned}
 
-Combining (9) & (10) to get the resulting APY:
+Combining (17) & (18) to get the resulting APY:
 
 \begin{aligned}
 \require{cancel}
