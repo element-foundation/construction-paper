@@ -90,8 +90,8 @@ SOFTWARE.
 <ul>
 <li><a href="#41-terms">4.1 Terms</a></li>
 <li><a href="#42-minting-in-depth">4.2 Minting in Depth</a></li>
-<li><a href="#43-staking-principal-tokens">4.3 Staking Principal Tokens</a></li>
-<li><a href="#44-staking-yield-tokens">4.4 Staking Yield Tokens</a></li>
+<li><a href="#43-providing-liquidity-for-principal-tokens">4.3 Providing Liquidity for Principal Tokens</a></li>
+<li><a href="#44-providing-liquidity-for-yield-tokens">4.4 Providing Liquidity for Yield Tokens</a></li>
 </ul></li>
 <li><a href="#5-market-forces">5. Market Forces</a>
 <ul>
@@ -321,12 +321,12 @@ SOFTWARE.
 <li>0.99855 <code>eP:ywBTC:01-MAR-2021-GMT</code></li>
 <li>1 <code>eY:ywBTC:01-MAR-2021-GMT</code></li>
 </ul>
-<h3 id="43-staking-principal-tokens">4.3 Staking Principal Tokens</h3>
-<p>If a user is already depositing into Yearn, they can boost their APY even further by minting PTs and YTs. After minting both the PTs and YTs, the user may stake them on an AMM, providing liquidity to the market on fixed rate or variable yield. The user now earns additional APY via trading fees from the AMM.</p>
-<h4 id="staking-profitability-analysis">Staking Profitability Analysis</h4>
+<h3 id="43-providing-liquidity-for-principal-tokens">4.3 Providing Liquidity for Principal Tokens</h3>
+<p>If a user is already depositing into Yearn, they can boost their APY even further by minting PTs and YTs. After minting both the PTs and YTs, the user may provide liquidity to the market on fixed rate or variable yield. The user now earns additional APY via trading fees from the AMM.</p>
+<h4 id="lp-profitability-analysis">LP Profitability Analysis</h4>
 <p>Although future trading volume and liquidity are difficult to predict, the following analysis attempts to simulate the different scenarios. Due to market forces such as Yield Token Compounding, covered in a later section <a href="#52-leveraging-and-yield-token-compounding">(5.2)</a>, it is predicted that trading activity may be high. These simulations predict purchasing activity to decline as the maturity period of the term comes closer. However, this prediction may not be correct, since Yield Token Compounding (discussed in <a href="#5-market-forces">Section 5</a>) and other market activities increase profit as the maturity period comes to an end. In the scenario where the maturity period is converging, purchasing activity could also be automated via vaults or tools such as Yearn. However, with these assumptions in mind, the simulation results of a <span class="math inline">\(log(\frac{1}{term\_length})\)</span> show a spike in activity at the beginning of a term and then decay.</p>
 <p>The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 10%:</p>
-<p><img src="https://i.imgur.com/QYKf5Dh.png" /></p>
+<p><img src="https://github.com/element-fi/construction-paper/blob/fde42466eb6940a33aa5aa75ac8aa0204026c2be/images/cp-fee-analysis.png" /></p>
 <p><small><em>Figure 3</em></small></p>
 <p>Order sizes are distributed as follows:</p>
 <p><img src="https://i.imgur.com/Ar2ak27.png" /> <br> <small><em>Figure 4</em></small></p>
@@ -343,20 +343,20 @@ SOFTWARE.
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">10,000,000</td>
-<td style="text-align: right;">140,244,378</td>
-<td style="text-align: right;">1,558,271</td>
-<td style="text-align: right;">12.38</td>
+<td style="text-align: right;">140,113,083</td>
+<td style="text-align: right;">1,556,812</td>
+<td style="text-align: right;">11.76</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">10,000,000</td>
-<td style="text-align: right;">282,196,292</td>
-<td style="text-align: right;">3,135,514</td>
-<td style="text-align: right;">21.51</td>
+<td style="text-align: right;">276,382,190</td>
+<td style="text-align: right;">3,070,913</td>
+<td style="text-align: right;">20.34</td>
 </tr>
 </tbody>
 </table>
 <p><small><em>Table 2</em></small></p>
-<p>If these target volumes are maintained, staking in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 12-21.5% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair.</p>
+<p>If these target volumes are maintained, staking in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 11.76-20.34% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair.</p>
 <p><a href="https://github.com/element-fi/analysis/blob/main/fyt-fee-analysis.ipynb">This notebook</a> can be used to generate these tables with different parameters, term lengths, and APYs.</p>
 <h4 id="trading-curve">Trading Curve</h4>
 <p>For staking PTs, Element provides a custom trading curve built on Balancer V2 that reduces slippage and impermanent loss. Since the PTs inevitably merge in value to their underlying asset along with this behavior having many degrees of predictability, a curve can be used that operates in yield space and supports this predictability.</p>
@@ -384,9 +384,9 @@ SOFTWARE.
 <p>When the time factor is stretched to 10, 15, or 20 years, it indicates that the curve is initialized with a <code>t</code> value closer to 0 and acts more like a stable pair. The more the time factor is stretched, the less price discoverability there is. It also impacts the staking liquidity ratio and fees gained by those staking. Before launching a pool with the constant power sum invariant, the APY and stability of the position must be considered carefully. The desirable time stretch factor should have a favorable impact but also allow for proper price movements.</p>
 <p>There is a worst-case scenario where the parameterization chosen no longer becomes optimal for the staking pool. In this case, stakers should migrate to a new pool that provides more optimal settings. For example, the parameterization that serves a 20% APY position may no longer serve that position favorably if its APY drops to 1%. In such drastic cases, stakers would likely need to migrate. If they do not, staking ratios or trading volumes may decrease but it's important to note that there would be no risk of loss.</p>
 <p>For a more advanced read, reference Appendix, <a href="#b-convergent-curve-parameter-configuration">Section B</a>. This section goes deeper into this process and analyzes the curve parameterization for the constant constant power sum invariant.</p>
-<h3 id="44-staking-yield-tokens">4.4 Staking Yield Tokens</h3>
+<h3 id="44-providing-liquidity-for-yield-tokens">4.4 Providing Liquidity for Yield Tokens</h3>
 <p>YTs are a bit harder to predict and do not have a known output value. They do, however, track their base asset proportionally, which means impermanent loss and other side effects are less likely. For YTs, Element will initially use the regular constant product formula and in future R&amp;D, possibly pursue an alternative curve.</p>
-<p>YTs will have less liquidity since the yield held on a position will always be less than the principal. However, due to shifting APYs, Yield token compounding, and other structured products, it is expected that there will be significant volume and profitability in staking YTs on an AMM.</p>
+<p>YTs will have less liquidity since the yield held on a position will always be less than the principal. However, due to shifting APYs, Yield token compounding, and other structured products, it is expected that there will be significant volume and profitability in providing liquidity for YTs on an AMM.</p>
 <h2 id="5-market-forces">5. Market Forces</h2>
 <p>High fixed rate yield is subsidized by the market forces described in this section. The casual user subsidizes the active DeFi user's strategies by securing a fixed rate yield at a discount on what the DeFi user earns. The active DeFi user’s participation subsidizes the value of the fixed rate yield. The below sections dive deeper into the various market forces.</p>
 <h3 id="51-freeing-locked-principal-capital-efficiency">5.1 Freeing Locked Principal, Capital Efficiency</h3>
