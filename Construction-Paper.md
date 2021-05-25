@@ -22,8 +22,8 @@
 * [4. Minting and Staking](#4-minting-and-staking)
     * [4.1 Terms](#41-terms)
     * [4.2 Minting in Depth](#42-minting-in-depth)
-    * [4.3 Staking Principal Tokens](#43-staking-principal-tokens)
-    * [4.4 Staking Yield Tokens](#44-staking-yield-tokens)
+    * [4.3 Providing Liquidity for Principal Tokens](#43-providing-liquidity-for-principal-tokens)
+    * [4.4 Providing Liquidity for Yield Tokens](#44-providing-liquidity-for-yield-tokens)
 * [5. Market Forces](#5-market-forces)
     * [5.1 Freeing Locked Principal, Capital Efficiency](#51-freeing-locked-principal-capital-efficiency)
     * [5.2 Leveraging and Yield Token Compounding](#52-leveraging-and-yield-token-compounding)
@@ -233,15 +233,15 @@ The Element Protocol is optimized for users accumulating YTs, and therefore redu
 * 0.99855 `eP:ywBTC:01-MAR-2021-GMT`
 * 1 `eY:ywBTC:01-MAR-2021-GMT`
 
-### 4.3 Staking Principal Tokens
-If a user is already depositing into Yearn, they can boost their APY even further by minting PTs and YTs. After minting both the PTs and YTs, the user may stake them on an AMM, providing liquidity to the market on fixed rate or variable yield. The user now earns additional APY via trading fees from the AMM.
+### 4.3 Providing Liquidity for Principal Tokens
+If a user is already depositing into Yearn, they can boost their APY even further by minting PTs and YTs. After minting both the PTs and YTs, the user may provide liquidity to the market on fixed rate or variable yield. The user now earns additional APY via trading fees from the AMM.
 
-#### Staking Profitability Analysis
+#### LP Profitability Analysis
 Although future trading volume and liquidity are difficult to predict, the following analysis attempts to simulate the different scenarios. Due to market forces such as Yield Token Compounding, covered in a later section [(5.2)](#52-leveraging-and-yield-token-compounding), it is predicted that trading activity may be high. These simulations predict purchasing activity to decline as the maturity period of the term comes closer. However, this prediction may not be correct, since Yield Token Compounding (discussed in [Section 5](#5-market-forces)) and other market activities increase profit as the maturity period comes to an end. In the scenario where the maturity period is converging, purchasing activity could also be automated via vaults or tools such as Yearn. However, with these assumptions in mind, the simulation results of a $log(\frac{1}{term\_length})$ show a spike in activity at the beginning of a term and then decay.
 
 The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 10%:
 
-![](https://i.imgur.com/QYKf5Dh.png)
+![](https://github.com/element-fi/construction-paper/blob/fde42466eb6940a33aa5aa75ac8aa0204026c2be/images/cp-fee-analysis.png)
 
 <small>*Figure 3*</small>
 
@@ -255,12 +255,13 @@ The following table shows the various scenarios at different trading volumes. Th
 
 |   target_liquidity |   trade_volume_sum |   mean_daily_volume |   apr |
 |------------------------:|--------------------------:|---------------------------:|-------------:|
-|              10,000,000 |               140,244,378 |                  1,558,271 |        12.38 |
-|              10,000,000 |               282,196,292 |                  3,135,514 |        21.51 |
+|              10,000,000 |               140,113,083 |                  1,556,812 |        11.76 |
+|              10,000,000 |               276,382,190 |                  3,070,913 |        20.34 |
+
 
 <small>*Table 2*</small>
 
-If these target volumes are maintained, staking in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 12-21.5% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
+If these target volumes are maintained, staking in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 11.76-20.34% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
 
 [This notebook](https://github.com/element-fi/analysis/blob/main/fyt-fee-analysis.ipynb) can be used to generate these tables with different parameters, term lengths, and APYs.
 
@@ -304,10 +305,10 @@ There is a worst-case scenario where the parameterization chosen no longer becom
 
 For a more advanced read, reference Appendix, [Section B](#b-convergent-curve-parameter-configuration). This section goes deeper into this process and analyzes the curve parameterization for the constant constant power sum invariant.
 
-### 4.4 Staking Yield Tokens
+### 4.4 Providing Liquidity for Yield Tokens
 YTs are a bit harder to predict and do not have a known output value. They do, however, track their base asset proportionally, which means impermanent loss and other side effects are less likely. For YTs, Element will initially use the regular constant product formula and in future R&D, possibly pursue an alternative curve.
 
-YTs will have less liquidity since the yield held on a position will always be less than the principal. However, due to shifting APYs, Yield token compounding, and other structured products, it is expected that there will be significant volume and profitability in staking YTs on an AMM.
+YTs will have less liquidity since the yield held on a position will always be less than the principal. However, due to shifting APYs, Yield token compounding, and other structured products, it is expected that there will be significant volume and profitability in providing liquidity for YTs on an AMM.
 
 ## 5. Market Forces
 High fixed rate yield is subsidized by the market forces described in this section. The casual user subsidizes the active DeFi user's strategies by securing a fixed rate yield at a discount on what the DeFi user earns. The active DeFi user’s participation subsidizes the value of the fixed rate yield. The below sections dive deeper into the various market forces.
