@@ -247,7 +247,7 @@ The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 1
 
 Order sizes are distributed as follows:
 
-![](https://i.imgur.com/Ar2ak27.png)
+![](https://github.com/element-fi/construction-paper/blob/753620a14b4a05a6f97e275e90270a552c1ae151/images/order-size-dist.png)
 <br>
 <small>*Figure 4*</small>
 
