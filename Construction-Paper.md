@@ -19,7 +19,7 @@
 * [3. Yield Tokens](#3-yield-tokens)
     * [3.1 Yield Token Pricing](#31-yield-token-pricing)
     * [3.2 Buying and Selling Opportunities for Yield Tokens](#32-buying-and-selling-opportunities-for-yield-tokens)
-* [4. Minting and Staking](#4-minting-and-staking)
+* [4. Minting and Providing Liquidity](#4-minting-and-providing-liquidity)
     * [4.1 Terms](#41-terms)
     * [4.2 Minting in Depth](#42-minting-in-depth)
     * [4.3 Providing Liquidity for Principal Tokens](#43-providing-liquidity-for-principal-tokens)
@@ -62,7 +62,7 @@ Capital efficiency is an underserved feature for DeFi users. When users are requ
 
 The Element Protocol, at its core, works by enabling users to split the base asset (ETH, BTC, USDC, DAI) of yield generating positions, such as a Yearn vault or an ETH2 validator, into two separate, fungible tokens: the Principal Token (PT), and the Yield Token (YT).
 
-The splitting mechanism allows users to sell their principal at a discount, thus creating a marketplace for fixed rate income positions. Their principal is no longer locked up and they may use their newly freed funds to leverage at high multiples, gaining increased exposure to yield without the typical liquidation risk. Users may also gain additional trading fees or APY on their yield positions by staking their new tokens into an AMM. The casual user subsidizes the DeFi user’s active strategies by securing fixed rate yield at a discount on what the DeFi user earns. The DeFi user’s participation subsidizes the value of the fixed rate yield. 
+The splitting mechanism allows users to sell their principal at a discount, thus creating a marketplace for fixed rate income positions. Their principal is no longer locked up and they may use their newly freed funds to leverage at high multiples, gaining increased exposure to yield without the typical liquidation risk. Users may also gain additional trading fees or APY on their yield positions by using their new tokens to provide liquidity into an AMM. The casual user subsidizes the DeFi user’s active strategies by securing fixed rate yield at a discount on what the DeFi user earns. The DeFi user’s participation subsidizes the value of the fixed rate yield. 
 
 Element takes an alternative approach to tranching products, instead enabling market forces to set the price of fixed vs. variable yield rates. This competitive activity along with the custom curve built on Balancer V2 to support the PTs is what drives the high fixed yield markets. Furthermore, it brings liquidity to fixed yield income while minimizing slippage, fees, and impermanent loss, ultimately opening the door to a number of new DeFi primitives.
 
@@ -73,7 +73,7 @@ Element takes an alternative approach to tranching products, instead enabling ma
 - **Principal Reserves**: The number of PTs staked in a pool pairing of the base asset and the PT. For example, the number of eP:yETH staked in the pool pairing of ETH/eP:yETH. 
 - **Base Asset**: The asset deposited into the Element Protocol (BTC, ETH, USDC, or DAI).
 - **Base Asset Reserves**: The number of base assets staked in a pool pairing of the base asset with the PTs of said base asset. For example, the number of ETH staked in the pool pairing of ETH/eP:yETH.
-- **Time Stretch Parameter**: A parameter used in the trading curve that affects the price discoverability, fees, and staking ratio of the base asset to PTs.
+- **Time Stretch Parameter**: A parameter used in the trading curve that affects the price discoverability, fees, and liquidity provision ratio of the base asset to PTs.
 - **Annual Percentage Yield (APY)**: Annual Percentage Yield is a time-based measurement of the Return On Investment (ROI) on an asset.
     - For example, $100 invested at 5% APY would yield $105 after one year, if there is no compounding of any yield earned on that $100 through the year. Assuming a static APY rate, the Monthly ROI would be 0.41%. 
 - **Target APY**: The User's targeted Annual Percentage Yield.
@@ -98,7 +98,7 @@ For example, if 10 ETH is used to purchase discounted ETH at a 10% APY for a one
 
 The locked ETH will always be worth less than readily available ETH. Readily available ETH can be staked in a yield position, gaining active yield. For this lost opportunity, these PTs or locked ETH will be priced at a discount, likely relative to the current yield rates in the market. Purchasing this discounted ETH is akin to securing a fixed rate yield. At the time of purchase, the discount and yield are already known.
 
-As a further example, if the current rate for staking ETH is 15% annualized variable yield, a user may sell the PTs at a slightly lower rate. This gives a guaranteed stable yield rate to the purchaser and prevents them from having to shift their assets between DeFi protocols in the situation where the variable yield decreases. Additionally, it allows users to avoid costly transaction fees and other inconvenient complexities.
+As a further example, if the current rate for providing liquidity for ETH is 15% annualized variable yield, a user may sell the PTs at a slightly lower rate. This gives a guaranteed stable yield rate to the purchaser and prevents them from having to shift their assets between DeFi protocols in the situation where the variable yield decreases. Additionally, it allows users to avoid costly transaction fees and other inconvenient complexities.
 
 Although the terminology "locked" is used to describe the process of entering a fixed yield position, it is important to note that the Element Protocol is designed to optimize for liquidity allowing users to exit their position at any time, while still enabling users to gain yield until they decide to exit. 
 
@@ -112,8 +112,8 @@ In today's market, the current variable yield positions available fluctuate cons
 
 Casual users or institutions managing large amounts of capital may not have the bandwidth or the understanding of the space and its associated risks to constantly manage and monitor their capital. Additionally, these users may not want to deal with the complexities surrounding taxes or the risks associated with new protocols being released. For these users, securing a fixed rate of income is both helpful and more appealing, allowing them to not have to actively manage their positions. 
 
-### Staking on an AMM
-If a user is already looking to gain exposure to BTC or ETH for a period of time, it makes sense to gain that exposure at a discount. During the period of holding the discounted ETH, the user may stake the PTs on an AMM, gaining a significant boost on their fixed rate yield via trading fees. The mechanism behind staking PTs and their profitability is described in further detail in [Section 4](#4-minting-and-staking).
+### AMM Liquidity Provision
+If a user is already looking to gain exposure to BTC or ETH for a period of time, it makes sense to gain that exposure at a discount. During the period of holding the discounted ETH, the user may provide liquidity for the PTs on an AMM, gaining a significant boost on their fixed rate yield via trading fees. The mechanism behind providing liquidity for PTs and their profitability is described in further detail in [Section 4](#4-minting-and-providing-liquidity).
 
 ### Bearish on Variable Yield
 A DeFi user may believe that the current yield rates offered in the market are high and suspects that rates will begin to decrease over the next 3-6 months. As a result, the user decides to secure a high fixed rate yield and thus, hedges against a yield downturn in the market.
@@ -170,8 +170,8 @@ YTs can be used as a way to buy or sell the yield rate of a position.
 
 A sophisticated DeFi user may evaluate the market’s pricing of a YT and consider it to be too aggressive or even conservative. For example, in a one-year term, the user believes the yETH vault will have an average APY of 10%. This would imply that the user thinks 1 eY:yETH will be redeemable for 0.1 ETH at the end of the term. If the YT is selling for more than a 10% discount on 0.1 ETH, then it would be considered a strong buy. In this case, the user would be taking a buy position on the YT. If it is less, then it would be considered a strong sell. In this case, the user would want to sell the YT.
 
-## 4. Minting and Staking
-Minting and staking PTs and YTs may be a very profitable endeavor for DeFi users. This section begins by covering how the minting process works and ends with a detailed look at the simulations and analysis of the potential profitability as well the staking process, such as how the trading curve and parameterization are used. 
+## 4. Minting and Providing Liquidity
+Minting and providing liquidity for PTs and YTs may be a very profitable endeavor for DeFi users. This section begins by covering how the minting process works and ends with a detailed look at the simulations and analysis of the potential profitability as well the liquidity providing process, such as how the trading curve and parameterization are used. 
 
 ### 4.1 Terms
 A term indicates the redemption date of a set of PTs or YTs. The principal or yield cannot be redeemed through the Element Protocol's contracts until the term date has been reached.
@@ -261,12 +261,12 @@ The following table shows the various scenarios at different trading volumes. Th
 
 <small>*Table 2*</small>
 
-If these target volumes are maintained, staking in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 11.76-20.34% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for staking on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
+If these target volumes are maintained, providing liquidity in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 11.76-20.34% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for providing liquidity on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
 
 [This notebook](https://github.com/element-fi/analysis/blob/main/fyt-fee-analysis.ipynb) can be used to generate these tables with different parameters, term lengths, and APYs.
 
 #### Trading Curve
-For staking PTs, Element provides a custom trading curve built on Balancer V2 that reduces slippage and impermanent loss. Since the PTs inevitably merge in value to their underlying asset along with this behavior having many degrees of predictability, a curve can be used that operates in yield space and supports this predictability.
+For liquidity provision of PTs, Element provides a custom trading curve built on Balancer V2 that reduces slippage and impermanent loss. Since the PTs inevitably merge in value to their underlying asset along with this behavior having many degrees of predictability, a curve can be used that operates in yield space and supports this predictability.
 
 Element uses the curve originally presented in the [yield space paper](https://yield.is/YieldSpace.pdf). It introduces the *constant power sum invariant*, which accounts for the time until maturity to ensure stable yield rates on PTs.
 
@@ -280,9 +280,9 @@ $x$ is the reserves of the base asset, $y$ is the reserves of the PT, $t$ is the
 The Constant Power Sum Invariant has a time component to it. The curve changes its behavior as the PTs reach their term's maturity. At the beginning of a term period, the invariant allows for more price discovery and slippage, essentially adding in aspects of the constant product formula used by [Uniswap](http://uniswap.org/). At the end of the term period, the invariant operates more akin to a stable pair. It treats the base asset and the PTs more in line with how products like [Curve](http://curve.finance/) treat stable pair trades. It removes the additions of the constant product formula and increases the effect of the constant sum formula (used for 1:1 stable trades).
 
 #### Parameterization
-This section is fairly advanced but important for users who are staking to understand. Before the staking pool for PTs initializes, certain parameters of the trading curve need to be agreed on by the stakers. Based on these parameters, it can affect the following areas:
+This section is fairly advanced but it's important for users who are providing liquidity to understand. Before the liquidity pool for PTs initializes, certain parameters of the trading curve need to be agreed on by the liquidity providers. Based on these parameters, it can affect the following areas:
 1. Price Discoverability
-2. Staking Liquidity Ratios 
+2. LP Liquidity Ratios 
 3. Trading Fees
 
 ##### Price Discoverability
@@ -290,18 +290,18 @@ Price discoverability is another way to say "slippage". In Uniswap, for example,
 
 For example, a 20% APY position may tolerate higher shifts in its price than a 1% APY position. If sufficient volume purchases PTs going for 20% fixed APY, a 1% shift is not unreasonable. Alternatively, if a PT going for 1% fixed APY shifts by 1%, then its price impact could be unreasonable.
 
-##### Staking Liquidity Ratios
-When staking PTs, a ratio with the base asset must be set. This ratio depends on the APY of the position and time left until maturity. For example, Uniswap sets the ratio purely based on price. If ETH is $2000 and DAI is $1, then someone staking on Uniswap must provide 2000 DAI for the 1 ETH staked. In the case of PTs, supporting a 1:1 ratio or less is optimal in order to keep higher exposure to PTs and the fixed yield it provides. Thus, staking 1 ETH for 1 eP:yETH seems reasonable. Staking 3 ETH for 1 eP:yETH seems less reasonable, and staking 1 ETH for 2 eP:yETH seems the most reasonable.
+##### LP Liquidity Ratios
+When providing liquidity for PTs, a ratio with the base asset must be set. This ratio depends on the APY of the position and time left until maturity. For example, Uniswap sets the ratio purely based on price. If ETH is $2000 and DAI is $1, then someone providing liquidity on Uniswap must provide 2000 DAI for the 1 ETH provided. In the case of PTs, supporting a 1:1 ratio or less is optimal in order to keep higher exposure to PTs and the fixed yield it provides. Thus, providing 1 ETH for 1 eP:yETH seems reasonable. Providing 3 ETH for 1 eP:yETH seems less reasonable, and providing 1 ETH for 2 eP:yETH seems the most reasonable.
 
 ##### Trading Fees
 With higher slippage, the curve will incur higher trading fees. For lower slippage, the curve will incur lower trading fees. This means more price discoverability can be beneficial for stakers unless that price discoverability disincentivizes users from trading. As discussed above, lower APY positions should likely see less price discoverability, resulting in lower fees. Higher APY positions should see higher price discoverability, resulting in higher fees. At first glance, it appears that this would incentivize stakers to provide liquidity on higher APY positions. However, it is asserted that this is not necessarily true. BTC positions will likely see lower APY values in the long run rather than stable positions such as USDC or DAI. Users who prefer exposure to BTC and its positive growth in the future, would likely still want to maintain exposure to BTC vs. maintaining their exposure to stablecoins.
 
 ##### Parameters
-The main parameter for initializing the staking pool is the time stretch factor. As discussed previously, the constant power sum invariant begins to act more like the curve supporting stable pairs as the term maturity approaches. In equation (1), `t` starts at 1 and approaches 0. Originally, it is set to represent a time period of one year.
+The main parameter for initializing the liquidity pool is the time stretch factor. As discussed previously, the constant power sum invariant begins to act more like the curve supporting stable pairs as the term maturity approaches. In equation (1), `t` starts at 1 and approaches 0. Originally, it is set to represent a time period of one year.
 
-When the time factor is stretched to 10, 15, or 20 years, it indicates that the curve is initialized with a `t` value closer to 0 and acts more like a stable pair. The more the time factor is stretched, the less price discoverability there is. It also impacts the staking liquidity ratio and fees gained by those staking. Before launching a pool with the constant power sum invariant, the APY and stability of the position must be considered carefully. The desirable time stretch factor should have a favorable impact but also allow for proper price movements.
+When the time factor is stretched to 10, 15, or 20 years, it indicates that the curve is initialized with a `t` value closer to 0 and acts more like a stable pair. The more the time factor is stretched, the less price discoverability there is. It also impacts the LP liquidity ratio and fees gained by those providing liquidity. Before launching a pool with the constant power sum invariant, the APY and stability of the position must be considered carefully. The desirable time stretch factor should have a favorable impact but also allow for proper price movements.
 
-There is a worst-case scenario where the parameterization chosen no longer becomes optimal for the staking pool. In this case, stakers should migrate to a new pool that provides more optimal settings. For example, the parameterization that serves a 20% APY position may no longer serve that position favorably if its APY drops to 1%. In such drastic cases, stakers would likely need to migrate. If they do not, staking ratios or trading volumes may decrease but it's important to note that there would be no risk of loss.
+There is a worst-case scenario where the parameterization chosen no longer becomes optimal for the liquidity pool. In this case, stakers should migrate to a new pool that provides more optimal settings. For example, the parameterization that serves a 20% APY position may no longer serve that position favorably if its APY drops to 1%. In such drastic cases, stakers would likely need to migrate. If they do not, LP ratios or trading volumes may decrease but it's important to note that there would be no risk of loss.
 
 For a more advanced read, reference Appendix, [Section B](#b-convergent-curve-parameter-configuration). This section goes deeper into this process and analyzes the curve parameterization for the constant constant power sum invariant.
 
@@ -325,7 +325,7 @@ Jonny decides he wants to gain more exposure to yield. His initial capital of 10
 
 1. Jonny mints YTs and PTs into the Yearn yETH vault providing 20% APY.
 2. Jonny now has 10 eP:yETH representing his principal and 10 eY:yETH representing the yield to be accumulated over the next year.
-3. Due to people minting and staking YTs and an active market, Jonny may now sell his principal of 10 eP:yETH to reinvest.
+3. Due to people minting and providing liquidity for YTs and an active market, Jonny may now sell his principal of 10 eP:yETH to reinvest.
 4. PTs are going for a 10% fixed rate yield on ETH. He sells his principal at a discount for ETH, receiving 9 ETH.
 5. Jonny now has 9 ETH and full exposure to 20% APY on 10 ETH. He is now free to reinvest the 9 ETH into any other position or mint and leverage further.
 
@@ -408,7 +408,7 @@ When evaluating the row in the table representing PTs going for 17% yield, there
 The ability to maintain exposure to the growth of a base asset while also generating yield is one of the main forces currently driving lending protocols. Many DeFi users take out loans in order to maintain exposure to ETH but also to grow their portfolio through the high APYs provided by stable pairs or other tokens. The following gives a more detailed example.
 
 #### Example
-As an example, Jonny likes ETH a lot. He believes ETH will grow significantly over the next year. However, Jonny also sees that he can receive 30% APY by staking stable coins such as DAI. Jonny does not want to trade his ETH for DAI to obtain the yield because he misses out on ETH's increase in price, which he believes will exceed the APY he obtains through staking DAI. Currently, the solution is simple. Jonny will do the following:
+As an example, Jonny likes ETH a lot. He believes ETH will grow significantly over the next year. However, Jonny also sees that he can receive 30% APY by providing liquidity for stablecoins such as DAI. Jonny does not want to trade his ETH for DAI to obtain the yield because he misses out on ETH's increase in price, which he believes will exceed the APY he obtains through providing liquidity for DAI. Currently, the solution is simple. Jonny will do the following:
 
 **Method Via Lending or Collateralization**
 
@@ -447,7 +447,7 @@ YTs are speculative instruments and the various market forces surrounding them c
 The following sections share the different forces that could affect the price of YTs. However, it is uncertain of what will be the dominating force.
 
 #### Market Speculated Average Yield
-Market Speculated Average Yield was covered in [Section 4](#4-minting-and-staking). Assuming this is the only factor in the price or value of a YT is naive. The other possible contributing factors are listed below.
+Market Speculated Average Yield was covered in [Section 4](#4-minting-and-providing-liquidity). Assuming this is the only factor in the price or value of a YT is naive. The other possible contributing factors are listed below.
 
 #### Accumulated Value
 As discussed in depth in [Section 4.2](#42-minting-in-depth), YTs accumulate a base value or principal over time. Each time the backing yield position compounds its yield, the YT grows in its intrinsic value. If a YT has accumulated 0.05 ETH in value and negative yield rates are impossible, the YT should have a minimum price of 0.05 ETH.
@@ -510,7 +510,7 @@ In the example above, a Yield Ladder is strategized to take different terms of P
 
 This extends the functionality of PTs into a form of a Fixed Yield Fund or a Ladder of different expiries that facilitate continual liquidity.
 
-**Varieties of Complexion with LP Staking**
+**Varieties of Complexion with LP Provision**
 
 A buy and stake type of ladder could be used for users who do not want to speculate on variable yield and would rather accrue fees from simply providing liquidity. As opposed to a basic compounding Yield Ladder, this specific ladder would be a compounding Fixed Rate LP Yield Ladder.
 
