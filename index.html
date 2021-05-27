@@ -860,7 +860,7 @@ SOFTWARE.
 <p><small><em>Figure 15a</em></small></p>
 <p>This plot indicates for example, that for <span class="math inline">\(APY_{PT}\)</span> = 20%, that <span class="math inline">\(time\ stretch\)</span> should be approximately 5.5 years. We can stake this one step further and use a curve fitting algorithm to approximate the suggested time stretch for a given <span class="math inline">\(APY_{PT}\)</span>. In order to do this, we first recognize that the curve fitting algorithm will need to approximate coefficients for a function of this form:</p>
 <p>\begin{aligned} \frac{a}{b\cdot APY_{PT}}\qquad(20) \end{aligned}</p>
-<p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are coefficients calculated by a curve fitting algorithm. Updating (20) with the coefficients that best approximate the gives us the following equation representing the suggested <span class="math inline">\(t_{stretch}\)</span> for a given <span class="math inline">\(APY_{PT}\)</span></p>
+<p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are coefficients calculated by a curve fitting algorithm. Updating (20) with the coefficients that best approximate the values in the previous plot gives us the following equation representing the suggested <span class="math inline">\(t_{stretch}\)</span> for a given <span class="math inline">\(APY_{PT}\)</span></p>
 <p>\begin{aligned} t_{stretch}=\frac{3.09396}{0.02789\cdot APY_{PT}}\qquad(21) \end{aligned}</p>
 <p>The following plot shows equation (21) overlayed on the previous plot as a green dashed line.</p>
 <p><img src="/images/suggested-time-stretches-curve-fitting.png" /></p>
