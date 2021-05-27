@@ -754,9 +754,8 @@ Equation (11) allows us to define the base asset reserves needed for a particula
 
 You can now plot equation (12) by sweeping $APY_{PT}$'s for several different term lengths:
 
-TODO: UPDATE THIS IMAGE
 
-![](https://i.imgur.com/PbOPvCi.png)
+![](/images/reserve-ratio-vs-pt-apy-by-term-length.png)
 
 
 
@@ -784,9 +783,7 @@ Notice that $t_{stretch}$ only applies to the exponent in the denominator. Now t
 
 #### Time Stretch vs Reserve Ratio
 
-TODO: UPDATE THIS IMAGE
-
-![](https://i.imgur.com/OaimCGl.png)
+![](/images/reserve-ratio-vs-pt-apy-by-ts.png)
 <br>
 <small>*Figure 13*</small>
 
@@ -877,10 +874,8 @@ Max\ Resulting\ APY_{PT}=\frac{\left(1-\frac{x_{r}}{Max_{input\ trade}}\right)}{
 
 Equation (19) can now be plotted by sweeping $APY_{PT}$'s for several different time stretches and term lengths:
 
-TODO: UPDATE PLOT
 
-![](https://i.imgur.com/chuhFLQ.png)
-
+![](/images/PT-APY-vs-Max-APY.png)
 
 <small>*Figure 14*</small>
 
@@ -890,9 +885,7 @@ There are several observations to note here. First off, the dash line represents
 
 The following plot shows what time stretches result in the ratio of the reserves (base/bond) approximately equal to the spot price of the associated APY:
 
-TODO: Update Plot
-
-![](https://i.imgur.com/SsxKoRR.png)
+![](/images/suggested-time-stretches.png)
 
 <small>*Figure 15a*</small>
 
@@ -910,8 +903,8 @@ t_{stretch}=\frac{3.09396}{0.02789\cdot APY_{PT}}\qquad(21)
 
 The following plot shows equation (21) overlayed on the previous plot as a green dashed line.
 
-TODO: Update Plot
-![](https://i.imgur.com/gWSp8pP.png)
+
+![](/images/suggested-time-stretches-curve-fitting.png)
 
 
 <small>*Figure 15b*</small>
