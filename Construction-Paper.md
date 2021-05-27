@@ -738,27 +738,31 @@ where $l_{shares}$ is the total supply of pool liquidity shares.  Combining (9) 
 \left(\frac{y_{r}+l_{shares}}{x_{r}}\right)^{-t} &= 1- \frac{APY_{PT}}{100} \times t 
 \end{aligned}
 
-and assuming that $l_{shares}$ = $x_r$ (eliminating the only other unknown) allows us to solve for $x_r$:
+and assuming that $l_{shares}$ = $x_r$ + $y_r$ (eliminating the only other unknown) allows us to solve for $x_r$:
 
 \begin{aligned}
 \require{cancel}
-x_{r}=\frac{y_{r}}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{-\left(\frac{1}{t}\right)}-1}\qquad(11)
+x_{r}=y_{r}\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{1}{t}\right)}-1}-2\right)\qquad(11)
 \end{aligned}
 
 Equation (11) allows us to define the base asset reserves needed for a particular $APY_{PT}$; however, it is dependent on other factors such as term length and PT reserves that make it more difficult to analyze. You can eliminate PT reserves as a factor by dividing both sides of equation (11) and focusing on the ratio of these reserves:
 
 \begin{aligned}
 \require{cancel}
-\frac{x_{r}}{y_r}=\frac{1}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{-\left(\frac{1}{t}\right)}-1}\qquad(12)
+\frac{x_{r}}{y_r}=\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{1}{t}\right)}-1}-2\right)\qquad\qquad(12)
 \end{aligned}
 
 You can now plot equation (12) by sweeping $APY_{PT}$'s for several different term lengths:
 
-![](https://i.imgur.com/DbXBz1k.png)
+TODO: UPDATE THIS IMAGE
+
+![](https://i.imgur.com/PbOPvCi.png)
+
+
 
 <small>*Figure 12*</small>
 
-There are two major takeaways from this plot.  One, term (or tranche) length does not have a significant affect on the reserve ratios for $APY_{PT}$'s < 50%. The second takeaway is that even at a 20% $APY_{PT}$, for every 1 PT staked, ~4.5 base asset tokens will be required by LPs. Fortunately, a new parameter can be introduced to the curve to stretch time and reduce the burden on LPs.
+There are two major takeaways from this plot.  One, term (or tranche) length does not have a significant affect on the reserve ratios for $APY_{PT}$'s < 50%. The second takeaway is that even at a 20% $APY_{PT}$, for every 1 PT staked, ~9 base asset tokens will be required by LPs. Fortunately, a new parameter can be introduced to the curve to stretch time and reduce the burden on LPs.
 
 ### Time Stretch 
 
@@ -773,19 +777,21 @@ where $t_{stretch}$ is the time stretch parameter.  However, since this ONLY app
 
 \begin{aligned}
 \require{cancel}
-\frac{x_{r}}{y_r}=\frac{1}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{-\left(\frac{t_{stretch}}{t}\right)}-1}\qquad(13)
+\frac{x_{r}}{y_r}=\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{t_{stretch}}{t}\right)}-1}-2\right)\qquad(13)
 \end{aligned}
 
 Notice that $t_{stretch}$ only applies to the exponent in the denominator. Now that the time stretch has been parameterized, it can be used to reduce the burden on LPs.
 
 #### Time Stretch vs Reserve Ratio
 
-![](https://i.imgur.com/IwfntPO.png)
+TODO: UPDATE THIS IMAGE
+
+![](https://i.imgur.com/OaimCGl.png)
 <br>
 <small>*Figure 13*</small>
 
 
-This plot makes it obvious that $t_{stretch}$ has a significant impact on the ratio of reserves for different $APY_{PT}$. To understand how this can reduce the burden on LP's, again consider a PT with an APY ~ 20%. As noted before with a time stretch of 1, for every 1 PT staked, ~4.5 base asset tokens were required by LPs. If the time stretch is changes to 3, then 1 PT staked only needs ~1.2 base assets tokens for a 20% APY. You can see from the plot that the time stretch parameter can also be configured to target 1:1 reserve ratios at lower APYs. This is important for wrapping yield bearing assets like wBTC vaults that might have lower APYs.
+This plot makes it obvious that $t_{stretch}$ has a significant impact on the ratio of reserves for different $APY_{PT}$. To understand how this can reduce the burden on LP's, again consider a PT with an APY ~ 20%. As noted before with a time stretch of 1, for every 1 PT staked, ~9 base asset tokens were required by LPs. If the time stretch is changes to 5, then 1 PT staked only needs ~1.2 base assets tokens for a 20% APY. You can see from the plot that the time stretch parameter can also be configured to target 1:1 reserve ratios at lower APYs. This is important for wrapping yield bearing assets like wBTC vaults that might have lower APYs.
 
 
 On an intuitive level, stretching the time parameter forces the invariant to behave more like it would when near maturity. In other words, since the PTs mature to the value of the base asset, the more t is stretched, the more it behaves like it is near maturity and therefore requires more of an imbalance in reserves to reach a higher APY. This has a beneficial effect when considering the reserve ratios for LPing, but it also impacts the ability to price discover. This is good and bad. Large time stretches will see less slippage; however, a significant change in the APY of the yield bearing asset could incentivize market forces to target a new APY for the PT that it can't realize with too large of a time stretch. It can now be seen how changes in the time stretch parameter impact price discovery.
@@ -824,10 +830,10 @@ Substituting, $y_r$ + $l_{shares}$ for $in_r$ (as described in the [Virtual Rese
 Max_{input\ trade} = k^{\frac{1}{1-\frac{t}{t_{stretch}}}}-(y_r + l_{shares})\qquad(16)
 \end{equation}
 
-The assumption from earlier that $l_{shares}$ = $x_r$ still holds so it can also be said that:
+The assumption from earlier that $l_{shares}$ = $x_r$ + $y_r$ still holds so it can also be said that:
 
 \begin{equation}
-Max_{input\ trade} = k^{\frac{1}{1-\frac{t}{t_{stretch}}}}-(y_r + x_{r}) \qquad(16a)
+Max_{input\ trade} = k^{\frac{1}{1-\frac{t}{t_{stretch}}}}-(2y_r + x_{r}) \qquad(16a)
 \end{equation}
 
 Substituting $Max_{input\ trade}$ for $in_q$ and ($y_r$ + $l_{shares}$) for $in_r$ in equation (15):
@@ -871,21 +877,46 @@ Max\ Resulting\ APY_{PT}=\frac{\left(1-\frac{x_{r}}{Max_{input\ trade}}\right)}{
 
 Equation (19) can now be plotted by sweeping $APY_{PT}$'s for several different time stretches and term lengths:
 
-![](https://i.imgur.com/cty1qlo.png)
+TODO: UPDATE PLOT
+
+![](https://i.imgur.com/chuhFLQ.png)
+
 
 <small>*Figure 14*</small>
 
-There are several observations to note here. First off, the dash line represents APY = Max Resulting APY. You should never cross below this line; you can see where the data from time stretch = 40 does this near APY = 50%. This is due to numerical instability; other out of place brown dots near this threshold are also a result of numerical instability. The second observation to note is that, term length starts to have more of an effect on the Max Resulting APY as APY increases. That being said, the difference is < 10% of the Max Resulting APY at the 50% APY input.
+There are several observations to note here. First off, the dash line represents APY = Max Resulting APY. You should never cross below this line. The second observation to note is that, term length starts to have more of an effect on the Max Resulting APY as APY increases. That being said, the difference is < 10% of the Max Resulting APY at the 50% APY input.
 
 ### Selecting a Time Stretch
 
-The following plot shows what time stretches satisfy 0.5 $\le$ reserve ratio $\le$ 2 and allow price discovery of +/- 50% of $APY_{PT}$:
+The following plot shows what time stretches result in the ratio of the reserves (base/bond) approximately equal to the spot price of the associated APY:
 
-![](https://i.imgur.com/jhgMmbT.png)
-<br>
-<small>*Figure 15*</small>
+TODO: Update Plot
 
-This plot indicates for example, that for $APY_{PT}$ = 20%, that $time\ stretch$ should be range of 2 to 5 to enable APY discovery of at least +/- 10% and reserve ratios $.5 \le \frac{x_{r}}{y_r} \le 2$.
+![](https://i.imgur.com/SsxKoRR.png)
+
+<small>*Figure 15a*</small>
+
+This plot indicates for example, that for $APY_{PT}$ = 20%, that $time\ stretch$ should be approximately 5.5 years.  We can stake this one step further and use a curve fitting algorithm to approximate the suggested time stretch for a given $APY_{PT}$.  In order to do this, we first recognize that the curve fitting algorithm will need to approximate coefficients for a function of this form:
+
+\begin{aligned}
+\frac{a}{b\cdot APY_{PT}}\qquad(20)
+\end{aligned}
+
+where $a$ and $b$ are coefficients calculated by a curve fitting algorithm.  Updating (20) with the coefficients that best approximate the gives us the following equation representing the suggested $t_{stretch}$ for a given $APY_{PT}$
+
+\begin{aligned}
+t_{stretch}=\frac{3.09396}{0.02789\cdot APY_{PT}}\qquad(21)
+\end{aligned}
+
+The following plot shows equation (21) overlayed on the previous plot as a green dashed line.
+
+TODO: Update Plot
+![](https://i.imgur.com/gWSp8pP.png)
+
+
+<small>*Figure 15b*</small>
+
+Visual examination tells us that equation (21) is an excellent approximation for suggested $time\ stretch$.  
 
 ## C. Compounding and Yield with Element
 To understand how the calculations in this writeup are made, please reference the derivation in the [next section](#d-yield-token-compounding-formulation) and analysis.
@@ -1544,11 +1575,11 @@ and the following inequality that compares the net number of tokens earned after
 
 \begin{aligned}
 \require{cancel}
-Token_{net} \times N \ge Token_{target}  \qquad(20)
+Token_{net} \times N \ge Token_{target}  \qquad(22)
 \end{aligned}
 
 
-Equation (20) in expanded form:
+Equation (22) in expanded form:
 
 \begin{aligned}
 \require{cancel}
@@ -1566,7 +1597,7 @@ allows us can calculate the minimum PT market price (after slippage) needed to h
 
 \begin{aligned}
 \require{cancel}
-Unit\ Price_{min} = 1- \frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}}  \qquad(21)
+Unit\ Price_{min} = 1- \frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}}  \qquad(23)
 \end{aligned}
 
 Recall that $APY_{PT}$ can be defined as:
@@ -1576,38 +1607,38 @@ Recall that $APY_{PT}$ can be defined as:
 APY_{PT}=\frac{(1-Unit\ Price_{PT})}{t} \times 100
 \end{aligned}
 
-and combined with (21) the max market $APY_{target}$ is:
+and combined with (23) the max market $APY_{target}$ is:
 
 \begin{aligned}
 \require{cancel}
-APY_{PT} = \frac{\frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}}}{100} \times t \qquad(22)
+APY_{PT} = \frac{\frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}}}{100} \times t \qquad(24)
 \end{aligned}
 
 ### Calculate the number of Principal Tokens (PTs) and Yield Tokens (YTs) you are left with after N compounds:
 
 \begin{aligned}
-Number\ of\ PTs\ = P\cdot\left(1-R\right)^{N}\qquad(23)
+Number\ of\ PTs\ = P\cdot\left(1-R\right)^{N}\qquad(25)
 \end{aligned}
 
 where $P$ is the initial principal amount deposited and $R$ is the market rate of the $PT$. The $Number\ of\ YTs$ can represented by the following summation:
 
 \begin{aligned}
-S&=P\cdot \sum_{i=0}^{N}\left(1-R\right)^{i} \qquad(24)
+S&=P\cdot \sum_{i=0}^{N}\left(1-R\right)^{i} \qquad(26)
 \end{aligned}
 
-The summation in equation (24) can be expanded as follows:
+The summation in equation (26) can be expanded as follows:
 
 \begin{aligned}
-S&=P\cdot\left(1+\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}\right)\qquad(25)
+S&=P\cdot\left(1+\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}\right)\qquad(27)
 \end{aligned}
 
-Multiplying both sides of equation (25) by $(1-R)$ gives us:
+Multiplying both sides of equation (27) by $(1-R)$ gives us:
 
 \begin{aligned}
-(1-R)\cdot S&=P\cdot\left(\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}+\left(1-R\right)^{N+1}\right)\qquad(26)
+(1-R)\cdot S&=P\cdot\left(\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}+\left(1-R\right)^{N+1}\right)\qquad(28)
 \end{aligned}
 
-Subtracting (26) from (25), simplifying and solving for $S$:
+Subtracting (28) from (27), simplifying and solving for $S$:
 
 \begin{aligned}
 \require{cancel}
@@ -1621,5 +1652,5 @@ S&=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R}
 Now it can be said that:
 
 \begin{aligned}
-Number\ of\ YTs\ &=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R}\qquad(27)
+Number\ of\ YTs\ &=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R}\qquad(29)
 \end{aligned}
