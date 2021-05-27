@@ -806,23 +806,23 @@ SOFTWARE.
 <p>\begin{aligned} \require{cancel} Unit Price_{PT} &amp;= \left(\frac{y_{r}+l_{shares}}{x_{r}}\right)^{-t} \qquad(10) \end{aligned}</p>
 <p>where <span class="math inline">\(l_{shares}\)</span> is the total supply of pool liquidity shares. Combining (9) &amp; (10):</p>
 <p>\begin{aligned} \require{cancel} \left(\frac{y_{r}+l_{shares}}{x_{r}}\right)^{-t} &amp;= 1- \frac{APY_{PT}}{100} \times t \end{aligned}</p>
-<p>and assuming that <span class="math inline">\(l_{shares}\)</span> = <span class="math inline">\(x_r\)</span> (eliminating the only other unknown) allows us to solve for <span class="math inline">\(x_r\)</span>:</p>
-<p>\begin{aligned} \require{cancel} x_{r}=\frac{y_{r}}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{-\left(\frac{1}{t}\right)}-1}\qquad(11) \end{aligned}</p>
+<p>and assuming that <span class="math inline">\(l_{shares}\)</span> = <span class="math inline">\(x_r\)</span> + <span class="math inline">\(y_r\)</span> (eliminating the only other unknown) allows us to solve for <span class="math inline">\(x_r\)</span>:</p>
+<p>\begin{aligned} \require{cancel} x_{r}=y_{r}\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{1}{t}\right)}-1}-2\right)\qquad(11) \end{aligned}</p>
 <p>Equation (11) allows us to define the base asset reserves needed for a particular <span class="math inline">\(APY_{PT}\)</span>; however, it is dependent on other factors such as term length and PT reserves that make it more difficult to analyze. You can eliminate PT reserves as a factor by dividing both sides of equation (11) and focusing on the ratio of these reserves:</p>
-<p>\begin{aligned} \require{cancel} \frac{x_{r}}{y_r}=\frac{1}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{-\left(\frac{1}{t}\right)}-1}\qquad(12) \end{aligned}</p>
+<p>\begin{aligned} \require{cancel} \frac{x_{r}}{y_r}=\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{1}{t}\right)}-1}-2\right)\qquad\qquad(12) \end{aligned}</p>
 <p>You can now plot equation (12) by sweeping <span class="math inline">\(APY_{PT}\)</span>'s for several different term lengths:</p>
-<p><img src="https://i.imgur.com/DbXBz1k.png" /></p>
+<p><img src="/images/reserve-ratio-vs-pt-apy-by-term-length.png" /></p>
 <p><small><em>Figure 12</em></small></p>
-<p>There are two major takeaways from this plot. One, term (or tranche) length does not have a significant affect on the reserve ratios for <span class="math inline">\(APY_{PT}\)</span>'s &lt; 50%. The second takeaway is that even at a 20% <span class="math inline">\(APY_{PT}\)</span>, for every 1 PT staked, ~4.5 base asset tokens will be required by LPs. Fortunately, a new parameter can be introduced to the curve to stretch time and reduce the burden on LPs.</p>
+<p>There are two major takeaways from this plot. One, term (or tranche) length does not have a significant affect on the reserve ratios for <span class="math inline">\(APY_{PT}\)</span>'s &lt; 50%. The second takeaway is that even at a 20% <span class="math inline">\(APY_{PT}\)</span>, for every 1 PT staked, ~9 base asset tokens will be required by LPs. Fortunately, a new parameter can be introduced to the curve to stretch time and reduce the burden on LPs.</p>
 <h3 id="time-stretch">Time Stretch</h3>
 <p>Intuitively, this parameter can be thought of like this:</p>
 <p>\begin{aligned} \require{cancel} t &amp;= \frac{term length}{365 \times t_{stretch}} \end{aligned}</p>
 <p>where <span class="math inline">\(t_{stretch}\)</span> is the time stretch parameter. However, since this ONLY applies to the time parameter in the exponent of the pricing invariant (NOT the ratio used to caclulate the APY), the time stretch parameter will be kept separate from the t param for this analysis to avoid confusion. Updating equation (12) to include time stretch:</p>
-<p>\begin{aligned} \require{cancel} \frac{x_{r}}{y_r}=\frac{1}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{-\left(\frac{t_{stretch}}{t}\right)}-1}\qquad(13) \end{aligned}</p>
+<p>\begin{aligned} \require{cancel} \frac{x_{r}}{y_r}=\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{t_{stretch}}{t}\right)}-1}-2\right)\qquad(13) \end{aligned}</p>
 <p>Notice that <span class="math inline">\(t_{stretch}\)</span> only applies to the exponent in the denominator. Now that the time stretch has been parameterized, it can be used to reduce the burden on LPs.</p>
 <h4 id="time-stretch-vs-reserve-ratio">Time Stretch vs Reserve Ratio</h4>
-<p><img src="https://i.imgur.com/IwfntPO.png" /> <br> <small><em>Figure 13</em></small></p>
-<p>This plot makes it obvious that <span class="math inline">\(t_{stretch}\)</span> has a significant impact on the ratio of reserves for different <span class="math inline">\(APY_{PT}\)</span>. To understand how this can reduce the burden on LP's, again consider a PT with an APY ~ 20%. As noted before with a time stretch of 1, for every 1 PT staked, ~4.5 base asset tokens were required by LPs. If the time stretch is changes to 3, then 1 PT staked only needs ~1.2 base assets tokens for a 20% APY. You can see from the plot that the time stretch parameter can also be configured to target 1:1 reserve ratios at lower APYs. This is important for wrapping yield bearing assets like wBTC vaults that might have lower APYs.</p>
+<p><img src="/images/reserve-ratio-vs-pt-apy-by-ts.png" /> <br> <small><em>Figure 13</em></small></p>
+<p>This plot makes it obvious that <span class="math inline">\(t_{stretch}\)</span> has a significant impact on the ratio of reserves for different <span class="math inline">\(APY_{PT}\)</span>. To understand how this can reduce the burden on LP's, again consider a PT with an APY ~ 20%. As noted before with a time stretch of 1, for every 1 PT staked, ~9 base asset tokens were required by LPs. If the time stretch is changes to 5, then 1 PT staked only needs ~1.2 base assets tokens for a 20% APY. You can see from the plot that the time stretch parameter can also be configured to target 1:1 reserve ratios at lower APYs. This is important for wrapping yield bearing assets like wBTC vaults that might have lower APYs.</p>
 <p>On an intuitive level, stretching the time parameter forces the invariant to behave more like it would when near maturity. In other words, since the PTs mature to the value of the base asset, the more t is stretched, the more it behaves like it is near maturity and therefore requires more of an imbalance in reserves to reach a higher APY. This has a beneficial effect when considering the reserve ratios for LPing, but it also impacts the ability to price discover. This is good and bad. Large time stretches will see less slippage; however, a significant change in the APY of the yield bearing asset could incentivize market forces to target a new APY for the PT that it can't realize with too large of a time stretch. It can now be seen how changes in the time stretch parameter impact price discovery.</p>
 <h4 id="time-stretch-vs-price-discovery">Time Stretch vs. Price Discovery</h4>
 <p>In order to determine the impact of the time stretch on price discovery, the max possible trade must be calculated first. To do that, first, recall the pricing invariant from Appendix <a href="#b-convergent-curve-parameter-configuration">Section B</a>:</p>
@@ -838,8 +838,8 @@ SOFTWARE.
 <p>\begin{equation} in_q \le k^{\frac{1}{1-\frac{t}{t_{stretch}}}}-in_r \end{equation}</p>
 <p>Substituting, <span class="math inline">\(y_r\)</span> + <span class="math inline">\(l_{shares}\)</span> for <span class="math inline">\(in_r\)</span> (as described in the <a href="#a-pricing-principal-tokens">Virtual Reserve Logic</a>, gives:</p>
 <p>\begin{equation} Max_{input trade} = k^{\frac{1}{1-\frac{t}{t_{stretch}}}}-(y_r + l_{shares})\qquad(16) \end{equation}</p>
-<p>The assumption from earlier that <span class="math inline">\(l_{shares}\)</span> = <span class="math inline">\(x_r\)</span> still holds so it can also be said that:</p>
-<p>\begin{equation} Max_{input trade} = k^{\frac{1}{1-\frac{t}{t_{stretch}}}}-(y_r + x_{r}) \qquad(16a) \end{equation}</p>
+<p>The assumption from earlier that <span class="math inline">\(l_{shares}\)</span> = <span class="math inline">\(x_r\)</span> + <span class="math inline">\(y_r\)</span> still holds so it can also be said that:</p>
+<p>\begin{equation} Max_{input trade} = k^{\frac{1}{1-\frac{t}{t_{stretch}}}}-(2y_r + x_{r}) \qquad(16a) \end{equation}</p>
 <p>Substituting <span class="math inline">\(Max_{input\ trade}\)</span> for <span class="math inline">\(in_q\)</span> and (<span class="math inline">\(y_r\)</span> + <span class="math inline">\(l_{shares}\)</span>) for <span class="math inline">\(in_r\)</span> in equation (15):</p>
 <p>\begin{aligned} \require{cancel} out_q&amp;=out_r-\left(k-\left(y_r + l_{shares}+Max_{input trade}\right)^{\left({1-\frac{t}{t_{stretch}}}\right)}\right)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}\ \newline &amp;=out_r-\left(k-\left(\bcancel{y_r} + \bcancel{l_{shares}}+( k^{\frac{1}{\bcancel{1-\frac{t}{t_{stretch}}}}}-(\bcancel{y_r} + \bcancel{l_{shares}}))\right)^{\bcancel{\left({1-\frac{t}{t_{stretch}}}\right)}}\right)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}\ \newline &amp;=out_r - \bcancel{(k-k)^{\frac{1}{{1-\frac{t}{t_{stretch}}}}}} \end{aligned}</p>
 <p>essentially leaving us with:</p>
@@ -851,13 +851,21 @@ SOFTWARE.
 <p>Combining (17) &amp; (18) to get the resulting APY:</p>
 <p>\begin{aligned} \require{cancel} Max Resulting APY_{PT}=\frac{\left(1-\frac{x_{r}}{Max_{input trade}}\right)}{t}\times100\qquad(19) \end{aligned}</p>
 <p>Equation (19) can now be plotted by sweeping <span class="math inline">\(APY_{PT}\)</span>'s for several different time stretches and term lengths:</p>
-<p><img src="https://i.imgur.com/cty1qlo.png" /></p>
+<p><img src="/images/PT-APY-vs-Max-APY.png" /></p>
 <p><small><em>Figure 14</em></small></p>
-<p>There are several observations to note here. First off, the dash line represents APY = Max Resulting APY. You should never cross below this line; you can see where the data from time stretch = 40 does this near APY = 50%. This is due to numerical instability; other out of place brown dots near this threshold are also a result of numerical instability. The second observation to note is that, term length starts to have more of an effect on the Max Resulting APY as APY increases. That being said, the difference is &lt; 10% of the Max Resulting APY at the 50% APY input.</p>
+<p>There are several observations to note here. First off, the dash line represents APY = Max Resulting APY. You should never cross below this line. The second observation to note is that, term length starts to have more of an effect on the Max Resulting APY as APY increases. That being said, the difference is &lt; 10% of the Max Resulting APY at the 50% APY input.</p>
 <h3 id="selecting-a-time-stretch">Selecting a Time Stretch</h3>
-<p>The following plot shows what time stretches satisfy 0.5 <span class="math inline">\(\le\)</span> reserve ratio <span class="math inline">\(\le\)</span> 2 and allow price discovery of +/- 50% of <span class="math inline">\(APY_{PT}\)</span>:</p>
-<p><img src="https://i.imgur.com/jhgMmbT.png" /> <br> <small><em>Figure 15</em></small></p>
-<p>This plot indicates for example, that for <span class="math inline">\(APY_{PT}\)</span> = 20%, that <span class="math inline">\(time\ stretch\)</span> should be range of 2 to 5 to enable APY discovery of at least +/- 10% and reserve ratios <span class="math inline">\(.5 \le \frac{x_{r}}{y_r} \le 2\)</span>.</p>
+<p>The following plot shows what time stretches result in the ratio of the reserves (base/bond) approximately equal to the spot price of the associated APY:</p>
+<p><img src="/images/suggested-time-stretches.png" /></p>
+<p><small><em>Figure 15a</em></small></p>
+<p>This plot indicates for example, that for <span class="math inline">\(APY_{PT}\)</span> = 20%, that <span class="math inline">\(time\ stretch\)</span> should be approximately 5.5 years. We can stake this one step further and use a curve fitting algorithm to approximate the suggested time stretch for a given <span class="math inline">\(APY_{PT}\)</span>. In order to do this, we first recognize that the curve fitting algorithm will need to approximate coefficients for a function of this form:</p>
+<p>\begin{aligned} \frac{a}{b\cdot APY_{PT}}\qquad(20) \end{aligned}</p>
+<p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are coefficients calculated by a curve fitting algorithm. Updating (20) with the coefficients that best approximate the gives us the following equation representing the suggested <span class="math inline">\(t_{stretch}\)</span> for a given <span class="math inline">\(APY_{PT}\)</span></p>
+<p>\begin{aligned} t_{stretch}=\frac{3.09396}{0.02789\cdot APY_{PT}}\qquad(21) \end{aligned}</p>
+<p>The following plot shows equation (21) overlayed on the previous plot as a green dashed line.</p>
+<p><img src="/images/suggested-time-stretches-curve-fitting.png" /></p>
+<p><small><em>Figure 15b</em></small></p>
+<p>Visual examination tells us that equation (21) is an excellent approximation for suggested <span class="math inline">\(time\ stretch\)</span>.</p>
 <h2 id="c-compounding-and-yield-with-element">C. Compounding and Yield with Element</h2>
 <p>To understand how the calculations in this writeup are made, please reference the derivation in the <a href="#d-yield-token-compounding-formulation">next section</a> and analysis.</p>
 <p>These tables can be generated with different parameters in <a href="https://colab.research.google.com/drive/1q0Uhga5YTu16qZxB39zD5fCpjv-8GSPq?usp=sharing#scrollTo=Faud02qp9ZOT">this collab</a>.</p>
@@ -4583,29 +4591,29 @@ SOFTWARE.
 <p>Taking the difference between the <span class="math inline">\(Token_{earned}\)</span> and <span class="math inline">\(Token_{spent}\)</span> gives us the net tokens earned:</p>
 <p>\begin{aligned} \require{cancel} Token_{net} &amp;= Token_{earned}-Token_{spent} \end{aligned}</p>
 <p>and the following inequality that compares the net number of tokens earned after N compounds and some time period <span class="math inline">\(t\)</span>:</p>
-<p>\begin{aligned} \require{cancel} Token_{net} \times N \ge Token_{target} \qquad(20) \end{aligned}</p>
-<p>Equation (20) in expanded form:</p>
+<p>\begin{aligned} \require{cancel} Token_{net} \times N \ge Token_{target} \qquad(22) \end{aligned}</p>
+<p>Equation (22) in expanded form:</p>
 <p>\begin{aligned} \require{cancel} \left((Token_{input} \times \frac{APY_{speculated}}{100} \times t) - ( Token_{input} - Unit Price \times Token_{input} + Fee_{gas})\right)\times N \ge Token_{input} \times\frac{APY_{target}}{100} \times t \end{aligned}</p>
 <p>solving for <span class="math inline">\(Unit\ Price\)</span>:</p>
 <p>\begin{aligned} \require{cancel} Unit Price \ge 1- \frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}} \end{aligned}</p>
 <p>allows us can calculate the minimum PT market price (after slippage) needed to hit the <span class="math inline">\(APY_{target}\)</span>:</p>
-<p>\begin{aligned} \require{cancel} Unit Price_{min} = 1- \frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}} \qquad(21) \end{aligned}</p>
+<p>\begin{aligned} \require{cancel} Unit Price_{min} = 1- \frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}} \qquad(23) \end{aligned}</p>
 <p>Recall that <span class="math inline">\(APY_{PT}\)</span> can be defined as:</p>
 <p>\begin{aligned} \require{cancel} APY_{PT}=\frac{(1-Unit Price_{PT})}{t} \times 100 \end{aligned}</p>
-<p>and combined with (21) the max market <span class="math inline">\(APY_{target}\)</span> is:</p>
-<p>\begin{aligned} \require{cancel} APY_{PT} = \frac{\frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}}}{100} \times t \qquad(22) \end{aligned}</p>
+<p>and combined with (23) the max market <span class="math inline">\(APY_{target}\)</span> is:</p>
+<p>\begin{aligned} \require{cancel} APY_{PT} = \frac{\frac{APY_{speculated}}{100} \times t - \frac{APY_{target}}{100 \times N} \times t - \frac{Fee_{gas}}{Token_{input}}}{100} \times t \qquad(24) \end{aligned}</p>
 <h3 id="calculate-the-number-of-principal-tokens-pts-and-yield-tokens-yts-you-are-left-with-after-n-compounds">Calculate the number of Principal Tokens (PTs) and Yield Tokens (YTs) you are left with after N compounds:</h3>
-<p>\begin{aligned} Number of PTs = P\cdot\left(1-R\right)^{N}\qquad(23) \end{aligned}</p>
+<p>\begin{aligned} Number of PTs = P\cdot\left(1-R\right)^{N}\qquad(25) \end{aligned}</p>
 <p>where <span class="math inline">\(P\)</span> is the initial principal amount deposited and <span class="math inline">\(R\)</span> is the market rate of the <span class="math inline">\(PT\)</span>. The <span class="math inline">\(Number\ of\ YTs\)</span> can represented by the following summation:</p>
-<p>\begin{aligned} S&amp;=P\cdot \sum_{i=0}^{N}\left(1-R\right)^{i} \qquad(24) \end{aligned}</p>
-<p>The summation in equation (24) can be expanded as follows:</p>
-<p>\begin{aligned} S&amp;=P\cdot\left(1+\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}\right)\qquad(25) \end{aligned}</p>
-<p>Multiplying both sides of equation (25) by <span class="math inline">\((1-R)\)</span> gives us:</p>
-<p>\begin{aligned} (1-R)\cdot S&amp;=P\cdot\left(\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}+\left(1-R\right)^{N+1}\right)\qquad(26) \end{aligned}</p>
-<p>Subtracting (26) from (25), simplifying and solving for <span class="math inline">\(S\)</span>:</p>
+<p>\begin{aligned} S&amp;=P\cdot \sum_{i=0}^{N}\left(1-R\right)^{i} \qquad(26) \end{aligned}</p>
+<p>The summation in equation (26) can be expanded as follows:</p>
+<p>\begin{aligned} S&amp;=P\cdot\left(1+\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}\right)\qquad(27) \end{aligned}</p>
+<p>Multiplying both sides of equation (27) by <span class="math inline">\((1-R)\)</span> gives us:</p>
+<p>\begin{aligned} (1-R)\cdot S&amp;=P\cdot\left(\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}+\left(1-R\right)^{N+1}\right)\qquad(28) \end{aligned}</p>
+<p>Subtracting (28) from (27), simplifying and solving for <span class="math inline">\(S\)</span>:</p>
 <p>\begin{aligned} \require{cancel} S - S \cdot (1-R)&amp;=P\cdot\left(\left(1+\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}\right) - \left(\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}+\left(1-R\right)^{N+1}\right)\right)\ \newline \bcancel{S - S} + R\cdot S &amp;= P\cdot\left(\left(1+\bcancel{\left(1-R\right)^{1}}+\bcancel{\left(1-R\right)^{2}}+...+\bcancel{\left(1-R\right)^{N}}\right) - \left(\bcancel{\left(1-R\right)^{1}}+\bcancel{\left(1-R\right)^{2}}+...+\bcancel{\left(1-R\right)^{N}}+\left(1-R\right)^{N+1}\right)\right)\ \newline S&amp;=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R} \end{aligned}</p>
 <p>Now it can be said that:</p>
-<p>\begin{aligned} Number of YTs &amp;=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R}\qquad(27) \end{aligned}</p>
+<p>\begin{aligned} Number of YTs &amp;=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R}\qquad(29) \end{aligned}</p>
 </article>
 </body>
 </html>
