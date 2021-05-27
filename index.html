@@ -811,8 +811,7 @@ SOFTWARE.
 <p>Equation (11) allows us to define the base asset reserves needed for a particular <span class="math inline">\(APY_{PT}\)</span>; however, it is dependent on other factors such as term length and PT reserves that make it more difficult to analyze. You can eliminate PT reserves as a factor by dividing both sides of equation (11) and focusing on the ratio of these reserves:</p>
 <p>\begin{aligned} \require{cancel} \frac{x_{r}}{y_r}=\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{1}{t}\right)}-1}-2\right)\qquad\qquad(12) \end{aligned}</p>
 <p>You can now plot equation (12) by sweeping <span class="math inline">\(APY_{PT}\)</span>'s for several different term lengths:</p>
-<p>TODO: UPDATE THIS IMAGE</p>
-<p><img src="https://i.imgur.com/PbOPvCi.png" /></p>
+<p><img src="/images/reserve-ratio-vs-pt-apy-by-term-length.png" /></p>
 <p><small><em>Figure 12</em></small></p>
 <p>There are two major takeaways from this plot. One, term (or tranche) length does not have a significant affect on the reserve ratios for <span class="math inline">\(APY_{PT}\)</span>'s &lt; 50%. The second takeaway is that even at a 20% <span class="math inline">\(APY_{PT}\)</span>, for every 1 PT staked, ~9 base asset tokens will be required by LPs. Fortunately, a new parameter can be introduced to the curve to stretch time and reduce the burden on LPs.</p>
 <h3 id="time-stretch">Time Stretch</h3>
@@ -822,8 +821,7 @@ SOFTWARE.
 <p>\begin{aligned} \require{cancel} \frac{x_{r}}{y_r}=\cdot\left(\frac{-2}{\left(1-t\cdot\left(\frac{APY_{PT}}{100}\right)\right)^{\left(\frac{t_{stretch}}{t}\right)}-1}-2\right)\qquad(13) \end{aligned}</p>
 <p>Notice that <span class="math inline">\(t_{stretch}\)</span> only applies to the exponent in the denominator. Now that the time stretch has been parameterized, it can be used to reduce the burden on LPs.</p>
 <h4 id="time-stretch-vs-reserve-ratio">Time Stretch vs Reserve Ratio</h4>
-<p>TODO: UPDATE THIS IMAGE</p>
-<p><img src="https://i.imgur.com/OaimCGl.png" /> <br> <small><em>Figure 13</em></small></p>
+<p><img src="/images/reserve-ratio-vs-pt-apy-by-ts.png" /> <br> <small><em>Figure 13</em></small></p>
 <p>This plot makes it obvious that <span class="math inline">\(t_{stretch}\)</span> has a significant impact on the ratio of reserves for different <span class="math inline">\(APY_{PT}\)</span>. To understand how this can reduce the burden on LP's, again consider a PT with an APY ~ 20%. As noted before with a time stretch of 1, for every 1 PT staked, ~9 base asset tokens were required by LPs. If the time stretch is changes to 5, then 1 PT staked only needs ~1.2 base assets tokens for a 20% APY. You can see from the plot that the time stretch parameter can also be configured to target 1:1 reserve ratios at lower APYs. This is important for wrapping yield bearing assets like wBTC vaults that might have lower APYs.</p>
 <p>On an intuitive level, stretching the time parameter forces the invariant to behave more like it would when near maturity. In other words, since the PTs mature to the value of the base asset, the more t is stretched, the more it behaves like it is near maturity and therefore requires more of an imbalance in reserves to reach a higher APY. This has a beneficial effect when considering the reserve ratios for LPing, but it also impacts the ability to price discover. This is good and bad. Large time stretches will see less slippage; however, a significant change in the APY of the yield bearing asset could incentivize market forces to target a new APY for the PT that it can't realize with too large of a time stretch. It can now be seen how changes in the time stretch parameter impact price discovery.</p>
 <h4 id="time-stretch-vs-price-discovery">Time Stretch vs. Price Discovery</h4>
@@ -853,21 +851,19 @@ SOFTWARE.
 <p>Combining (17) &amp; (18) to get the resulting APY:</p>
 <p>\begin{aligned} \require{cancel} Max Resulting APY_{PT}=\frac{\left(1-\frac{x_{r}}{Max_{input trade}}\right)}{t}\times100\qquad(19) \end{aligned}</p>
 <p>Equation (19) can now be plotted by sweeping <span class="math inline">\(APY_{PT}\)</span>'s for several different time stretches and term lengths:</p>
-<p>TODO: UPDATE PLOT</p>
-<p><img src="https://i.imgur.com/chuhFLQ.png" /></p>
+<p><img src="/images/PT-APY-vs-Max-APY.png" /></p>
 <p><small><em>Figure 14</em></small></p>
 <p>There are several observations to note here. First off, the dash line represents APY = Max Resulting APY. You should never cross below this line. The second observation to note is that, term length starts to have more of an effect on the Max Resulting APY as APY increases. That being said, the difference is &lt; 10% of the Max Resulting APY at the 50% APY input.</p>
 <h3 id="selecting-a-time-stretch">Selecting a Time Stretch</h3>
 <p>The following plot shows what time stretches result in the ratio of the reserves (base/bond) approximately equal to the spot price of the associated APY:</p>
-<p>TODO: Update Plot</p>
-<p><img src="https://i.imgur.com/SsxKoRR.png" /></p>
+<p><img src="/images/suggested-time-stretches.png" /></p>
 <p><small><em>Figure 15a</em></small></p>
 <p>This plot indicates for example, that for <span class="math inline">\(APY_{PT}\)</span> = 20%, that <span class="math inline">\(time\ stretch\)</span> should be approximately 5.5 years. We can stake this one step further and use a curve fitting algorithm to approximate the suggested time stretch for a given <span class="math inline">\(APY_{PT}\)</span>. In order to do this, we first recognize that the curve fitting algorithm will need to approximate coefficients for a function of this form:</p>
 <p>\begin{aligned} \frac{a}{b\cdot APY_{PT}}\qquad(20) \end{aligned}</p>
 <p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are coefficients calculated by a curve fitting algorithm. Updating (20) with the coefficients that best approximate the gives us the following equation representing the suggested <span class="math inline">\(t_{stretch}\)</span> for a given <span class="math inline">\(APY_{PT}\)</span></p>
 <p>\begin{aligned} t_{stretch}=\frac{3.09396}{0.02789\cdot APY_{PT}}\qquad(21) \end{aligned}</p>
 <p>The following plot shows equation (21) overlayed on the previous plot as a green dashed line.</p>
-<p>TODO: Update Plot <img src="https://i.imgur.com/gWSp8pP.png" /></p>
+<p><img src="/images/suggested-time-stretches-curve-fitting.png" /></p>
 <p><small><em>Figure 15b</em></small></p>
 <p>Visual examination tells us that equation (21) is an excellent approximation for suggested <span class="math inline">\(time\ stretch\)</span>.</p>
 <h2 id="c-compounding-and-yield-with-element">C. Compounding and Yield with Element</h2>
