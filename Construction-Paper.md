@@ -895,7 +895,7 @@ This plot indicates for example, that for $APY_{PT}$ = 20%, that $time\ stretch$
 \frac{a}{b\cdot APY_{PT}}\qquad(20)
 \end{aligned}
 
-where $a$ and $b$ are coefficients calculated by a curve fitting algorithm.  Updating (20) with the coefficients that best approximate the gives us the following equation representing the suggested $t_{stretch}$ for a given $APY_{PT}$
+where $a$ and $b$ are coefficients calculated by a curve fitting algorithm.  Updating (20) with the coefficients that best approximate the values in the previous plot gives us the following equation representing the suggested $t_{stretch}$ for a given $APY_{PT}$
 
 \begin{aligned}
 t_{stretch}=\frac{3.09396}{0.02789\cdot APY_{PT}}\qquad(21)
