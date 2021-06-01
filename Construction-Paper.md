@@ -1699,10 +1699,6 @@ APY_{PT}=\frac{\left(1-\left(\frac{x_{r}+\delta y}{x_{r}-\delta y}\right)^{-\fra
 x_{r}+\delta y&=\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}(x_{r}-\delta y)\\
 \newline
 x_{r}+\delta y&=x_{r}\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}-\delta y\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}\\
-\newline
-\delta y+\delta y\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}&=x_{r}\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}-x_{r}\\
-\newline
-\delta y\left(1+\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}\right)&=x_{r}\left(\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}-1\right)\\
 \end{aligned}
 
 Solving for $\delta y$, gives the amount of PT to trade into the pool to ensure that it is initialized to $APY_{PT}$:
