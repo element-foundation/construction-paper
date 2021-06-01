@@ -116,6 +116,7 @@ SOFTWARE.
 <li><a href="#b-convergent-curve-parameter-configuration">B. Convergent Curve Parameter Configuration</a></li>
 <li><a href="#c-compounding-and-yield-with-element">C. Compounding and Yield with Element</a></li>
 <li><a href="#d-yield-token-compounding-formulation">D. Yield Token Compounding Formulation</a></li>
+<li><a href="#e-initializing-the-convergent-curve-pool-price">E. Initializing the Convergent Curve Pool Price</a></li>
 </ul></li>
 </ul>
 <hr />
@@ -4614,6 +4615,25 @@ SOFTWARE.
 <p>\begin{aligned} \require{cancel} S - S \cdot (1-R)&amp;=P\cdot\left(\left(1+\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}\right) - \left(\left(1-R\right)^{1}+\left(1-R\right)^{2}+...+\left(1-R\right)^{N}+\left(1-R\right)^{N+1}\right)\right)\ \newline \bcancel{S - S} + R\cdot S &amp;= P\cdot\left(\left(1+\bcancel{\left(1-R\right)^{1}}+\bcancel{\left(1-R\right)^{2}}+...+\bcancel{\left(1-R\right)^{N}}\right) - \left(\bcancel{\left(1-R\right)^{1}}+\bcancel{\left(1-R\right)^{2}}+...+\bcancel{\left(1-R\right)^{N}}+\left(1-R\right)^{N+1}\right)\right)\ \newline S&amp;=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R} \end{aligned}</p>
 <p>Now it can be said that:</p>
 <p>\begin{aligned} Number of YTs &amp;=\frac{P\cdot\left(1-\left(1-R\right)^{N+1}\right)}{R}\qquad(29) \end{aligned}</p>
+<h2 id="e-initializing-the-convergent-curve-pool-price">E. Initializing the Convergent Curve Pool Price</h2>
+<p>The convergent curve pool price is initialized in two steps. First, the pool must be seeded with initial liquidity in the form of the base asset. Second, a trade is executed to initialize the price to match the initial <span class="math inline">\(APY_{PT}\)</span>. If you recall equation (18) that relates <span class="math inline">\(APY_{PT}\)</span> to <span class="math inline">\(Unit\ Price_{PT}\)</span>:</p>
+<p>\begin{aligned} \require{cancel} APY_{PT}=\frac{(1-Unit Price_{PT})}{t}\times100 \end{aligned}</p>
+<p>Additionally, from equation (10), we know that <span class="math inline">\(Unit\ Price_{PT}\)</span> is defined in terms of <span class="math inline">\(x_r\)</span>, <span class="math inline">\(y_r\)</span>, <span class="math inline">\(l_{shares}\)</span> and <span class="math inline">\(t\)</span>:</p>
+<p>\begin{aligned} \require{cancel} Unit Price_{PT} &amp;= \left(\frac{y_{r}+l_{shares}}{x_{r}}\right)^{-t} \end{aligned}</p>
+<p>Combining (18) &amp; (10) gives us:</p>
+<p>\begin{aligned} \require{cancel} APY_{PT}=\frac{\left(1-\left(\frac{y_{r}+l_{shares}}{x_{r}}\right)^{-\frac{t}{t_{stretch}}}\right)}{t}\times100\qquad(30) \end{aligned}</p>
+<p>It is important to note that since only the initial deposit of the base token has been made, we know that <span class="math inline">\(y_r\)</span>=0 and <span class="math inline">\(x_r\)</span> = <span class="math inline">\(l_{shares}\)</span> resulting in the initial <span class="math inline">\(Unit\ Price_{PT}\)</span> = 1. As a result, we simplify (30) as follows:</p>
+<p>\begin{aligned} \require{cancel} APY_{PT}=\frac{\left(1-\left(\frac{x_{r}}{x_{r}}\right)^{-\frac{t}{t_{stretch}}}\right)}{t}\times100\qquad(31) \end{aligned}</p>
+<p>Remember, the goal is to calculate the trade needed to initialize the pool to <span class="math inline">\(APY_{PT}\)</span>. This essentially means that we need to solve for <span class="math inline">\(\delta\)</span>y in this equation:</p>
+<p>\begin{aligned} \require{cancel} APY_{PT}=\frac{\left(1-\left(\frac{x_{r}+\delta y}{x_{r}-\delta y}\right)^{-\frac{t}{t_{stretch}}}\right)}{t}\times100 \end{aligned}</p>
+<blockquote>
+<p>We use <span class="math inline">\(\delta\)</span>y to represent the amount of the PT entering the pool <strong>AND</strong> the amount of the base token exiting the pool. We do this because <span class="math inline">\(Unit\ Price_{PT}\)</span> = 1 and we are disregarding slippage for simplicity.</p>
+</blockquote>
+<p>\begin{aligned} \require{cancel} \frac{1-\left(\frac{x_{r}+\delta y}{x_{r}-\delta y}\right)^{-\frac{t}{t_{stretch}}}}{t}&amp;=\frac{APY_{PT}}{100}\ \newline \left(\frac{x_{r}+\delta y}{x_{r}-\delta y}\right)^{-\frac{t}{t_{stretch}}}&amp;=1-\frac{APY_{PT}}{100}\times t\ \newline \frac{x_{r}+\delta y}{x_{r}-\delta y}&amp;=\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}\ \newline x_{r}+\delta y&amp;=\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}(x_{r}-\delta y)\ \newline x_{r}+\delta y&amp;=x_{r}\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}-\delta y\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}\ \end{aligned}</p>
+<p>Solving for <span class="math inline">\(\delta y\)</span>, gives the amount of PT to trade into the pool to ensure that it is initialized to <span class="math inline">\(APY_{PT}\)</span>: \begin{aligned} \require{cancel} \delta y&amp;=\frac{x_{r}\left(\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}-1\right)}{\left(1+\left(1-\frac{APY_{PT}}{100}\times t\right)^{-\frac{t_{stretch}}{t}}\right)}\qquad(32) \end{aligned}</p>
+<blockquote>
+<p>Note: this procedure does not account for slippage; however, it is accurate enough for this initializing trade.</p>
+</blockquote>
 </article>
 </body>
 </html>
