@@ -242,13 +242,13 @@ Although future trading volume and liquidity are difficult to predict, the follo
 
 The following represents a yCRVSTETH position, at 20% APY, with PTs trading at 10%:
 
-![](https://github.com/element-fi/construction-paper/blob/fde42466eb6940a33aa5aa75ac8aa0204026c2be/images/cp-fee-analysis.png)
+![](https://raw.githubusercontent.com/element-fi/construction-paper/master/images/cp-fee-analysis.png)
 
 <small>*Figure 3*</small>
 
 Order sizes are distributed as follows:
 
-![](https://github.com/element-fi/construction-paper/blob/753620a14b4a05a6f97e275e90270a552c1ae151/images/order-size-dist.png)
+![](https://raw.githubusercontent.com/element-fi/construction-paper/master/images/order-size-dist.png)
 <br>
 <small>*Figure 4*</small>
 
