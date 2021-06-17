@@ -358,7 +358,7 @@ SOFTWARE.
 </table>
 <p><small><em>Table 2</em></small></p>
 <p>If these target volumes are maintained, providing liquidity in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 11.76-20.34% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for providing liquidity on a curve that suffers virtually no impermanent loss and acts more like a stable pair.</p>
-<p><a href="https://github.com/element-fi/analysis/blob/main/fyt-fee-analysis.ipynb">This notebook</a> can be used to generate these tables with different parameters, term lengths, and APYs.</p>
+<p><a href="https://github.com/element-fi/analysis/blob/main/pt-fee-analysis.ipynb">This notebook</a> can be used to generate these tables with different parameters, term lengths, and APYs.</p>
 <h4 id="trading-curve">Trading Curve</h4>
 <p>For liquidity provision of PTs, Element provides a custom trading curve built on Balancer V2 that reduces slippage and impermanent loss. Since the PTs inevitably merge in value to their underlying asset along with this behavior having many degrees of predictability, a curve can be used that operates in yield space and supports this predictability.</p>
 <p>Element uses the curve originally presented in the <a href="https://yield.is/YieldSpace.pdf">yield space paper</a>. It introduces the <em>constant power sum invariant</em>, which accounts for the time until maturity to ensure stable yield rates on PTs.</p>
