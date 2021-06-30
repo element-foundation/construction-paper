@@ -49,7 +49,8 @@
 ## 1. Introduction 
 
 ### 1.1 Overview 
-Element Finance brings high fixed yield income to the DeFi market, initially focused on ETH, BTC, USDC, and DAI. Users can purchase ETH, BTC, USDC, and DAI at a discount without being locked into a term, allowing the exchange of the discounted asset and the [base asset](#14-glossary-definitions) at any time. The fixed rate income can be secured with the exchange of any major base asset. For active DeFi users, the Element Protocol provides capital efficiency on yield positions they are already depositing into, such as Yearn or ETH2 staking. Users can sell their deposited principal at a discount as fixed yield income, leveraging or increasing exposure to yield without liquidation risk. This competitive activity is what drives the high fixed yield markets. This construction paper breaks down the Element Protocol and discusses how it can open the door to a number of new primitives and innovations.
+ Element Finance is a protocol which enables users to seek high fixed yield income in the DeFi market, initially focused on ETH, BTC, USDC, and DAI. Users can access, via the ecosystem and existing AMMs, ETH, BTC, USDC, and DAI at a discount without being locked into a term, allowing the exchange of the discounted asset and the [base asset](#14-glossary-definitions) at any time. The fixed rate income can be secured with the exchange of any major base asset. For active DeFi users, the Element Protocol enables capital efficiency on yield positions they are already depositing into, such as Yearn or ETH2 staking. Users can sell their deposited principal at a discount as fixed yield income, leveraging or increasing exposure to yield without liquidation risk. This competitive activity is what drives the high fixed yield markets. This construction paper breaks down the Element Protocol and discusses how it can open the door to a number of new primitives and innovations.
+ <sub>When users sell their principal or yield, risk is not transferred to another asset. The assets are redeemable for the underlying position directly and denominated in the original position.</sub>
 
 ### 1.2 The Current State of Yield Markets in DeFi
 
@@ -61,11 +62,11 @@ Capital efficiency is an underserved feature for DeFi users. When users are requ
 
 ### 1.3 The Element Approach
 
-The Element Protocol, at its core, works by enabling users to split the base asset (ETH, BTC, USDC, DAI) of yield generating positions, such as a Yearn vault or an ETH2 validator, into two separate, fungible tokens: the Principal Token (PT), and the Yield Token (YT).
+The Element Protocol, at its core, works by enabling users via the Ethereum contracts to split the base asset (ETH, BTC, USDC, DAI) of yield generating positions, such as a Yearn vault or an ETH2 validator, into two separate, fungible tokens: the Principal Token (PT), and the Yield Token (YT).
 
-The splitting mechanism allows users to sell their principal at a discount, thus creating a marketplace for fixed rate income positions. Their principal is no longer locked up and they may use their newly freed funds to leverage at high multiples, gaining increased exposure to yield without the typical liquidation risk. Users may also gain additional trading fees or APY on their yield positions by using their new tokens to provide liquidity into an AMM. The casual user subsidizes the DeFi user’s active strategies by securing fixed rate yield at a discount on what the DeFi user earns. The DeFi user’s participation subsidizes the value of the fixed rate yield. 
+The splitting mechanism allows users to sell their principal at a discount, thus giving users the ability to create a marketplace for fixed rate income positions. Their principal is no longer locked up and they may use their newly freed funds to leverage at high multiples, gaining increased exposure to yield without the typical liquidation risk. Users may also gain additional trading fees or APY on their yield positions by using their new tokens to provide liquidity into an AMM. The casual user subsidizes the DeFi user’s active strategies by securing fixed rate yield at a discount on what the DeFi user earns. The DeFi user’s participation subsidizes the value of the fixed rate yield. 
 
-Element takes an alternative approach to tranching products, instead enabling market forces to set the price of fixed vs. variable yield rates. This competitive activity along with the custom curve built on Balancer V2 to support the PTs is what drives the high fixed yield markets. Furthermore, it brings liquidity to fixed yield income while minimizing slippage, fees, and impermanent loss, ultimately opening the door to a number of new DeFi primitives.
+Element's approach takes an alternative approach to tranching products, instead enabling users in the market to set the price of fixed vs. variable yield rates. This competitive activity along with the custom curve built on Balancer V2 to support the PTs is what drives the high fixed yield markets. Furthermore, it promotes liquidity in the fixed yield income market while minimizing slippage, fees, and impermanent loss, ultimately opening the door to a number of new DeFi primitives.
 
 ### 1.4 Glossary Definitions
 
@@ -138,7 +139,7 @@ A spot trader, Anna, may choose to take a trading position between 2 to 4 weeks.
 In concluding the trade, her total assets sum up to $221,815. If she had taken a BTC position instead of an eP:BTC position, her total asset sum would be a total of $220,000. By using PTs as her primary trading instrument, she gained an additional component of profitability in the form of fixed yield on top of her typical trading profits.
 
 ## 2.2 Future Use Cases of Principal Tokens
-After the Element protocol has been released, a number of future structured products can be built on top of its foundation which may further drive demand for purchasing PTs. [Section 6](#6-building-on-top-of-the-element-protocol) provides an in-depth look at some of the potential structured products that could be built on top of the Element Protocol: 
+After the Element protocol has been released, a number of future structured products can be built by third parties on top of its foundation which may further drive demand for purchasing PTs. [Section 6](#6-building-on-top-of-the-element-protocol) provides an in-depth look at some of the potential structured products that could be built on top of the Element Protocol: 
 
 1. 1:1 Collateralized Loans
 2. Fixed Term Lending
@@ -159,12 +160,16 @@ The redemption value for a YT at the end of the defined term will be the average
 
 However, by definition, no variable yield position on the market maintains its listed yield rate (APY). The APYs constantly fluctuate. This implies that the real redeemable yield at the end of the year is unknown.
 
+<sub>The combined yield token and principal token redemption at maturity will not exceed the value of the yield asset in the Ethereum contracts. The yield token is only redeemable for the differential in value of the underlying yield asset from the original principal. It does not transfer financial risk associated with a future change in any such value or level without also conveying a current or future direct or indirect ownership interest in an asset (including any enterprise or investment pool) or liability that incorporates the financial risk so transferred. All growth or changes are denominated in the original asset.</sub>
+
 ### 3.1 Yield Token Pricing
 How would a YT be priced? This is an extremely difficult question to answer. In an ideal world, YTs would be priced at the market's speculated average APY with an added opportunity discount. 
 
 For example, if the market speculates that the yETH position would hold an average of 15% APY over the next year, the assumed redemption price of 1 eY:yETH would be equal to 0.15 ETH. As discussed in the [PTs Section](#2-principal-tokens), the locked 0.15 ETH will sell at a discount, however, the discount on the eY:yETH would likely be higher than simply the opportunity lost due to the intrinsic risk of speculating its average yield. There is no way of knowing what this average yield will end up truly being. It could be less than 0.15 ETH.
 
 However, this pricing structure is naive. Other forces will impact the price. This paper will cover these details but not yet, as a better understanding of the protocol is needed first. To read about the details of the market forces that could impact the price of a YT, reference Sections [5](#5-market-forces) and [6](#6-future-of-the-element-protocol).
+
+<sub>Element does not in any way determine the pricing of yield tokens in the market. Users who choose to sell or buy their yield tokens on decentralized exchanges adjust the price based on automated market making curves. Any user enacting in a trade should be aware of how the curves operate. Additionally, the underlying trading vehicles or AMMs are not owned or property of Element.</sub>
 
 ### 3.2 Buying and Selling Opportunities for Yield Tokens
 YTs can be used as a way to buy or sell the yield rate of a position.
@@ -177,7 +182,7 @@ Minting and providing liquidity for PTs and YTs may be a very profitable endeavo
 ### 4.1 Terms
 A term indicates the redemption date of a set of PTs or YTs. The principal or yield cannot be redeemed through the Element Protocol's contracts until the term date has been reached.
 
-Although the Element Protocol smart contracts allow for any term to be created, it is expected that users and openly available frontends will encourage certain term conventions in order to concentrate liquidity. For example, users may collectively decide to actively support both 3 and 6-month terms released every month and a half.
+Although the Element Protocol smart contracts allow for any term to be created, it is expected that users and openly available frontends will encourage certain term conventions in order to concentrate liquidity. For example, users may collectively decide to actively support both 3 and 6-month terms released every month and a half. The contracts are open for anyone to integrate or launch a term with. This means the community of users will ultimately decide which terms they would like to support. This could be through a DAO or through other products that are built.
 
 Terms are indicated by the token name and are marked with a date stamp. For example: 
 
@@ -267,7 +272,7 @@ If these target volumes are maintained, providing liquidity in a 20% APY positio
 [This notebook](https://github.com/element-fi/analysis/blob/main/pt-fee-analysis.ipynb) can be used to generate these tables with different parameters, term lengths, and APYs.
 
 #### Trading Curve
-For liquidity provision of PTs, Element provides a custom trading curve built on Balancer V2 that reduces slippage and impermanent loss. Since the PTs inevitably merge in value to their underlying asset along with this behavior having many degrees of predictability, a curve can be used that operates in yield space and supports this predictability.
+For liquidity provision of PTs, Element has developed a custom trading curve algorithm that can be deployed on Balancer V2 that reduces slippage and impermanent loss. Since the PTs inevitably merge in value to their underlying asset along with this behavior having many degrees of predictability, a curve can be used that operates in yield space and supports this predictability.
 
 Element uses the curve originally presented in the [yield space paper](https://yield.is/YieldSpace.pdf). It introduces the *constant power sum invariant*, which accounts for the time until maturity to ensure stable yield rates on PTs.
 
@@ -335,6 +340,8 @@ Leveraging or yield token compounding follows in step from the previous section 
 
 Capital efficiency has been introduced to the user's position. The user no longer gains exposure to a yield position without efficacy or use of the principal. The principal is in turn, freed up.
 
+<sub>Element Finance does not loan or provide leverage. If a user wishes to gain leverage, they do so with their own funds</sub>
+
 #### Example
 As a simple example, multiple compounds may result in the following:
 
@@ -367,7 +374,9 @@ As a simple example, multiple compounds may result in the following:
 After 10 cycles of yield token compounding, Jonny gains exposure to 6.5x as much yield of his initial balance. Jonny has essentially gained 6.5x leverage. The 65.13 ETH of exposure at 20% APY yields 13.02 ETH. He has 3.87 ETH in principal, giving him a total of 16.9 ETH. If he had invested his 10 ETH traditionally, without capital efficiency, he would have 12 ETH at the end of the year. Through yield token compounding, Jonny has netted 4.9 ETH and increased his yield from 20% APY to 69% APY. Jonny could continue the cycles of yield token compounding to boost his APY further.
 
 #### Flash Loans to Further Leverage
-Yield token compounding can be achieved more efficiently via flash loans. In the table above, the 10th cycle of compounding leaves 3.87 ETH in available capital. This means the total capital expended was the difference, 6.13 ETH. The 10 compounding operations could be achieved via a flash loan with 6.13 ETH of capital. In the example above, it would take 6.13 ETH to gain exposure to 65.1 ETH in yield, effectively providing 10.6x leverage without liquidation risk.
+Yield token compounding can be achieved more efficiently via flash loans as offered on Aave or other protocols. In the table above, the 10th cycle of compounding leaves 3.87 ETH in available capital. This means the total capital expended was the difference, 6.13 ETH. The 10 compounding operations could be achieved via a flash loan with 6.13 ETH of capital. In the example above, it would take 6.13 ETH to gain exposure to 65.1 ETH in yield, effectively providing 10.6x leverage without liquidation risk.
+
+<sub>The element platform does not offer flash loans.</sub>
 
 #### Market Effects
 Yield token compounding will be a significant force in the Element ecosystem. It produces sell pressure and increases the APY of the PTs. In the example above, the compounder received 69% APY on ETH. In a competitive market, a compounder may be satisfied with 30% APY. In this case, the compounder would now be able to sell their principal for a higher discount, driving the fixed rate yield higher.
@@ -376,7 +385,7 @@ Yield token compounding will be a significant force in the Element ecosystem. It
 Before going deeper into yield token compounding, read through the Appendix, [Section C](#c-compounding-and-yield-with-element) and [Section D](#d-yield-token-compounding-formulation), which provides an in-depth look into the analysis of its profitability and market effects. The analysis takes into account the effects of gas fees, slippage, term length, and liquidity in the compounding process. It also analyzes some of the risks not covered in this general writeup. Further, [Section D](#d-yield-token-compounding-formulation) explores a closed-form solution that can enable bots to partake in yield token compounding.
 
 ### 5.3 Sell Yield Tokens and Principal Tokens for Profit
-To illustrate leveraging or yield token compounding from a different perspective, the following graph shows the profitability of one leverage or compound operation depending on the current fixed rate of the PTs. The compound operation illustrated in the table below takes 10 ETH as input. The expenditure column is the total ETH lost by selling the minted YTs at a discount, aka the expenditure.
+To illustrate leveraging or yield token compounding from a different perspective, the following graph shows the profitability of one leverage or compound operation depending on the current fixed rate of the PTs. The compound operation illustrated in the table below takes 10 ETH as input. The expenditure column is the total ETH lost by the user selling the minted YTs at a discount, aka the expenditure.
 
 | ETH Input | Lockup Period | Yield Position Yield |
 | -------- | -------- | ------------------------------
@@ -413,7 +422,7 @@ As an example, Jonny likes ETH a lot. He believes ETH will grow significantly ov
 
 **Method Via Lending or Collateralization**
 
-1. Jonny opens an over collateralized vault and borrows DAI.
+1. Jonny opens an over collateralized vault on Maker and borrows DAI.
 2. He stakes his borrowed DAI in a yield position giving him 30% APY.
 3. If the price of ETH rises, Jonny can borrow more DAI and gain more exposure to yield. He also realizes the gains on the price of ETH.
 4. If the price of ETH drops, Jonny adds additional collateral to avoid liquidation of his loan and losing his 150 ETH.
@@ -483,6 +492,8 @@ The following is essentially a state machine diagram that represents the decisio
 
 ## 6. Building on top of the Element Protocol
 The Element Protocol opens the door to a number of new primitives and structured financial products. This section explores a few of the future concepts that could be built with the Element Protocol.
+
+Element's code and products are open source and enable third parties to integrate or build on top of the platform on their own fruition.
 
 ### 6.1 Yield Ladders
 Yield Ladders are a way to gain exposure to a diversity of yield positions via YTs or PTs. They also act in a perpetual manner where expiries become irrelevant since a yield ladder consistently exposes itself to new terms and phases out the expiring terms automatically.
@@ -568,11 +579,15 @@ As a complement to the yield token compounding or leveraging flow, one can colla
 If fixed rate terms are not offered, there is a small delta on over-collateralization to cover the unknown yield payments. Users could also buy eP:ETH on the market, use it as collateral for an ETH-backed loan while earning the fixed rate yield it provides. The user's fixed rate yield may end up exceeding the borrowing yield, ultimately gaining a profit.
 
 ## 7. Summary
-Element Finance is an open, self-sustaining, community-governed protocol that initially allows users to access BTC, ETH, USDC, DAI at a discount. Element introduces further avenues of capital efficiency to DeFi users and is dedicated to continued innovation. The team is protocol first, focused on introducing new primitives as the foundation for more products to be built in the DeFi space.
+Element Finance is an open, self-sustaining, community-governed protocol that initially allows users to access, via the ecosystem and existing AMMs, BTC, ETH, USDC, DAI at a discount. Element introduces further avenues of capital efficiency to DeFi users and is dedicated to continued innovation. The team is protocol first, focused on introducing new primitives as the foundation for more products to be built in the DeFi space.
 
 For more information, visit the [Element Finance Website](http://element.fi/). 
 
 ***Note:** This paper is not final, hence the title "construction paper" and will be updated over time. The opinions and analysis reflected herein are subject to change or update over time.*
+
+<sub>Element interacts with Balancer, Curve, Yearn and other protocols but is an independent entity from each of these. These are open source products and contracts on the Ethereum blockchain</sub>
+
+<sub>Examples provided in the paper are examples only. Actual results may differ and could result in losses.</sub>
 
 ## 8. Appendix
 
