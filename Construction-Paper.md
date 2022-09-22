@@ -269,7 +269,7 @@ The following table shows the various scenarios at different trading volumes. Th
 
 If these target volumes are maintained, providing liquidity in a 20% APY position on yCRVSTETH or a 10% PT purchase may boost to 11.76-20.34% APY, depending on parameters and time-stretches used in the curve. This boost in APY appears to be extremely high for providing liquidity on a curve that suffers virtually no impermanent loss and acts more like a stable pair. 
 
-[This notebook](https://github.com/element-fi/analysis/blob/main/pt-fee-analysis.ipynb) can be used to generate these tables with different parameters, term lengths, and APYs.
+[This notebook](https://github.com/element-fi/analysis/blob/d6a6de277add07315488d81fba9bfb7bf4213077/pt-fee-analysis.ipynb) can be used to generate these tables with different parameters, term lengths, and APYs.
 
 #### Trading Curve
 For liquidity provision of PTs, Element has developed a custom trading curve algorithm that can be deployed on Balancer V2 that reduces slippage and impermanent loss. Since the PTs inevitably merge in value to their underlying asset along with this behavior having many degrees of predictability, a curve can be used that operates in yield space and supports this predictability.
